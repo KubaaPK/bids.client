@@ -9,9 +9,12 @@ export const Navbar = styled.nav`
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
+    position: relative;
 
     padding: 1rem 2rem;
-    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
+
+    background-color: #ffffff;
   }
 
   @media ${screenSize.TABLET} {
@@ -60,6 +63,8 @@ export const Logo = styled.span`
 export const Menu = styled.div`
   @media ${screenSize.MOBILE} {
     flex: 0 0 0;
+
+    z-index: 99;
   }
   @media ${screenSize.TABLET} {
     flex: 2 0 0;

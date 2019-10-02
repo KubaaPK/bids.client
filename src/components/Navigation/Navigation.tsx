@@ -13,6 +13,7 @@ import {
   MenuList,
   MenuListElement
 } from './styled';
+import { Link } from 'react-router-dom';
 
 const Navigation: React.FunctionComponent<{}> = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
@@ -20,20 +21,20 @@ const Navigation: React.FunctionComponent<{}> = () => {
   return (
     <Navbar>
       <Top>
-        <a href={'/'}>
+        <Link to={'/'}>
           <Logo>.bids</Logo>
-        </a>
+        </Link>
       </Top>
       <Menu>
         <MenuButton onClick={() => setMobileNavOpen(!isMobileNavOpen)}>
           <MenuIcon size={32} color={'#7f7f7f'} />
         </MenuButton>
         <MenuList hidden={!isMobileNavOpen}>
-          <a href={'#'}>
+          <Link to={'/zaloguj-sie'}>
             <MenuListElement> Zaloguj się</MenuListElement>
-          </a>
+          </Link>
           <MenuListElement>
-            <a href={'#'}>Załóż konto</a>
+            <Link to={'/zaloz-konto'}>Załóż konto</Link>
           </MenuListElement>
         </MenuList>
       </Menu>
