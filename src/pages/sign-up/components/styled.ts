@@ -56,3 +56,17 @@ export const SignInRedirect = styled.p`
     }
   }
 `;
+
+export const PasswordRequirements = styled.p`
+  @media ${screenSize.MOBILE} {
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+
+    font-size: 1.1rem;
+    color: ${colors.GREYISH};
+  }
+
+  @media ${screenSize.TABLET} {
+    font-size: 1.25rem;
+  }
+`;

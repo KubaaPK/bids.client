@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputGroup from '../../../components/Form/InputGroup/InputGroup';
 import Button from '../../../components/Button/Button';
 import { Form, SignUpRedirect, Title } from './styled';
 import { ButtonVariant } from '../../../components/Button/styled';
 
+interface IInputValue {
+  id: string;
+  value: string;
+}
+
+interface ISignUpCredentials {
+  [x: string]: string;
+}
+
 const SignInForm: React.FunctionComponent<{}> = () => {
+  const initialState: ISignUpCredentials = {
+    email: '',
+    password: ''
+  };
+  const [credentials, setCredentials] = useState(initialState);
+
+  const setSignInCredentials = (inputValue: IInputValue) => {
+    setCredentials(prevState => ({
+      ...prevState,
+      [inputValue.id]: inputValue.value
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <Title>Zaloguj się</Title>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputGroup
           label={{
             htmlFor: 'email',
@@ -20,6 +46,7 @@ const SignInForm: React.FunctionComponent<{}> = () => {
             type: 'email',
             placeholder: 'np. jankowalski22@wp.pl'
           }}
+          liftInputValue={setSignInCredentials}
         />
         <InputGroup
           label={{
@@ -31,6 +58,7 @@ const SignInForm: React.FunctionComponent<{}> = () => {
             type: 'password',
             placeholder: '********'
           }}
+          liftInputValue={setSignInCredentials}
         />
         <Button
           text="Zaloguj się"
