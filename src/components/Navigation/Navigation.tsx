@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Menu as MenuIcon } from 'react-feather';
+import { Link } from 'react-router-dom';
 import {
   InputText,
   Logo,
@@ -13,7 +14,6 @@ import {
   MenuList,
   MenuListElement
 } from './styled';
-import { Link } from 'react-router-dom';
 
 const Navigation: React.FunctionComponent<{}> = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
@@ -21,20 +21,20 @@ const Navigation: React.FunctionComponent<{}> = () => {
   return (
     <Navbar>
       <Top>
-        <Link to={'/'}>
+        <Link to="/">
           <Logo>.bids</Logo>
         </Link>
       </Top>
       <Menu>
         <MenuButton onClick={() => setMobileNavOpen(!isMobileNavOpen)}>
-          <MenuIcon size={32} color={'#7f7f7f'} />
+          <MenuIcon size={32} color="#7f7f7f" />
         </MenuButton>
         <MenuList hidden={!isMobileNavOpen}>
-          <Link to={'/zaloguj-sie'}>
+          <Link to="/zaloguj-sie">
             <MenuListElement> Zaloguj się</MenuListElement>
           </Link>
           <MenuListElement>
-            <Link to={'/zaloz-konto'}>Załóż konto</Link>
+            <Link to="/zaloz-konto">Załóż konto</Link>
           </MenuListElement>
         </MenuList>
       </Menu>

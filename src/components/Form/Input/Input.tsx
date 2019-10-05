@@ -1,26 +1,29 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import StyledInput from './styled';
 
-interface IValue {
+export type InputValue = {
   id: string;
   value: string;
-}
+};
 
-export interface IInputProps {
+export type InputProps = {
   type: string;
   placeholder?: string;
   id: string;
+  required: boolean;
+  min?: number;
+  max?: number;
 
-  liftValue?: (value: IValue) => void;
-}
+  liftValue?: (value: InputValue) => void;
+};
 
-const Input: React.FunctionComponent<IInputProps> = (props: IInputProps) => {
-  const initialState: IValue = {
+const Input: React.FunctionComponent<InputProps> = (props: InputProps) => {
+  const initialState: InputValue = {
     id: '',
     value: ''
   };
   const [value, setValue] = React.useState(initialState);
-  const { id, placeholder, type, liftValue } = props;
+  const { id, placeholder, type, liftValue, required, max, min } = props;
 
   const handleInputChange = (val: any) => {
     setValue({
@@ -41,8 +44,15 @@ const Input: React.FunctionComponent<IInputProps> = (props: IInputProps) => {
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         handleInputChange(event)
       }
+      required={required}
+      minLength={min}
+      maxLength={max}
     />
   );
+};
+
+Input.defaultProps = {
+  required: true
 };
 
 export default Input;

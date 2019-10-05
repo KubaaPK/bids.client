@@ -1,40 +1,105 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { AjaxError } from 'rxjs/ajax';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { State } from '../../../redux/reducers';
+import {
+  signUp,
+  SignUpCredentials
+} from '../../../redux/actions/accounts.actions';
 import InputGroup from '../../../components/Form/InputGroup/InputGroup';
 import Button from '../../../components/Button/Button';
-import { Form, SignInRedirect, Title, PasswordRequirements } from './styled';
+import Notification, {
+  NotificationVariant
+} from '../../../components/Notification/Notification';
+import { Form, AdditionalRequirements, SignUpRedirect, Title } from './styled';
 import { ButtonVariant } from '../../../components/Button/styled';
+import { InputValue } from '../../../components/Form/Input/Input';
 
-interface IInputValue {
-  id: string;
-  value: string;
-}
+type ReduxSignUpFormProps = {
+  signedUp: boolean;
+  signingUpError: AjaxError | undefined;
+  isSigningUpPending: boolean;
+};
 
-interface ISignUpCredentials {
-  [x: string]: string;
-}
+type ReduxSignUpDispatchProps = {
+  signUp: (credentials: SignUpCredentials) => void;
+};
 
-const SignUpForm: React.FunctionComponent<{}> = () => {
-  const initialState: ISignUpCredentials = {
+type SignUpFormProps = ReduxSignUpFormProps & ReduxSignUpDispatchProps;
+
+const SignUpForm: React.FunctionComponent<SignUpFormProps> = (
+  props: SignUpFormProps
+) => {
+  const initialState: SignUpCredentials = {
     email: '',
     password: '',
     username: ''
   };
   const [credentials, setCredentials] = useState(initialState);
+  const [notification, setNotification] = useState({
+    show: false,
+    message: '',
+    variant: NotificationVariant.SUCCESS
+  });
+  const [pending, setPending] = useState(false);
+  const [redirectAfterSuccess, setRedirectAfterSuccess] = useState(false);
+  // eslint-disable-next-line no-shadow
+  const { signUp, signingUpError, isSigningUpPending, signedUp } = props;
 
-  const setSignUpCredentials = (inputValue: IInputValue) => {
+  useEffect(() => {
+    setPending(isSigningUpPending);
+    if (signingUpError) {
+      setNotification({
+        show: true,
+        variant: NotificationVariant.ERROR,
+        message: signingUpError ? signingUpError.message : ''
+      });
+    }
+    if (signedUp) {
+      setNotification({
+        show: true,
+        variant: NotificationVariant.SUCCESS,
+        message: signedUp ? 'Konto zostało założone.' : ''
+      });
+      setTimeout(() => {
+        setRedirectAfterSuccess(true);
+      }, 3000);
+    }
+  }, [signingUpError, signedUp, isSigningUpPending]);
+
+  const setSignUpCredentials = (inputValue: InputValue) => {
     setCredentials(prevState => ({
       ...prevState,
-      [inputValue.id]: inputValue.value
+      [inputValue.id]: inputValue.value,
+      type: 'private'
     }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    signUp(credentials);
+  };
+
+  const handleNotificationClose = (): void => {
+    setNotification({
+      show: false,
+      variant: NotificationVariant.SUCCESS,
+      message: ''
+    });
   };
 
   return (
     <>
+      {redirectAfterSuccess ? <Redirect to="/zaloguj-sie" /> : null}
+      {notification.show ? (
+        <Notification
+          variant={notification.variant}
+          message={notification.message}
+          timeout={6000}
+          closeHandler={handleNotificationClose}
+        />
+      ) : null}
       <Title>Załóż konto</Title>
       <Form onSubmit={handleSubmit}>
         <InputGroup
@@ -45,7 +110,8 @@ const SignUpForm: React.FunctionComponent<{}> = () => {
           input={{
             id: 'email',
             type: 'email',
-            placeholder: 'np. jankowalski22@wp.pl'
+            placeholder: 'np. jankowalski22@wp.pl',
+            required: true
           }}
           liftInputValue={setSignUpCredentials}
         />
@@ -57,10 +123,15 @@ const SignUpForm: React.FunctionComponent<{}> = () => {
           input={{
             id: 'username',
             type: 'text',
-            placeholder: 'np. janek22'
+            placeholder: 'np. janek22',
+            required: true,
+            min: 6
           }}
           liftInputValue={setSignUpCredentials}
         />
+        <AdditionalRequirements>
+          Nazwa użytkownika musi składać się z co najmniej 6 znaków
+        </AdditionalRequirements>
         <InputGroup
           label={{
             htmlFor: 'password',
@@ -69,26 +140,44 @@ const SignUpForm: React.FunctionComponent<{}> = () => {
           input={{
             id: 'password',
             type: 'password',
-            placeholder: '********'
+            placeholder: '********',
+            required: true,
+            min: 6
           }}
           liftInputValue={setSignUpCredentials}
         />
-        <PasswordRequirements>
+        <AdditionalRequirements>
           Hasło musi składać się z co najmniej 6 znaków
-        </PasswordRequirements>
+        </AdditionalRequirements>
         <Button
           text="Zakładam konto"
           type="submit"
           variant={ButtonVariant.CTA}
           uppercase
+          isPending={pending}
         />
-        <SignInRedirect>
-          Masz już konto?
-          <Link to="/zaloguj-sie">Zaloguj się</Link>
-        </SignInRedirect>
       </Form>
+      <SignUpRedirect>
+        Masz już konto?
+        <Link to="/zaloguj-sie">Zaloguj się</Link>
+      </SignUpRedirect>
     </>
   );
 };
 
-export default SignUpForm;
+const mapStateToProps = (state: State): ReduxSignUpFormProps => {
+  return {
+    signedUp: state.accounts.signedUp,
+    signingUpError: state.accounts.signingUpFailed,
+    isSigningUpPending: state.accounts.isSigningUpPending
+  };
+};
+
+const mapDispatchToProps: ReduxSignUpDispatchProps = {
+  signUp
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpForm);

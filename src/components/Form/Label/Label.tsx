@@ -1,12 +1,12 @@
 import React from 'react';
 import LabelStyled from './styled';
 
-export interface ILabelProps {
+export type LabelProps = {
   value: string;
   htmlFor: string;
-}
+};
 
-const Label: React.FunctionComponent<ILabelProps> = (props: ILabelProps) => {
+const Label: React.FunctionComponent<LabelProps> = (props: LabelProps) => {
   const { value, htmlFor } = props;
   return <LabelStyled htmlFor={htmlFor}>{value}</LabelStyled>;
 };

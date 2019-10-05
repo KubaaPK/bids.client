@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../bids.api/.idea/bids.api.iml" filepath="$PROJECT_DIR$/../bids.api/.idea/bids.api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/bids.client.iml" filepath="$PROJECT_DIR$/.idea/bids.client.iml" />
     </modules>
   </component>

@@ -2,26 +2,22 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputGroup from '../../../components/Form/InputGroup/InputGroup';
 import Button from '../../../components/Button/Button';
-import { Form, SignUpRedirect, Title } from './styled';
+import { Form, SignInRedirect, Title } from './styled';
 import { ButtonVariant } from '../../../components/Button/styled';
+import { InputValue } from '../../../components/Form/Input/Input';
 
-interface IInputValue {
-  id: string;
-  value: string;
-}
-
-interface ISignUpCredentials {
+type SignUpCredentials = {
   [x: string]: string;
-}
+};
 
 const SignInForm: React.FunctionComponent<{}> = () => {
-  const initialState: ISignUpCredentials = {
+  const initialState: SignUpCredentials = {
     email: '',
     password: ''
   };
   const [credentials, setCredentials] = useState(initialState);
 
-  const setSignInCredentials = (inputValue: IInputValue) => {
+  const setSignInCredentials = (inputValue: InputValue) => {
     setCredentials(prevState => ({
       ...prevState,
       [inputValue.id]: inputValue.value
@@ -44,7 +40,8 @@ const SignInForm: React.FunctionComponent<{}> = () => {
           input={{
             id: 'email',
             type: 'email',
-            placeholder: 'np. jankowalski22@wp.pl'
+            placeholder: 'np. jankowalski22@wp.pl',
+            required: true
           }}
           liftInputValue={setSignInCredentials}
         />
@@ -56,7 +53,8 @@ const SignInForm: React.FunctionComponent<{}> = () => {
           input={{
             id: 'password',
             type: 'password',
-            placeholder: '********'
+            placeholder: '********',
+            required: true
           }}
           liftInputValue={setSignInCredentials}
         />
@@ -66,11 +64,11 @@ const SignInForm: React.FunctionComponent<{}> = () => {
           variant={ButtonVariant.CTA}
           uppercase
         />
-        <SignUpRedirect>
-          Nie masz konta?
-          <Link to="/zaloz-konto">Załóż konto</Link>
-        </SignUpRedirect>
       </Form>
+      <SignInRedirect>
+        Nie masz konta?
+        <Link to="/zaloz-konto">Załóż nowe konto</Link>
+      </SignInRedirect>
     </>
   );
 };

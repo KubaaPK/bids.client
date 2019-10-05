@@ -4,12 +4,14 @@ import { colors, screenSize } from '../../shared/styles/vars';
 
 export const Navbar = styled.nav`
   @media ${screenSize.MOBILE} {
+    position: fixed;
+    width: 100%;
+    top: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    position: relative;
 
     padding: 1rem 2rem;
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);

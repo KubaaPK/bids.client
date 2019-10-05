@@ -1,24 +1,21 @@
 import React from 'react';
-import Input, { IInputProps } from '../Input/Input';
-import Label, { ILabelProps } from '../Label/Label';
+import Input, { InputProps, InputValue } from '../Input/Input';
+import Label, { LabelProps } from '../Label/Label';
 import InputGroupStyled from './styled';
 
-interface IInputValue {
-  id: string;
-  value: string;
-}
+type InputGroupProps = {
+  label: LabelProps;
+  input: InputProps;
 
-interface IProps {
-  label: ILabelProps;
-  input: IInputProps;
+  liftInputValue: (value: InputValue) => void;
+};
 
-  liftInputValue: (value: IInputValue) => void;
-}
-
-const InputGroup: React.FunctionComponent<IProps> = (props: IProps) => {
+const InputGroup: React.FunctionComponent<InputGroupProps> = (
+  props: InputGroupProps
+) => {
   const { input, label, liftInputValue } = props;
 
-  const liftValue = (inputVal: IInputValue) => {
+  const liftValue = (inputVal: InputValue) => {
     liftInputValue(inputVal);
   };
 
@@ -30,6 +27,9 @@ const InputGroup: React.FunctionComponent<IProps> = (props: IProps) => {
         id={input.id}
         placeholder={input.placeholder}
         liftValue={liftValue}
+        required={input.required}
+        max={input.max}
+        min={input.min}
       />
     </InputGroupStyled>
   );
