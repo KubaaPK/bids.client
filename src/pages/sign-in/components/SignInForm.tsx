@@ -22,6 +22,7 @@ type ReduxSignInFormProps = {
   signedIn: firebase.auth.UserCredential;
   signingInError: string | undefined;
   isSigningInPending: boolean;
+  isAuthenticated: boolean;
 };
 
 type ReduxSignInDispatch = {
@@ -45,8 +46,13 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = (
     variant: NotificationVariant.SUCCESS
   });
   const [pending, setPending] = useState(false);
-  const [redirectAfterSuccess, setRedirectAfterSuccess] = useState(false);
-  const { signIn, signingInError, isSigningInPending, signedIn } = props;
+  const {
+    signIn: signInAction,
+    signingInError,
+    isSigningInPending,
+    signedIn,
+    isAuthenticated
+  } = props;
 
   useEffect(() => {
     setPending(isSigningInPending);
@@ -62,7 +68,6 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = (
       const refreshToken: string = (signedIn.user as any).b.a;
       const accessToken: string = (signedIn.user as any).b.b;
       saveTokensToLocalStorage(accessToken, refreshToken);
-      setRedirectAfterSuccess(true);
     }
   }, [signingInError, signedIn, isSigningInPending]);
 
@@ -75,7 +80,7 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = (
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signIn({
+    signInAction({
       email: credentials.email,
       password: credentials.password
     });
@@ -99,7 +104,7 @@ const SignInForm: React.FunctionComponent<SignInFormProps> = (
           closeHandler={handleNotificationClose}
         />
       ) : null}
-      {redirectAfterSuccess ? <Redirect to="/" /> : null}
+      {isAuthenticated ? <Redirect to="/" /> : null}
       <Title>Zaloguj się</Title>
       <Form onSubmit={handleSubmit}>
         <InputGroup
@@ -148,7 +153,8 @@ const mapStateToProps = (state: State): ReduxSignInFormProps => {
   return {
     signedIn: state.auth.signedIn,
     isSigningInPending: state.auth.isSigningInPending,
-    signingInError: state.auth.signingInFailed
+    signingInError: state.auth.signingInFailed,
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 

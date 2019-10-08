@@ -144,10 +144,10 @@ export const MenuListElement = styled.li`
         color: ${colors.SECONDARY_ACCENT};
       }
     }
-    
+
     @media ${screenSize.DESKTOP} {
       &:nth-child(1) {
-        transition: .2s;
+        transition: 0.2s;
         &:hover {
           background-color: ${lighten(0.1, colors.ACCENT)};
           cursor: pointer;
@@ -155,13 +155,13 @@ export const MenuListElement = styled.li`
       }
     }
   }
-  
+
   @media ${screenSize.TABLET} {
     margin: 1rem 0;
   }
 `;
 
-export const Bottom = styled.div`
+export const SearchWrapper = styled.div`
   @media ${screenSize.MOBILE} {
     width: 100%;
     margin-top: 1rem;
@@ -208,10 +208,107 @@ export const SearchButton = styled.button`
   }
 
   @media ${screenSize.DESKTOP} {
-    transition: .2s;
+    transition: 0.2s;
     &:hover {
       background-color: ${lighten(0.1, colors.ACCENT)};
       cursor: pointer;
     }
+  }
+`;
+
+export const AuthenticatedMenuButton = styled.button`
+  @media ${screenSize.MOBILE} {
+    align-self: flex-end;
+    justify-self: flex-end;
+
+    border: 0;
+
+    background-color: transparent;
+
+    font-size: 1.5rem;
+  }
+
+  @media ${screenSize.DESKTOP} {
+    cursor: pointer;
+  }
+`;
+
+export const AuthenticatedMenuList = styled.ul`
+  @media ${screenSize.MOBILE} {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 75%;
+    margin: 0 auto;
+    padding: 1rem;
+
+    border: 1px solid #b0b0b0;
+    background-color: #fff;
+
+    text-align: center;
+    list-style-type: none;
+
+    a {
+      font-size: 2.25rem;
+
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  @media ${screenSize.TABLET} {
+    width: 20%;
+    left: auto;
+    right: 7rem;
+
+    padding: 0 1rem;
+  }
+`;
+
+export const AuthenticatedMenuListElement = styled.li`
+  @media ${screenSize.MOBILE} {
+    margin: 2rem 0;
+    a {
+      font-size: 1.5rem;
+
+      text-decoration: none;
+    }
+    &:nth-last-child(2) {
+      padding: 1rem;
+      border-top: 1px solid #b0b0b0;
+
+      background-color: ${colors.ACCENT};
+      a {
+        color: #ffffff;
+      }
+    }
+    &:nth-last-child(1) {
+      padding: 1rem;
+      color: ${colors.SECONDARY_ACCENT};
+    }
+  }
+
+  @media ${screenSize.TABLET} {
+    margin: 1rem 0;
+  }
+
+  @media ${screenSize.DESKTOP} {
+    &:nth-last-child(2) {
+      transition: 0.2s;
+      &:hover {
+        background-color: ${lighten(0.2, colors.ACCENT)};
+        cursor: pointer;
+      }
+    }
+  }
+`;
+
+export const AuthenticatedUsername = styled.span`
+  @media ${screenSize.DESKTOP} {
+    position: relative;
+    bottom: 0.7rem;
+    margin-right: 0.5rem;
+
+    font-size: 1.5rem;
   }
 `;

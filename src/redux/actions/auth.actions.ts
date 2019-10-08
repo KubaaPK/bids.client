@@ -2,10 +2,11 @@ import { AjaxError } from 'rxjs/ajax';
 import * as firebase from 'firebase';
 
 export enum AuthActionsTypes {
-  SIGN_IN = 'accounts/sign-in',
-  SIGNING_IN = 'accounts/signing-in',
-  SIGNED_IN = 'accounts/signed-in',
-  SIGNED_IN_FAILED = 'accounts/signed-in-failed'
+  SIGN_IN = 'auth/sign-in',
+  SIGNING_IN = 'auth/signing-in',
+  SIGNED_IN = 'auth/signed-in',
+  SIGNED_IN_FAILED = 'auth/signed-in-failed',
+  SIGN_OUT = 'auth/sign-out'
 }
 
 export type SignInCredentials = {
@@ -30,6 +31,10 @@ export type SignedInAction = {
 export type SignedInFailedAction = {
   type: AuthActionsTypes.SIGNED_IN_FAILED;
   payload: AjaxError;
+};
+
+export type SignOutAuction = {
+  type: AuthActionsTypes.SIGN_OUT;
 };
 
 export function signIn(credentials: SignInCredentials): SignInAction {
@@ -61,8 +66,15 @@ export function signedInFailed(error: AjaxError): SignedInFailedAction {
   };
 }
 
+export function signOut(): SignOutAuction {
+  return {
+    type: AuthActionsTypes.SIGN_OUT
+  };
+}
+
 export type AuthActions =
   | SignInAction
   | SigningInAction
   | SignedInAction
-  | SignedInFailedAction;
+  | SignedInFailedAction
+  | SignOutAuction;

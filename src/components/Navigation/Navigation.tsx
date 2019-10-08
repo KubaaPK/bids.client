@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
-import { Search, Menu as MenuIcon } from 'react-feather';
+import React from 'react';
+import { Search } from 'react-feather';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   InputText,
   Logo,
-  Menu,
   Navbar,
   SearchBox,
   SearchButton,
-  Bottom,
-  Top,
-  MenuButton,
-  MenuList,
-  MenuListElement
-} from './navigation.styled';
+  SearchWrapper,
+  Top
+} from './styled';
+import UnauthenticatedMenu from './UnauthenticatedMenu';
+import AuthenticatedMenu from './AuthenticatedMenu';
+import { State } from '../../redux/reducers';
+import { signOut } from '../../redux/actions/auth.actions';
 
-const Navigation: React.FunctionComponent<{}> = () => {
-  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+type ReduxProps = {
+  isAuthneticated: boolean;
+};
+
+type ReduxDispatch = {
+  signOut(): void;
+};
+
+type NavigationProps = ReduxProps & ReduxDispatch;
+
+const Navigation: React.FunctionComponent<NavigationProps> = (
+  props: NavigationProps
+) => {
+  const { isAuthneticated, signOut: signOutAction } = props;
 
   return (
     <Navbar>
@@ -25,29 +38,35 @@ const Navigation: React.FunctionComponent<{}> = () => {
           <Logo>.bids</Logo>
         </Link>
       </Top>
-      <Menu>
-        <MenuButton onClick={() => setMobileNavOpen(!isMobileNavOpen)}>
-          <MenuIcon size={32} color="#7f7f7f" />
-        </MenuButton>
-        <MenuList hidden={!isMobileNavOpen}>
-          <Link to="/zaloguj-sie">
-            <MenuListElement> Zaloguj się</MenuListElement>
-          </Link>
-          <MenuListElement>
-            <Link to="/zaloz-konto">Załóż konto</Link>
-          </MenuListElement>
-        </MenuList>
-      </Menu>
-      <Bottom>
+      {isAuthneticated ? (
+        <AuthenticatedMenu signOut={signOutAction} />
+      ) : (
+        <UnauthenticatedMenu />
+      )}
+
+      <SearchWrapper>
         <SearchBox>
           <InputText type="text" placeholder="Czego szukasz?" />
           <SearchButton type="submit">
             <Search size={20} />
           </SearchButton>
         </SearchBox>
-      </Bottom>
+      </SearchWrapper>
     </Navbar>
   );
 };
 
-export default Navigation;
+const mapStateToProps = (state: State): ReduxProps => {
+  return {
+    isAuthneticated: state.auth.isAuthenticated
+  };
+};
+
+const mapDispatchToProps: ReduxDispatch = {
+  signOut
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navigation);
