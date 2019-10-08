@@ -11,6 +11,7 @@ export type InputProps = {
   placeholder?: string;
   id: string;
   required: boolean;
+  clearable?: boolean;
   min?: number;
   max?: number;
 

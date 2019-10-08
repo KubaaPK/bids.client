@@ -36,6 +36,7 @@ const SignUpForm: React.FunctionComponent<SignUpFormProps> = (
     password: '',
     username: ''
   };
+
   const [credentials, setCredentials] = useState(initialState);
   const [notification, setNotification] = useState({
     show: false,

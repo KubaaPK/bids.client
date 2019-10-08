@@ -1,21 +1,70 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as firebase from 'firebase';
 import InputGroup from '../../../components/Form/InputGroup/InputGroup';
 import Button from '../../../components/Button/Button';
 import { Form, SignInRedirect, Title } from './styled';
 import { ButtonVariant } from '../../../components/Button/styled';
 import { InputValue } from '../../../components/Form/Input/Input';
+import { signIn, SignInCredentials } from '../../../redux/actions/auth.actions';
+import { State } from '../../../redux/reducers';
+import Notification, {
+  NotificationVariant
+} from '../../../components/Notification/Notification';
+import { saveTokensToLocalStorage } from '../../../utils/jwt';
 
 type SignUpCredentials = {
   [x: string]: string;
 };
 
-const SignInForm: React.FunctionComponent<{}> = () => {
+type ReduxSignInFormProps = {
+  signedIn: firebase.auth.UserCredential;
+  signingInError: string | undefined;
+  isSigningInPending: boolean;
+};
+
+type ReduxSignInDispatch = {
+  signIn: (credentials: SignInCredentials) => void;
+};
+
+type SignInFormProps = ReduxSignInDispatch & ReduxSignInFormProps;
+
+const SignInForm: React.FunctionComponent<SignInFormProps> = (
+  props: SignInFormProps
+) => {
   const initialState: SignUpCredentials = {
     email: '',
     password: ''
   };
+
   const [credentials, setCredentials] = useState(initialState);
+  const [notification, setNotification] = useState({
+    show: false,
+    message: '',
+    variant: NotificationVariant.SUCCESS
+  });
+  const [pending, setPending] = useState(false);
+  const [redirectAfterSuccess, setRedirectAfterSuccess] = useState(false);
+  const { signIn, signingInError, isSigningInPending, signedIn } = props;
+
+  useEffect(() => {
+    setPending(isSigningInPending);
+    if (signingInError) {
+      setPending(isSigningInPending);
+      setNotification({
+        show: true,
+        variant: NotificationVariant.ERROR,
+        message: signingInError
+      });
+    }
+    if (signedIn) {
+      const refreshToken: string = (signedIn.user as any).b.a;
+      const accessToken: string = (signedIn.user as any).b.b;
+      saveTokensToLocalStorage(accessToken, refreshToken);
+      setRedirectAfterSuccess(true);
+    }
+  }, [signingInError, signedIn, isSigningInPending]);
 
   const setSignInCredentials = (inputValue: InputValue) => {
     setCredentials(prevState => ({
@@ -26,10 +75,31 @@ const SignInForm: React.FunctionComponent<{}> = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    signIn({
+      email: credentials.email,
+      password: credentials.password
+    });
+  };
+
+  const handleNotificationClose = (): void => {
+    setNotification({
+      show: false,
+      variant: NotificationVariant.SUCCESS,
+      message: ''
+    });
   };
 
   return (
     <>
+      {notification.show ? (
+        <Notification
+          variant={notification.variant}
+          message={notification.message}
+          timeout={6000}
+          closeHandler={handleNotificationClose}
+        />
+      ) : null}
+      {redirectAfterSuccess ? <Redirect to="/" /> : null}
       <Title>Zaloguj się</Title>
       <Form onSubmit={handleSubmit}>
         <InputGroup
@@ -63,6 +133,7 @@ const SignInForm: React.FunctionComponent<{}> = () => {
           type="submit"
           variant={ButtonVariant.CTA}
           uppercase
+          isPending={pending}
         />
       </Form>
       <SignInRedirect>
@@ -73,4 +144,19 @@ const SignInForm: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default SignInForm;
+const mapStateToProps = (state: State): ReduxSignInFormProps => {
+  return {
+    signedIn: state.auth.signedIn,
+    isSigningInPending: state.auth.isSigningInPending,
+    signingInError: state.auth.signingInFailed
+  };
+};
+
+const mapDispatchToProps: ReduxSignInDispatch = {
+  signIn
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignInForm);

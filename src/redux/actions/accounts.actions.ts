@@ -5,7 +5,7 @@ export enum AccountsActionsTypes {
   SIGN_UP = 'accounts/sign-up',
   SIGNING_UP = 'accounts/signing-up',
   SIGNED_UP = 'accounts/signed-up',
-  SIGNING_UP_FAILED = 'accounts/signing-up-failed'
+  SIGNING_UP_FAILED = 'accounts/signing-up-failed',
 }
 
 export type SignUpCredentials = {
@@ -28,7 +28,7 @@ export type SignedUpAction = {
   payload: AjaxResponse;
 };
 
-export type SigningUpFailed = {
+export type SigningUpFailedAction = {
   type: AccountsActionsTypes.SIGNING_UP_FAILED;
   payload: AjaxError;
 };
@@ -53,7 +53,7 @@ export function signedUp(response: AjaxResponse): SignedUpAction {
   };
 }
 
-export function signingUpFailed(error: AjaxError): SigningUpFailed {
+export function signingUpFailed(error: AjaxError): SigningUpFailedAction {
   return {
     type: AccountsActionsTypes.SIGNING_UP_FAILED,
     payload: error
@@ -63,5 +63,5 @@ export function signingUpFailed(error: AjaxError): SigningUpFailed {
 export type AccountsActions =
   | SignUpAction
   | SignedUpAction
-  | SigningUpFailed
+  | SigningUpFailedAction
   | SigningUpAction;

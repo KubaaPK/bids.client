@@ -13,7 +13,7 @@ import {
   MenuButton,
   MenuList,
   MenuListElement
-} from './styled';
+} from './navigation.styled';
 
 const Navigation: React.FunctionComponent<{}> = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);

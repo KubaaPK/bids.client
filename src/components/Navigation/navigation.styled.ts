@@ -149,12 +149,13 @@ export const MenuListElement = styled.li`
       &:nth-child(1) {
         transition: .2s;
         &:hover {
-          background-color: ${lighten(0.1, colors.ACCENT)}
+          background-color: ${lighten(0.1, colors.ACCENT)};
           cursor: pointer;
         }
       }
     }
   }
+  
   @media ${screenSize.TABLET} {
     margin: 1rem 0;
   }
@@ -209,7 +210,7 @@ export const SearchButton = styled.button`
   @media ${screenSize.DESKTOP} {
     transition: .2s;
     &:hover {
-      background-color: ${lighten(0.1, colors.ACCENT)}
+      background-color: ${lighten(0.1, colors.ACCENT)};
       cursor: pointer;
     }
   }
