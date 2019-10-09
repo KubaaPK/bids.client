@@ -3,16 +3,16 @@ import { colors, paddings, screenSize } from '../../../shared/styles/vars';
 
 export const Title = styled.h2`
   @media ${screenSize.MOBILE} {
-    margin-left: ${paddings.MOBILE}
+    margin-left: ${paddings.MOBILE};
     font-size: 2.5rem;
     font-weight: normal;
   }
-  
+
   @media ${screenSize.TABLET} {
     margin-left: 10%;
     margin-top: 2.5vh;
   }
-  
+
   @media ${screenSize.DESKTOP} {
     margin-left: 32.5%;
     margin-top: 2.5vh;

@@ -8,5 +8,14 @@ export default {
   SUCCESS: '#4CAF50',
   INFO: '#03A9F4',
   WARNING: '#FFEB3B',
-  ERROR: '#F44336'
+  ERROR: '#F44336',
+
+  CATEGORIES_ACCENT_COLORS: [
+    '#4DB6AC',
+    '#81C784',
+    '#AED581',
+    '#DCE775',
+    '#FFF176',
+    '#FFD54F'
+  ]
 };

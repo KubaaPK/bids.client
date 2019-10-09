@@ -29,19 +29,19 @@ export const Wrapper = styled.div<WrapperProps>`
     display: flex;
     flex-direction: row;
     padding: 0 2rem;
-    
-    border: 1px solid ${props => determineVariantColor(props.variant)}
+
+    border: 1px solid ${props => determineVariantColor(props.variant)};
     border-radius: 3px;
     background-color: ${props =>
       lighten(0.3, determineVariantColor(props.variant))};
   }
-  
+
   @media ${screenSize.TABLET} {
     right: 10%;
   }
-  
+
   @media ${screenSize.DESKTOP} {
-  right: 5%;
+    right: 5%;
   }
 `;
 export const Icon = styled.span`
