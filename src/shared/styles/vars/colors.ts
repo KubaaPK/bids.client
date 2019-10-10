@@ -5,6 +5,8 @@ export default {
   SECONDARY_ACCENT: '#009688',
   GREYISH: '#aaaaaa',
 
+  FONT: '#222222',
+
   SUCCESS: '#4CAF50',
   INFO: '#03A9F4',
   WARNING: '#FFEB3B',

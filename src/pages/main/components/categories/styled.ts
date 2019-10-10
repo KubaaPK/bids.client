@@ -14,9 +14,8 @@ export const CategoriesList = styled.ul`
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     position: relative;
-    top: 20vh;
     padding-left: 0;
-    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
+    width: 100%;
 
     background-color: #ffffff;
 
@@ -26,11 +25,11 @@ export const CategoriesList = styled.ul`
   }
 
   @media ${screenSize.TABLET} {
-    top: 10vh;
   }
 
   @media ${screenSize.DESKTOP} {
-    top: 15vh;
+    top: 4vh;
+    left: 6rem;
     flex-direction: column;
     width: 22%;
     padding-left: 6rem;
@@ -46,6 +45,7 @@ export const Title = styled.p`
 
   @media ${screenSize.DESKTOP} {
     display: block;
+    margin-top: 2.1rem;
 
     font-size: 1.5rem;
     color: ${lighten(0.25, '#000000')};

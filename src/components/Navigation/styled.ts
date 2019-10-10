@@ -4,7 +4,6 @@ import { colors, screenSize } from '../../shared/styles/vars';
 
 export const Navbar = styled.nav`
   @media ${screenSize.MOBILE} {
-    position: fixed;
     width: 100%;
     top: 0;
     display: flex;
@@ -14,7 +13,6 @@ export const Navbar = styled.nav`
     justify-content: space-between;
 
     padding: 1rem 2rem;
-    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.05);
 
     background-color: #ffffff;
 

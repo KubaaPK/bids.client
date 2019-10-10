@@ -8,21 +8,28 @@ import categoriesReducer, {
   initialCategoriesState,
   CategoriesState
 } from './categories.reducer';
+import offersReducer, {
+  initialOffersState,
+  OffersState
+} from './offers.reducer';
 
 export type State = {
   accounts: AccountsState;
   auth: AuthState;
   categories: CategoriesState;
+  offers: OffersState;
 };
 
 export const initialState: State = {
   accounts: initialAccountState,
   auth: initialAuthState,
-  categories: initialCategoriesState
+  categories: initialCategoriesState,
+  offers: initialOffersState
 };
 
 export default combineReducers({
   accounts: accountsReducer,
   auth: authReducer,
-  categories: categoriesReducer
+  categories: categoriesReducer,
+  offers: offersReducer
 });
