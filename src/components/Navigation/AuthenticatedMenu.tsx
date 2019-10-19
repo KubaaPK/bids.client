@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { User, ChevronDown } from 'react-feather';
+import * as firebase from 'firebase';
 import {
   Menu,
   AuthenticatedMenuButton,
@@ -23,6 +24,7 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
 
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(getWindowWidth());
+  const [currentUser, setCurrentUser] = useState();
   useEffect(() => {
     const handleResize = (): void => {
       setWindowWidth(getWindowWidth());
@@ -32,10 +34,22 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+  });
+
   const displayUsername = (): any => {
     return (
       <>
-        <AuthenticatedUsername>user11</AuthenticatedUsername>
+        {currentUser !== undefined ? (
+          <AuthenticatedUsername>
+            {currentUser.displayName}
+          </AuthenticatedUsername>
+        ) : null}
         <ChevronDown />
       </>
     );
