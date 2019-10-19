@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Wrapper, Form, Input, IncrDecrButton } from './styled';
 import Button from '../../../../components/Button/Button';
 import { ButtonVariant } from '../../../../components/Button/styled';
@@ -6,11 +7,13 @@ import { InStock } from '../../../main/components/latest-offers/styled';
 
 type Props = {
   inStock: number;
+  isAuthenticated: boolean;
 };
 
 const Purchase: React.FunctionComponent<Props> = (props: Props) => {
-  const { inStock } = props;
+  const { inStock, isAuthenticated } = props;
   const [numberOfItemsToPurchase, setNumberOfItemsToPurchase] = useState(1);
+  const history = useHistory();
 
   const handleButtonClick = (ev: React.MouseEvent<HTMLButtonElement>): any => {
     ev.preventDefault();
@@ -29,9 +32,17 @@ const Purchase: React.FunctionComponent<Props> = (props: Props) => {
     }
   };
 
+  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
+    ev.preventDefault();
+
+    if (!isAuthenticated) {
+      history.push('/zaloguj-sie');
+    }
+  };
+
   return (
     <Wrapper>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InStock>
           Liczba dostępnych przedmiotów
           {inStock}

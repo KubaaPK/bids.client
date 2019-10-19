@@ -14,6 +14,7 @@ type ReduxProps = {
   isOfferFetching: boolean;
   offerFetched: OfferModel | undefined;
   fetchinOfferFailed: AjaxError | undefined;
+  isAuthenticated: boolean;
 };
 
 type ReduxDispach = {
@@ -27,7 +28,8 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
   const {
     fetchOffer: fetchOfferAction,
     isOfferFetching,
-    offerFetched: offer
+    offerFetched: offer,
+    isAuthenticated
   } = props;
 
   useEffect(() => {
@@ -49,7 +51,10 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
                 seller={offer!.seller}
                 title={offer!.name}
               />
-              <Purchase inStock={offer!.stock.available} />
+              <Purchase
+                inStock={offer!.stock.available}
+                isAuthenticated={isAuthenticated}
+              />
             </InfoAndPurchaseWrapper>
           </ImagesAndInfo>
           <Parameters parameters={offer!.parameters} />
@@ -64,7 +69,8 @@ const mapStateToProps = (state: State): ReduxProps => {
   return {
     isOfferFetching: state.offers.fetchOffer.isOfferFetching,
     offerFetched: state.offers.fetchOffer.offerFetched,
-    fetchinOfferFailed: state.offers.fetchOffer.offerFetchingFailed
+    fetchinOfferFailed: state.offers.fetchOffer.offerFetchingFailed,
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
