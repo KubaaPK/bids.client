@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import { OfferModel } from '../../../../models/offer';
 import { State } from '../../../../redux/reducers';
-import { fetchLatestOffers } from '../../../../redux/actions/offers.actions';
+import { fetchLatestOffers } from '../../../../redux/actions/offers/fetch-latest-offers.action';
 import { LatestOffersWrapper, Title } from './styled';
 import LatestOffer from './LatestOffer';
 
@@ -43,10 +43,10 @@ const LatestOffers: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxProps => {
   return {
-    areLatestOffersFetching: state.offers.areLatestOffersFetching,
-    fetchedOffers: (state.offers
+    areLatestOffersFetching: state.offers.latestOffers.areLatestOffersFetching,
+    fetchedOffers: (state.offers.latestOffers
       .latestOffersFetched as unknown) as OfferModel[],
-    fetchingOffersFailed: state.offers.latestOffersFetchingFailed
+    fetchingOffersFailed: state.offers.latestOffers.latestOffersFetchingFailed
   };
 };
 

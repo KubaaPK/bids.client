@@ -1,11 +1,10 @@
 import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 
-// eslint-disable-next-line import/prefer-default-export
 export enum AccountsActionsTypes {
   SIGN_UP = 'accounts/sign-up',
   SIGNING_UP = 'accounts/signing-up',
   SIGNED_UP = 'accounts/signed-up',
-  SIGNING_UP_FAILED = 'accounts/signing-up-failed',
+  SIGNING_UP_FAILED = 'accounts/signing-up-failed'
 }
 
 export type SignUpCredentials = {

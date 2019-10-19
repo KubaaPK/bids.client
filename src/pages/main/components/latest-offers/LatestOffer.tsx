@@ -32,7 +32,7 @@ const LatestOffer: React.FunctionComponent<Props> = (props: Props) => {
   };
 
   return (
-    <LatestOfferWrapper to="/">
+    <LatestOfferWrapper to={`/oferta/${offer.id}`}>
       <Thumbnail src={offer.images[0].url} />
       <Text>
         <Name>{offer.name}</Name>

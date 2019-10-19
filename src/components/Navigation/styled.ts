@@ -26,11 +26,11 @@ export const Navbar = styled.nav`
     flex-wrap: wrap;
     justify-content: space-between;
 
-    padding: 1.5rem 4rem;
+    padding: 1.5rem 2rem;
   }
 
-  @media ${screenSize.TABLET} {
-    padding: 2rem 6rem;
+  @media ${screenSize.DESKTOP} {
+    padding: 2rem 5rem;
   }
 `;
 
