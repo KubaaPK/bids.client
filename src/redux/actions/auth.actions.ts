@@ -1,5 +1,4 @@
 import { AjaxError } from 'rxjs/ajax';
-import * as firebase from 'firebase';
 
 export enum AuthActionsTypes {
   SIGN_IN = 'auth/sign-in',
