@@ -2,7 +2,7 @@ import { AjaxError } from 'rxjs/ajax';
 import {
   DeleteCategoryActions,
   DeleteCategoryActionTypes
-} from '../../actions/categories/delete-category';
+} from '../../actions/categories/delete-category.actions';
 
 export type DeleteCategoryState = {
   isCategoryDeleting: boolean;

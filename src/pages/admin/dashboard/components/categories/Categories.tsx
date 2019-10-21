@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Column, Table } from 'react-virtualized';
+import { AjaxResponse } from 'rxjs/ajax';
 import { State } from '../../../../../redux/reducers';
 import { fetchCategories } from '../../../../../redux/actions/categories/fetch-categories.actions';
-import { deleteCategory } from '../../../../../redux/actions/categories/delete-category';
+import { deleteCategory } from '../../../../../redux/actions/categories/delete-category.actions';
+import Button from '../../../../../components/Button/Button';
+import { ButtonVariant } from '../../../../../components/Button/styled';
+import AddCategoryForm from './AddCategoryForm';
 
 type Props = {
   areCategoriesFetching: boolean;
   categories: any;
   categoryDeleted: boolean;
+  categoryAdded: AjaxResponse | undefined;
 };
 
 type Dispatch = {
@@ -23,22 +28,40 @@ const Categories: React.FunctionComponent<CompProps> = (props: CompProps) => {
     areCategoriesFetching,
     categories,
     fetchCategories,
-    deleteCategory
+    deleteCategory,
+    categoryAdded,
+    categoryDeleted
   } = props;
+  const [showAddCategoryForm, setShowAddCategoryForm] = useState(false);
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    if (categoryAdded || categoryDeleted) {
+      fetchCategories();
+    }
+  }, [categoryAdded, categoryDeleted]);
 
   const rowClick = ({ rowData }: any) => {
+    // eslint-disable-next-line no-alert
     if (window.confirm(`Na pewno chcesz usunąć kategorie: ${rowData.name}`)) {
       deleteCategory(rowData.id);
     }
   };
 
+  const handleAddCategoryButtonClick = (): void => {
+    setShowAddCategoryForm(!showAddCategoryForm);
+  };
+
   return (
     <>
       KATEGORIE!
+      <Button
+        variant={ButtonVariant.BORDERED}
+        type="button"
+        text="Dodaj kategorię"
+        onClick={handleAddCategoryButtonClick}
+      />
+      {showAddCategoryForm === true ? <AddCategoryForm /> : null}
       {areCategoriesFetching === true ? null : (
         <Table
           width={300}
@@ -62,7 +85,8 @@ const mapStateToProps = (state: State): Props => {
     areCategoriesFetching:
       state.categories.fetchCategories.areCategoriesFetching,
     categories: state.categories.fetchCategories.categoriesFetched,
-    categoryDeleted: state.categories.deleteCategory.categoryDeleted
+    categoryDeleted: state.categories.deleteCategory.categoryDeleted,
+    categoryAdded: state.categories.addCategory.categoryAdded
   };
 };
 

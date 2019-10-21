@@ -8,7 +8,7 @@ import {
   DeleteCategoryActionTypes,
   categoryDeleted,
   deletingCategoryFailed
-} from '../../actions/categories/delete-category';
+} from '../../actions/categories/delete-category.actions';
 import { State } from '../../reducers';
 import { API_URL } from '../../../consts';
 

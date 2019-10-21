@@ -8,10 +8,11 @@ type ButtonProps = {
   variant: ButtonVariant;
   uppercase?: boolean;
   isPending?: boolean;
+  onClick?: () => any;
 };
 
 const Button: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
-  const { type, text, variant, uppercase, isPending } = props;
+  const { type, text, variant, uppercase, isPending, onClick } = props;
 
   // eslint-disable-next-line react/button-has-type
   return (
@@ -21,6 +22,7 @@ const Button: React.FunctionComponent<ButtonProps> = (props: ButtonProps) => {
       uppercase={uppercase}
       pending={!isPending}
       disabled={isPending}
+      onClick={onClick}
     >
       {isPending ? <ClipLoader size={16} color="#ffffff" /> : text}
     </ButtonStyled>
