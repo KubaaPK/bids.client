@@ -5,9 +5,9 @@ import accountsReducer, {
 } from './accounts.reducer';
 import authReducer, { initialAuthState, AuthState } from './auth.reducer';
 import categoriesReducer, {
-  initialCategoriesState,
+  initialCategoryState,
   CategoriesState
-} from './categories.reducer';
+} from './categories';
 import offersReducer, { OffersState, initialOffersState } from './offers';
 import reviewsReducer, { ReviewsState, initialReviewsState } from './reviews';
 
@@ -22,7 +22,7 @@ export type State = {
 export const initialState: State = {
   accounts: initialAccountState,
   auth: initialAuthState,
-  categories: initialCategoriesState,
+  categories: initialCategoryState,
   offers: initialOffersState,
   reviews: initialReviewsState
 };

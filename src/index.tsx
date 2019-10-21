@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as firebase from 'firebase';
+import 'react-virtualized/styles.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import routes from './routes';

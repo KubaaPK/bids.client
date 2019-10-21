@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
 import { CircleLoader } from 'react-spinners';
-import { fetchCategories } from '../../../../../redux/actions/categories.actions';
+import { fetchCategories } from '../../../../../redux/actions/categories/fetch-categories.actions';
 import { State } from '../../../../../redux/reducers';
 import { CategoriesList, Title } from './styled';
 import Category from './Category';
@@ -46,9 +46,11 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxProps => {
   return {
-    areCategoriesFetching: state.categories.areCategoriesFetching,
-    categories: state.categories.categoriesFetched,
-    categoriesFetchingFailed: state.categories.categoriesFetchingFailed
+    areCategoriesFetching:
+      state.categories.fetchCategories.areCategoriesFetching,
+    categories: state.categories.fetchCategories.categoriesFetched,
+    categoriesFetchingFailed:
+      state.categories.fetchCategories.categoriesFetchingFailed
   };
 };
 

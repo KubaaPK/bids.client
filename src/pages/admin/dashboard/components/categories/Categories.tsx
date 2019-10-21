@@ -1,72 +1,57 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-// eslint-disable-next-line import/no-unresolved
-import ReactDataGrid from 'react-data-grid';
-import { Delete } from 'react-feather';
+import { Column, Table } from 'react-virtualized';
 import { State } from '../../../../../redux/reducers';
-import { fetchCategories } from '../../../../../redux/actions/categories.actions';
+import { fetchCategories } from '../../../../../redux/actions/categories/fetch-categories.actions';
+import { deleteCategory } from '../../../../../redux/actions/categories/delete-category';
 
 type Props = {
   areCategoriesFetching: boolean;
   categories: any;
+  categoryDeleted: boolean;
 };
 
 type Dispatch = {
   fetchCategories(): void;
+  deleteCategory(id: string): void;
 };
 
 type CompProps = Props & Dispatch;
 
 const Categories: React.FunctionComponent<CompProps> = (props: CompProps) => {
-  const { areCategoriesFetching, categories, fetchCategories } = props;
+  const {
+    areCategoriesFetching,
+    categories,
+    fetchCategories,
+    deleteCategory
+  } = props;
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  const columns = [
-    { key: 'name', name: 'Nazwa' },
-    { key: 'leaf', name: 'Leaf' }
-  ];
-
-  const rows = () => {
-    const categoriesArr: any[] = [];
-
-    categories.map((el: any) =>
-      categoriesArr.push({ name: el.name, leaf: el.leaf ? 'Tak' : 'Nie' })
-    );
-    return categoriesArr;
-  };
-
-  const nameActions = [
-    {
-      icon: <Delete />,
-      callback: () => {
-        alert('ok!');
-      }
+  const rowClick = ({ rowData }: any) => {
+    if (window.confirm(`Na pewno chcesz usunąć kategorie: ${rowData.name}`)) {
+      deleteCategory(rowData.id);
     }
-  ];
-
-  // @ts-ignore
-  const getCellActions = (column, row) => {
-    const cellActions = {
-      name: nameActions
-    };
-    // @ts-ignore
-    return cellActions[column.key];
   };
+
   return (
     <>
       KATEGORIE!
       {areCategoriesFetching === true ? null : (
-        <ReactDataGrid
-          columns={columns}
-          rowGetter={i => rows()[i] as any}
-          rowsCount={rows().length}
-          minHeight={150}
-          //@ts-ignore
-          getCellActions={getCellActions}
-        />
+        <Table
+          width={300}
+          height={300}
+          headerHeight={20}
+          rowHeight={30}
+          rowCount={categories.length}
+          rowGetter={({ index }) => categories[index]}
+          onRowDoubleClick={rowClick}
+        >
+          <Column label="Name" dataKey="name" width={100} />
+          <Column label="Kategoria nadrzędna" dataKey="leaf" width={100} />
+        </Table>
       )}
     </>
   );
@@ -74,13 +59,16 @@ const Categories: React.FunctionComponent<CompProps> = (props: CompProps) => {
 
 const mapStateToProps = (state: State): Props => {
   return {
-    areCategoriesFetching: state.categories.areCategoriesFetching,
-    categories: state.categories.categoriesFetched
+    areCategoriesFetching:
+      state.categories.fetchCategories.areCategoriesFetching,
+    categories: state.categories.fetchCategories.categoriesFetched,
+    categoryDeleted: state.categories.deleteCategory.categoryDeleted
   };
 };
 
 const mapDispatchToProps: Dispatch = {
-  fetchCategories
+  fetchCategories,
+  deleteCategory
 };
 
 export default connect(
