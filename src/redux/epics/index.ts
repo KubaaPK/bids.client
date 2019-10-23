@@ -4,11 +4,13 @@ import authEpics from './auth.epic';
 import categoriesEpics from './categories';
 import offersEpics from './offers';
 import reviewsEpics from './reviews';
+import parametersEpics from './parameters';
 
 export default combineEpics(
   accountsEpics,
   authEpics,
   categoriesEpics,
   offersEpics,
-  reviewsEpics
+  reviewsEpics,
+  parametersEpics
 );

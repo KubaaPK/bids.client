@@ -10,6 +10,10 @@ import categoriesReducer, {
 } from './categories';
 import offersReducer, { OffersState, initialOffersState } from './offers';
 import reviewsReducer, { ReviewsState, initialReviewsState } from './reviews';
+import parametersReducer, {
+  ParametersState,
+  initialParametersState
+} from './parameters';
 
 export type State = {
   accounts: AccountsState;
@@ -17,6 +21,7 @@ export type State = {
   categories: CategoriesState;
   offers: OffersState;
   reviews: ReviewsState;
+  parameters: ParametersState;
 };
 
 export const initialState: State = {
@@ -24,7 +29,8 @@ export const initialState: State = {
   auth: initialAuthState,
   categories: initialCategoryState,
   offers: initialOffersState,
-  reviews: initialReviewsState
+  reviews: initialReviewsState,
+  parameters: initialParametersState
 };
 
 export default combineReducers({
@@ -32,5 +38,6 @@ export default combineReducers({
   auth: authReducer,
   categories: categoriesReducer,
   offers: offersReducer,
-  reviews: reviewsReducer
+  reviews: reviewsReducer,
+  parameters: parametersReducer
 });
