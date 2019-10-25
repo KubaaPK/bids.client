@@ -5,6 +5,7 @@ import categoriesEpics from './categories';
 import offersEpics from './offers';
 import reviewsEpics from './reviews';
 import parametersEpics from './parameters';
+import deliveryMethodsEpics from './delivery-methods';
 
 export default combineEpics(
   accountsEpics,
@@ -12,5 +13,6 @@ export default combineEpics(
   categoriesEpics,
   offersEpics,
   reviewsEpics,
-  parametersEpics
+  parametersEpics,
+  deliveryMethodsEpics
 );

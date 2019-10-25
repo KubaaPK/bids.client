@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState, TdHTMLAttributes } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AjaxResponse } from 'rxjs/ajax';
 import { State } from '../../../../../redux/reducers';
@@ -94,7 +94,10 @@ const Categories: React.FunctionComponent<CompProps> = (props: CompProps) => {
               {categories.map((category: any) => (
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                 <>
-                  <tr onClick={handleShowDetails(category.id)}>
+                  <tr
+                    onClick={handleShowDetails(category.id)}
+                    key={category.id}
+                  >
                     <td>{category.name}</td>
                     <td>{category.leaf ? 'tak' : 'nie'}</td>
                   </tr>

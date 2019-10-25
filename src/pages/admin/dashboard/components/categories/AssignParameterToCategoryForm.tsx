@@ -63,7 +63,9 @@ const AssignParameterToCategoryForm: React.FunctionComponent<CompProps> = (
         <form onSubmit={handleSubmit}>
           <select onChange={handleOptionChange}>
             {parameters!.map(parameter => (
-              <option value={parameter.id}>{parameter.name}</option>
+              <option value={parameter.id} key={parameter.id}>
+                {parameter.name}
+              </option>
             ))}
           </select>
           <button type="submit">Przypisz parametr</button>

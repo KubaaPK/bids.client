@@ -14,6 +14,10 @@ import parametersReducer, {
   ParametersState,
   initialParametersState
 } from './parameters';
+import deliveryMethodsReducer, {
+  DeliveryMethodsState,
+  initialDeliveryMethodsState
+} from './delivery-methods';
 
 export type State = {
   accounts: AccountsState;
@@ -22,6 +26,7 @@ export type State = {
   offers: OffersState;
   reviews: ReviewsState;
   parameters: ParametersState;
+  deliveryMethods: DeliveryMethodsState;
 };
 
 export const initialState: State = {
@@ -30,7 +35,8 @@ export const initialState: State = {
   categories: initialCategoryState,
   offers: initialOffersState,
   reviews: initialReviewsState,
-  parameters: initialParametersState
+  parameters: initialParametersState,
+  deliveryMethods: initialDeliveryMethodsState
 };
 
 export default combineReducers({
@@ -39,5 +45,6 @@ export default combineReducers({
   categories: categoriesReducer,
   offers: offersReducer,
   reviews: reviewsReducer,
-  parameters: parametersReducer
+  parameters: parametersReducer,
+  deliveryMethods: deliveryMethodsReducer
 });
