@@ -6,7 +6,7 @@ import { CircleLoader } from 'react-spinners';
 import { State } from '../../../redux/reducers';
 import { OfferModel } from '../../../models/offer';
 import { fetchOffer } from '../../../redux/actions/offers/fetch-offer.action';
-import Navigation from '../../../components/Navigation/Navigation';
+import Navigation from '../../../components/Navigation';
 import { Images, Description, Info, Parameters, Purchase } from './components';
 import { ImagesAndInfo, Wrapper, InfoAndPurchaseWrapper } from './styled';
 

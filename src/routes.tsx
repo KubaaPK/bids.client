@@ -5,6 +5,7 @@ import SignUp from './pages/user/sign-up/SignUp';
 import SignIn from './pages/user/sign-in/SignIn';
 import Offer from './pages/user/offer/Offer';
 import Dashboard from './pages/admin/dashboard/Dashboard';
+import CreateOffer from './pages/user/create-offer/CreateOffer';
 
 const routes = (
   <>
@@ -13,13 +14,22 @@ const routes = (
     <Route exact path="/zaloguj-sie" component={SignIn} />
     <Route exact path="/oferta/:id" component={Offer} />
 
-    {localStorage.getItem('is-admin') === 'true' ? (
+    {/* {localStorage.getItem('is-admin') === 'true' ? (
       <>
         <Route exact path="/administracja" component={Dashboard} />
       </>
     ) : (
       <Route exact path="/" component={Main} />
-    )}
+    )} */}
+    {/* {localStorage.getItem('access-token') !== null ? (
+      <>
+        <Route exact path="/wystaw-przedmiot" component={CreateOffer} />
+      </>
+    ) : (
+      <>
+        <Route exact path="/zaloguj-sie" component={SignIn} />
+      </>
+    )} */}
   </>
 );
 

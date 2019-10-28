@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '../../../components/Navigation/Navigation';
+import Navigation from '../../../components/Navigation';
 import Categories from './components/categories/Categories';
 import LatestOffers from './components/latest-offers/LatestOffers';
 import { Wrapper } from './styled';
@@ -9,8 +9,8 @@ const Main: React.FunctionComponent<{}> = () => {
     <>
       <Navigation />
       <Wrapper>
-        <Categories />
-        <LatestOffers />
+        {/* <Categories /> */}
+        {/* <LatestOffers /> */}
       </Wrapper>
     </>
   );

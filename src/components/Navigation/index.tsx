@@ -1,27 +1,18 @@
 import React from 'react';
 import { Search } from 'react-feather';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  InputText,
-  Logo,
-  Navbar,
-  SearchBox,
-  SearchButton,
-  SearchWrapper,
-  Top
-} from './styled';
-import UnauthenticatedMenu from './UnauthenticatedMenu';
-import AuthenticatedMenu from './AuthenticatedMenu';
+import UnauthenticatedMenu from './components/UnauthenticatedMenu';
+import AuthenticatedMenu from './components/AuthenticatedMenu';
 import { State } from '../../redux/reducers';
 import { signOut } from '../../redux/actions/auth.actions';
+import * as S from './styled';
 
 type ReduxProps = {
   isAuthneticated: boolean;
 };
 
 type ReduxDispatch = {
-  signOut(): void;
+  performSignOut(): void;
 };
 
 type NavigationProps = ReduxProps & ReduxDispatch;
@@ -29,30 +20,27 @@ type NavigationProps = ReduxProps & ReduxDispatch;
 const Navigation: React.FunctionComponent<NavigationProps> = (
   props: NavigationProps
 ) => {
-  const { isAuthneticated, signOut: signOutAction } = props;
+  const { isAuthneticated, performSignOut } = props;
 
   return (
-    <Navbar>
-      <Top>
-        <Link to="/">
-          <Logo>.bids</Logo>
-        </Link>
-      </Top>
+    <S.Navbar>
+      <S.Logo to="/">bids</S.Logo>
       {isAuthneticated ? (
-        <AuthenticatedMenu signOut={signOutAction} />
+        <AuthenticatedMenu signOut={performSignOut} />
       ) : (
         <UnauthenticatedMenu />
       )}
-
-      <SearchWrapper>
-        <SearchBox>
-          <InputText type="text" placeholder="Czego szukasz?" />
-          <SearchButton type="submit">
-            <Search size={20} />
-          </SearchButton>
-        </SearchBox>
-      </SearchWrapper>
-    </Navbar>
+      <S.SearchBox>
+        <S.SearchInput type="text" />
+        <S.SearchButton type="button">
+          {window.innerWidth >= 1024 ? (
+            <span>Szukaj</span>
+          ) : (
+            <Search size="2rem" />
+          )}
+        </S.SearchButton>
+      </S.SearchBox>
+    </S.Navbar>
   );
 };
 
@@ -63,7 +51,7 @@ const mapStateToProps = (state: State): ReduxProps => {
 };
 
 const mapDispatchToProps: ReduxDispatch = {
-  signOut
+  performSignOut: signOut
 };
 
 export default connect(

@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '../../../components/Navigation/Navigation';
+import Navigation from '../../../components/Navigation';
 import SignUpForm from './components/SignUpForm';
 import Main from './styled';
 
