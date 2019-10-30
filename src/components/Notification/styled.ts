@@ -1,73 +1,85 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
-import { NotificationVariant } from './Notification';
-import { colors, paddings, screenSize } from '../../shared/styles/vars';
+import {
+  screenSize,
+  colors,
+  shadows,
+  paddings
+} from '../../shared/styles/vars';
 
-type WrapperProps = {
-  variant: NotificationVariant;
+type Props = {
+  variant: 'info' | 'success' | 'error' | 'warning';
 };
 
-const determineVariantColor = (variant: NotificationVariant): string => {
+const setBackgroundColor = (variant: Props['variant']): string => {
   switch (variant) {
-    case NotificationVariant.SUCCESS:
-      return colors.SUCCESS;
-    case NotificationVariant.ERROR:
+    case 'error':
       return colors.ERROR;
-    case NotificationVariant.INFO:
+    case 'info':
       return colors.INFO;
-    case NotificationVariant.WARNING:
+    case 'success':
+      return colors.SUCCESS;
+    case 'warning':
       return colors.WARNING;
     default:
-      return colors.INFO;
+      return 'transparent';
   }
 };
 
-export const Wrapper = styled.div<WrapperProps>`
+const setFontColor = (variant: Props['variant']): string => {
+  switch (variant) {
+    case 'error':
+      return '#fff';
+    case 'info':
+      return '#fff';
+    case 'success':
+      return '#fff';
+    case 'warning':
+      return '#000';
+    default:
+      return '#fff';
+  }
+};
+
+const Wrapper = styled.div<Props>`
   @media ${screenSize.MOBILE} {
     position: fixed;
+    z-index: 999;
     right: ${paddings.MOBILE};
+    top: 20vh;
+
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    padding: 0 2rem;
+    justify-content: center;
+    align-items: center;
 
-    border: 1px solid ${props => determineVariantColor(props.variant)};
-    border-radius: 3px;
-    background-color: ${props =>
-      lighten(0.3, determineVariantColor(props.variant))};
-  }
+    padding: 1rem;
+    box-shadow: ${shadows.CALL_TO_ACTION};
 
-  @media ${screenSize.TABLET} {
-    right: 10%;
-  }
+    background-color: ${props => setBackgroundColor(props.variant)};
 
-  @media ${screenSize.DESKTOP} {
-    right: 5%;
+    span,
+    p {
+      color: ${props => setFontColor(props.variant)};
+    }
   }
 `;
-export const Icon = styled.span`
+
+const Icon = styled.span`
   @media ${screenSize.MOBILE} {
-    align-self: center;
     margin-right: 1rem;
-  }
-`;
-export const Text = styled.div`
-  @media ${screenSize.MOBILE} {
-  }
-`;
-export const Header = styled.p`
-  @media ${screenSize.MOBILE} {
-    margin-bottom: 0;
 
-    font-size: 1.2rem;
-    font-weight: bold;
-    letter-spacing: 0.05rem;
+    svg {
+      height: 3rem;
+      width: 3rem;
+    }
   }
 `;
-export const Message = styled.p`
-  @media ${screenSize.MOBILE} {
-    margin-top: 0.75rem;
 
-    font-size: 1.1rem;
-    color: ${lighten(0.25, '#000000')};
+const Message = styled.p`
+  @media ${screenSize.MOBILE} {
+    font-size: 1.25rem;
   }
 `;
+
+export { Wrapper, Icon, Message };

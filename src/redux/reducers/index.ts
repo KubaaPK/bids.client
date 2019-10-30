@@ -3,7 +3,7 @@ import accountsReducer, {
   initialAccountState,
   AccountsState
 } from './accounts.reducer';
-import authReducer, { initialAuthState, AuthState } from './auth.reducer';
+import authReducer, { initialAuthState, AuthState } from './auth';
 import categoriesReducer, {
   initialCategoryState,
   CategoriesState

@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import UnauthenticatedMenu from './components/UnauthenticatedMenu';
 import AuthenticatedMenu from './components/AuthenticatedMenu';
 import { State } from '../../redux/reducers';
-import { signOut } from '../../redux/actions/auth.actions';
+import { signOut } from '../../redux/actions/auth/auth.actions';
 import * as S from './styled';
+import { deleteTokensFromLocalStorage } from '../../utils/auth';
 
 type ReduxProps = {
   isAuthneticated: boolean;
+  isAdmin: boolean;
+  displayName: string;
 };
 
 type ReduxDispatch = {
@@ -20,13 +23,22 @@ type NavigationProps = ReduxProps & ReduxDispatch;
 const Navigation: React.FunctionComponent<NavigationProps> = (
   props: NavigationProps
 ) => {
-  const { isAuthneticated, performSignOut } = props;
+  const { isAuthneticated, performSignOut, isAdmin, displayName } = props;
+
+  const handleSignOut = (): void => {
+    performSignOut();
+    deleteTokensFromLocalStorage();
+  };
 
   return (
     <S.Navbar>
       <S.Logo to="/">bids</S.Logo>
       {isAuthneticated ? (
-        <AuthenticatedMenu signOut={performSignOut} />
+        <AuthenticatedMenu
+          signOut={handleSignOut}
+          isAdmin={isAdmin}
+          displayName={displayName}
+        />
       ) : (
         <UnauthenticatedMenu />
       )}
@@ -46,7 +58,9 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
 
 const mapStateToProps = (state: State): ReduxProps => {
   return {
-    isAuthneticated: state.auth.isAuthenticated
+    isAuthneticated: state.auth.isAuthenticated,
+    isAdmin: state.auth.isAdmin,
+    displayName: state.auth.displayName
   };
 };
 
