@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import accountsReducer, {
-  initialAccountState,
+  initialAccountsState,
   AccountsState
-} from './accounts.reducer';
+} from './accounts';
 import authReducer, { initialAuthState, AuthState } from './auth';
 import categoriesReducer, {
   initialCategoryState,
@@ -30,7 +30,7 @@ export type State = {
 };
 
 export const initialState: State = {
-  accounts: initialAccountState,
+  accounts: initialAccountsState,
   auth: initialAuthState,
   categories: initialCategoryState,
   offers: initialOffersState,

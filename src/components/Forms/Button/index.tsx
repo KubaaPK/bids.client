@@ -6,11 +6,11 @@ type Props = {
   text: string;
   type: 'submit' | 'button';
   variant: 'blank' | 'bordered' | 'full';
-  isPending: boolean;
+  isPending?: boolean;
 };
 
 const Button: React.FunctionComponent<Props> = (props: Props) => {
-  const { text, variant, type, isPending } = props;
+  const { text, variant, type, isPending = false } = props;
   return (
     <S.Button type={type} variant={variant} disabled={isPending}>
       <S.Text>{isPending ? <ClipLoader size={15} /> : text}</S.Text>

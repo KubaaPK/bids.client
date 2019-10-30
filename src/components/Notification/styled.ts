@@ -44,7 +44,6 @@ const Wrapper = styled.div<Props>`
   @media ${screenSize.MOBILE} {
     position: fixed;
     z-index: 999;
-    right: ${paddings.MOBILE};
     top: 20vh;
 
     display: flex;
@@ -53,6 +52,7 @@ const Wrapper = styled.div<Props>`
     justify-content: center;
     align-items: center;
 
+    width: 100vw;
     padding: 1rem;
     box-shadow: ${shadows.CALL_TO_ACTION};
 
@@ -63,12 +63,22 @@ const Wrapper = styled.div<Props>`
       color: ${props => setFontColor(props.variant)};
     }
   }
+
+  @media ${screenSize.TABLET} {
+    width: 50%;
+    right: ${paddings.TABLET};
+  }
+
+  @media ${screenSize.TABLET} {
+    width: 25%;
+    right: ${paddings.DESKTOP};
+  }
 `;
 
 const Icon = styled.span`
   @media ${screenSize.MOBILE} {
-    margin-right: 1rem;
-
+    width: 10%;
+    margin-right: 2rem;
     svg {
       height: 3rem;
       width: 3rem;
@@ -78,6 +88,7 @@ const Icon = styled.span`
 
 const Message = styled.p`
   @media ${screenSize.MOBILE} {
+    width: 80%;
     font-size: 1.25rem;
   }
 `;

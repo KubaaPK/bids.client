@@ -18,6 +18,10 @@ const Main = styled.main`
   @media ${screenSize.TABLET} {
     padding-top: 15vh;
   }
+
+  @media ${screenSize.DESKTOP} {
+    padding-top: 12vh;
+  }
 `;
 
 const TitleWrapper = styled.span`

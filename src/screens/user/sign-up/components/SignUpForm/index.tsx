@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import firebase from 'firebase';
-import { signIn } from '../../../../../redux/actions/auth/auth.actions';
+import { AjaxError } from 'rxjs/ajax';
 import * as Form from '../../../../../components/Forms';
-import Notification from '../../../../../components/Notification';
 import * as S from './styled';
 import * as Models from '../../../../../models';
 import { State } from '../../../../../redux/reducers';
-import { saveTokensToLocalStorage } from '../../../../../utils/auth';
+import { signUp } from '../../../../../redux/actions/accounts/sign-up.action';
+import Notification from '../../../../../components/Notification';
 
 type ReduxState = {
-  signingIn: boolean;
-  signedIn: firebase.auth.UserCredential | null;
-  signingInFailed: string | undefined;
+  signingUp: boolean;
+  signingUpFailed: AjaxError;
+  signedUp: boolean;
 };
 
 type ReduxDispatch = {
-  performSignIn: (signInCredentials: Models.Auth.SignInCredentials) => void;
+  performSignUp(signUpCredentials: Models.Auth.SignUpCredentials): void;
 };
 
 type Props = ReduxState & ReduxDispatch;
 
-const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
-  const { performSignIn, signedIn, signingInFailed, signingIn } = props;
-
-  const [signInCredentials, setSignInCredentials] = useState<
-    Models.Auth.SignInCredentials
+const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
+  const { performSignUp, signedUp, signingUp, signingUpFailed } = props;
+  const { push } = useHistory();
+  const [signUpCredentials, setSignUpCredentials] = useState<
+    Models.Auth.SignUpCredentials
   >({
+    username: '',
     email: '',
-    password: ''
+    password: '',
+    type: 'private'
   });
 
   const [notification, setNotification] = useState<
@@ -37,20 +38,17 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
   >({
     show: false,
     message: '',
-    variant: 'success'
+    variant: 'error'
   });
 
   useEffect(() => {
-    if (signedIn) {
-      saveTokensToLocalStorage(
-        (signedIn.user! as any).ma,
-        signedIn.user!.refreshToken
-      );
+    if (signedUp) {
+      push('/zaloguj-sie');
     }
 
-    if (signingInFailed) {
+    if (signingUpFailed) {
       setNotification({
-        message: signingInFailed,
+        message: signingUpFailed.message,
         show: true,
         variant: 'error'
       });
@@ -63,25 +61,27 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
         });
       }, 2000);
     }
-  }, [signedIn, signingInFailed, signingIn]);
+  }, [signingUp, signedUp, signingUpFailed, push]);
 
-  const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
-    setSignInCredentials({
-      ...signInCredentials,
-      [ev.target.id]: ev.target.value
+  const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
+    setSignUpCredentials({
+      ...signUpCredentials,
+      [ev.currentTarget.id]: ev.currentTarget.value
     });
   };
 
   const clearInputs = (): void => {
-    setSignInCredentials({
+    setSignUpCredentials({
       email: '',
-      password: ''
+      password: '',
+      username: '',
+      type: 'private'
     });
   };
 
   const handleFormSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
-    performSignIn(signInCredentials);
+    performSignUp(signUpCredentials);
     clearInputs();
   };
 
@@ -93,16 +93,26 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
           variant={notification.variant}
         />
       )}
-      {signedIn && <Redirect to="/" />}
       <Form.Form onSubmit={handleFormSubmit}>
         <Form.InputGroup>
           <Form.Label text="Adres email" htmlFor="email" />
           <Form.Input
             variant="email"
             id="email"
-            onChange={handleInputChange}
-            value={signInCredentials.email}
             required
+            onChange={handleInputChange}
+            value={signUpCredentials.email}
+          />
+        </Form.InputGroup>
+        <Form.InputGroup>
+          <Form.Label text="Nazwa użytkownika" htmlFor="username" />
+          <Form.Input
+            variant="text"
+            id="username"
+            required
+            min={6}
+            onChange={handleInputChange}
+            value={signUpCredentials.username}
           />
         </Form.InputGroup>
         <Form.InputGroup>
@@ -110,16 +120,17 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
           <Form.Input
             variant="password"
             id="password"
-            onChange={handleInputChange}
-            value={signInCredentials.password}
             required
+            min={6}
+            onChange={handleInputChange}
+            value={signUpCredentials.password}
           />
         </Form.InputGroup>
         <Form.Button
           variant="full"
           type="submit"
-          text="Zaloguj się"
-          isPending={signingIn}
+          text="Załóż konto"
+          isPending={signingUp}
         />
       </Form.Form>
     </S.Wrapper>
@@ -128,17 +139,17 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxState => {
   return {
-    signingIn: state.auth.signingIn,
-    signedIn: state.auth.signedIn,
-    signingInFailed: state.auth.signingInFailed
+    signingUp: state.accounts.signUp.signingUp,
+    signedUp: state.accounts.signUp.signedUp,
+    signingUpFailed: state.accounts.signUp.signingUpFailed!
   };
 };
 
 const mapDispatchToProps: ReduxDispatch = {
-  performSignIn: signIn
+  performSignUp: signUp
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignInForm);
+)(SignUpForm);

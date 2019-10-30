@@ -1,22 +1,21 @@
-import { combineEpics, Epic } from 'redux-observable';
+import { Epic } from 'redux-observable';
 import { catchError, filter, map, mergeMap, startWith } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { ajax, AjaxError } from 'rxjs/ajax';
 import { isOfType } from 'typesafe-actions';
 import {
-  AccountsActions,
-  AccountsActionsTypes,
+  SignUpActionTypes,
+  SignUpActions,
   signedUp,
   signingUp,
   signingUpFailed
-} from '../actions/accounts.actions';
+} from '../../actions/accounts/sign-up.action';
+import { State } from '../../reducers';
+import { API_URL } from '../../../consts';
 
-import { API_URL } from '../../consts';
-import { State } from '../reducers';
-
-const signUpEpic: Epic<AccountsActions, AccountsActions, State> = action$ =>
+const signUpEpic: Epic<SignUpActions, SignUpActions, State> = action$ =>
   action$.pipe(
-    filter(isOfType(AccountsActionsTypes.SIGN_UP)),
+    filter(isOfType(SignUpActionTypes.SIGN_UP)),
     mergeMap(action =>
       from(
         ajax.post(`${API_URL}/accounts`, action.payload, {
@@ -30,4 +29,4 @@ const signUpEpic: Epic<AccountsActions, AccountsActions, State> = action$ =>
     )
   );
 
-export default combineEpics(signUpEpic);
+export default signUpEpic;

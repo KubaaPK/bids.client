@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import accountsEpics from './accounts.epic';
+import accountsEpics from './accounts';
 import authEpics from './auth';
 import categoriesEpics from './categories';
 import offersEpics from './offers';

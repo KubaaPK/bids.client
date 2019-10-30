@@ -7,10 +7,12 @@ type Props = {
   onChange?(props: any): void;
   value?: any;
   required?: boolean;
+  min?: number;
+  max?: number;
 };
 
 const Input: React.FunctionComponent<Props> = (props: Props) => {
-  const { variant, id, onChange, value, required } = props;
+  const { variant, id, onChange, value, required, min, max } = props;
   const [revealPassword, setPasswordReveal] = useState<boolean>(false);
 
   const determineInputType = (): string => {
@@ -28,6 +30,8 @@ const Input: React.FunctionComponent<Props> = (props: Props) => {
         onChange={onChange}
         value={value}
         required={required}
+        minLength={min}
+        maxLength={max}
       />
       {variant === 'password' ? (
         <>
