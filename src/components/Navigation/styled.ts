@@ -15,6 +15,7 @@ const Navbar = styled.nav`
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
+    z-index: 999;
 
     width: 100%;
 

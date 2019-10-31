@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { colors, screenSize } from '../../../shared/styles/vars';
 
-// eslint-disable-next-line import/prefer-default-export
-export const Wrapper = styled.main`
+const Wrapper = styled.main`
   @media ${screenSize.MOBILE} {
     display: flex;
     flex-wrap: wrap;
@@ -12,3 +11,5 @@ export const Wrapper = styled.main`
     background-color: ${colors.PRIMARY};
   }
 `;
+
+export { Wrapper };

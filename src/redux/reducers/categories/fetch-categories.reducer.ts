@@ -1,19 +1,20 @@
-import { AjaxError, AjaxResponse } from 'rxjs/ajax';
+import { AjaxError } from 'rxjs/ajax';
 import {
   FetchCategoriesActions,
   FetchCategoriesActionsTypes
 } from '../../actions/categories/fetch-categories.actions';
+import * as Models from '../../../models';
 
 export type FetchCategoriesState = {
-  areCategoriesFetching: boolean;
-  categoriesFetched: AjaxResponse | undefined;
-  categoriesFetchingFailed: AjaxError | undefined;
+  fetchingCategories: boolean;
+  categories: Models.Categories.Category[];
+  fetchingCategoriesFailed: AjaxError | undefined;
 };
 
 export const initialFetchCategoriesState: FetchCategoriesState = {
-  areCategoriesFetching: true,
-  categoriesFetched: undefined,
-  categoriesFetchingFailed: undefined
+  fetchingCategories: true,
+  categories: [],
+  fetchingCategoriesFailed: undefined
 };
 
 export default function fetchCategoriesReducer(
@@ -23,18 +24,18 @@ export default function fetchCategoriesReducer(
   switch (action.type) {
     case FetchCategoriesActionsTypes.FETCH_CATEGORIES:
     case FetchCategoriesActionsTypes.FETCHING_CATEGORIES:
-      return { ...state, areCategoriesFetching: true };
+      return { ...state, fetchingCategories: true };
     case FetchCategoriesActionsTypes.CATEGORIES_FETCHED:
       return {
         ...state,
-        categoriesFetched: action.payload.response,
-        areCategoriesFetching: false
+        categories: action.payload,
+        fetchingCategories: false
       };
     case FetchCategoriesActionsTypes.CATEGORIES_FETCHING_FAILED:
       return {
         ...state,
-        areCategoriesFetching: false,
-        categoriesFetchingFailed: action.payload
+        fetchingCategories: false,
+        fetchingCategoriesFailed: action.payload
       };
     default:
       return state;

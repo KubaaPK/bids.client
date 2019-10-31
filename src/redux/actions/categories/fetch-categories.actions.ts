@@ -1,4 +1,5 @@
-import { AjaxResponse, AjaxError } from 'rxjs/ajax';
+import { AjaxError } from 'rxjs/ajax';
+import * as Models from '../../../models';
 
 export enum FetchCategoriesActionsTypes {
   FETCH_CATEGORIES = 'categories/fetch-categories',
@@ -17,7 +18,7 @@ export type FetchingCategoriesAction = {
 
 export type CategoriesFetchedAction = {
   type: FetchCategoriesActionsTypes.CATEGORIES_FETCHED;
-  payload: AjaxResponse;
+  payload: Models.Categories.Category[];
 };
 
 export type CategoriesFetchingFailedAction = {
@@ -38,7 +39,7 @@ export function fetchingCategories(): FetchingCategoriesAction {
 }
 
 export function categoriesFetched(
-  categories: AjaxResponse
+  categories: Models.Categories.Category[]
 ): CategoriesFetchedAction {
   return {
     type: FetchCategoriesActionsTypes.CATEGORIES_FETCHED,
