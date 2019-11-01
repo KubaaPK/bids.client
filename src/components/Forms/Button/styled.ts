@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
-import { screenSize, colors, shadows } from '../../../shared/styles/vars';
+import { screenSize, colors } from '../../../shared/styles/vars';
 
 type Props = {
   variant: 'full' | 'blank' | 'bordered';
@@ -53,7 +53,6 @@ const Button = styled.button<Props>`
     border: 0;
 
     background-color: ${props => setBackgroundColor(props.variant)};
-    box-shadow: ${shadows.CALL_TO_ACTION};
 
     color: ${props => setFontColor(props.variant)};
     &:disabled {
@@ -75,8 +74,6 @@ const Button = styled.button<Props>`
     transition: 0.2s;
     &:hover {
       cursor: pointer;
-
-      box-shadow: ${shadows.CALL_TO_ACTION_HOVER};
 
       background-color: ${props => setHoverBackgroundColor(props.variant)};
     }
