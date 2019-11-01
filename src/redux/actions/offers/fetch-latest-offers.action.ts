@@ -1,5 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-import { OfferModel } from '../../../models/offer';
+import * as Models from '../../../models';
 
 export enum FetchLatestOffersActionsTypes {
   FETCH_LATEST_OFFERS = 'offers/fetch-latest-offers',
@@ -8,20 +8,20 @@ export enum FetchLatestOffersActionsTypes {
   LATEST_OFFERS_FETCHING_FAILED = 'offers/latest-offers-fetching-failed'
 }
 
-export type FetchLatestOffersAction = {
+type FetchLatestOffersAction = {
   type: FetchLatestOffersActionsTypes.FETCH_LATEST_OFFERS;
 };
 
-export type FetchingLatestOffersAction = {
+type FetchingLatestOffersAction = {
   type: FetchLatestOffersActionsTypes.FETCHING_LATEST_OFFERS;
 };
 
-export type LatestOffersFetchedAction = {
+type LatestOffersFetchedAction = {
   type: FetchLatestOffersActionsTypes.LATEST_OFFERS_FETCHED;
-  payload: OfferModel[];
+  payload: Models.Offers.Offer[];
 };
 
-export type LatestOffersFetchingFailedAction = {
+type LatestOffersFetchingFailedAction = {
   type: FetchLatestOffersActionsTypes.LATEST_OFFERS_FETCHING_FAILED;
   payload: AjaxError;
 };
@@ -39,7 +39,7 @@ export function fetchingLatestOffers(): FetchingLatestOffersAction {
 }
 
 export function latestOffersFetched(
-  offers: OfferModel[]
+  offers: Models.Offers.Offer[]
 ): LatestOffersFetchedAction {
   return {
     type: FetchLatestOffersActionsTypes.LATEST_OFFERS_FETCHED,

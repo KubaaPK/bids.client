@@ -6,7 +6,10 @@ const Wrapper = styled.main`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
+
     min-height: 100vh;
+    width: 100%;
 
     background-color: ${colors.PRIMARY};
   }

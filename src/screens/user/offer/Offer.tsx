@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
 import { CircleLoader } from 'react-spinners';
 import { State } from '../../../redux/reducers';
-import { OfferModel } from '../../../models/offer';
+// import { OfferModel } from '../../../models/offer';
 import { fetchOffer } from '../../../redux/actions/offers/fetch-offer.action';
 import Navigation from '../../../components/Navigation';
 import { Images, Description, Info, Parameters, Purchase } from './components';
@@ -12,7 +12,7 @@ import { ImagesAndInfo, Wrapper, InfoAndPurchaseWrapper } from './styled';
 
 type ReduxProps = {
   isOfferFetching: boolean;
-  offerFetched: OfferModel | undefined;
+  offerFetched: any | undefined;
   fetchinOfferFailed: AjaxError | undefined;
   isAuthenticated: boolean;
 };

@@ -1,5 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-import { OfferModel } from '../../../models/offer';
+import * as Models from '../../../models';
 
 export enum FetchOfferActionsTypes {
   FETCH_OFFER = 'offers/fetch-offer',
@@ -19,7 +19,7 @@ export type FetchingOfferAction = {
 
 export type OfferFetchedAction = {
   type: FetchOfferActionsTypes.OFFER_FETCHED;
-  payload: OfferModel;
+  payload: Models.Offers.Offer;
 };
 
 export type FetchingOfferFailedAction = {
@@ -40,7 +40,7 @@ export function fetchingOffer(): FetchingOfferAction {
   };
 }
 
-export function offerFeched(offer: OfferModel): OfferFetchedAction {
+export function offerFeched(offer: Models.Offers.Offer): OfferFetchedAction {
   return {
     type: FetchOfferActionsTypes.OFFER_FETCHED,
     payload: offer

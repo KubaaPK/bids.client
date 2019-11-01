@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { User, ChevronDown, ChevronUp } from 'react-feather';
-import * as S from './UnauthenticatedMenu.styled';
-import useOutsideClick from '../../../shared/hooks/use-outside-click';
+import * as S from './styled';
+import useOutsideClick from '../../../../shared/hooks/use-outside-click';
 
 const UnauthenticatedMenu: React.FunctionComponent<{}> = () => {
   const [isMenuToggled, toggleMenu] = useState<boolean>(false);

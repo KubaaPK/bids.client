@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { lighten } from 'polished';
-import {
-  paddings,
-  screenSize,
-  shadows,
-  colors
-} from '../../shared/styles/vars';
+import { paddings, screenSize, colors } from '../../shared/styles/vars';
 
 const Navbar = styled.nav`
   @media ${screenSize.MOBILE} {
@@ -20,13 +15,16 @@ const Navbar = styled.nav`
     width: 100%;
 
     padding: 2rem ${paddings.MOBILE};
-    box-shadow: ${shadows.LEVEL_1};
 
     background-color: #fff;
   }
 
   @media ${screenSize.TABLET} {
     /* justify-content: initial; */
+  }
+
+  @media ${screenSize.DESKTOP} {
+    padding: 2rem ${paddings.DESKTOP};
   }
 `;
 
@@ -92,7 +90,6 @@ const SearchButton = styled.button`
 
     border: 0;
     background-color: ${colors.ACCENT};
-    box-shadow: ${shadows.CALL_TO_ACTION};
 
     color: #fff;
   }

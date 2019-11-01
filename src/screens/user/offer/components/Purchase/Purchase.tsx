@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Wrapper, Form, Input, IncrDecrButton } from './styled';
-import { InStock } from '../../../main/components/latest-offers/styled';
+// import { InStock } from '../../../main/components/LatestOffers/styled';
 
 type Props = {
   inStock: number;
@@ -41,10 +41,10 @@ const Purchase: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <InStock>
+        {/* <InStock>
           Liczba dostępnych przedmiotów
           {inStock}
-        </InStock>
+        </InStock> */}
         <IncrDecrButton
           data-value={1}
           onClick={handleButtonClick}

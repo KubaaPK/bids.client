@@ -3,11 +3,11 @@ import {
   FetchOfferActions,
   FetchOfferActionsTypes
 } from '../../actions/offers/fetch-offer.action';
-import { OfferModel } from '../../../models/offer';
+import * as Models from '../../../models';
 
 export type FetchOfferState = {
   isOfferFetching: boolean;
-  offerFetched: OfferModel | undefined;
+  offerFetched: Models.Offers.Offer | undefined;
   offerFetchingFailed: AjaxError | undefined;
 };
 

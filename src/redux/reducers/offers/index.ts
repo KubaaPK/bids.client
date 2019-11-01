@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import latestOffersReducer, {
   LatestOffersState,
   initialLatestOffersState
-} from './latest-offers.reducer';
+} from './fetch-latest-offers.reducer';
 import fetchOfferReducer, {
   FetchOfferState,
   initialFetchOfferState

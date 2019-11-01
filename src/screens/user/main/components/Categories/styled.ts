@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize, shadows } from '../../../../../shared/styles/vars';
+import { screenSize, paddings } from '../../../../../shared/styles/vars';
 
 const List = styled.ul`
   @media ${screenSize.MOBILE} {
@@ -15,7 +15,6 @@ const List = styled.ul`
     padding-left: 0;
 
     background-color: #ffffff;
-    box-shadow: ${shadows.LEVEL_1};
 
     &::-webkit-scrollbar {
       display: none;
@@ -27,11 +26,11 @@ const List = styled.ul`
   }
 
   @media ${screenSize.DESKTOP} {
-    top: 13vh;
-    left: 0rem;
+    top: 8rem;
+    left: ${paddings.DESKTOP};
     flex-direction: column;
-    width: 13%;
-    padding-left: 4rem;
+    width: 20vw;
+    padding: 0 2rem 2rem 2rem;
 
     border-radius: 3px;
   }
@@ -44,10 +43,10 @@ const Title = styled.p`
 
   @media ${screenSize.DESKTOP} {
     display: block;
+    margin-bottom: 2rem;
 
-    font-size: 1.3rem;
-    font-weight: 400;
-    text-transform: uppercase;
+    font-size: 2.2rem;
+    font-weight: 500;
   }
 `;
 

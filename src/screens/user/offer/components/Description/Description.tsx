@@ -1,10 +1,10 @@
 import React from 'react';
-import { DescriptionModel } from '../../../../../models/offer';
+// import { DescriptionModel } from '../../../../../models/offer';
 import { Wrapper, Items, Element } from './styled';
 import * as Typo from '../../../../../components/Typography';
 
 type Props = {
-  description: DescriptionModel[];
+  description: any;
 };
 
 const Description: React.FunctionComponent<Props> = (props: Props) => {
@@ -19,9 +19,9 @@ const Description: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <Wrapper>
       <Typo.Title text="Opis" />
-      {description.map((item, index) => (
+      {description.map((item: any, index: any) => (
         <Items key={`item-${index + 1}`}>
-          {item.items.map(el => (
+          {item.items.map((el: any) => (
             <Element
               key={el.content}
               dangerouslySetInnerHTML={htmlMarkup(el.content)}

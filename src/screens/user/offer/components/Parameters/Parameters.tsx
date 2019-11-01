@@ -1,9 +1,9 @@
 import React from 'react';
-import { ParameterValue } from '../../../../../models/offer';
+// import { ParameterValue } from '../../../../../models/offer';
 import { Wrapper, ParametersList, Parameter, Title } from './styled';
 
 type Props = {
-  parameters: ParameterValue[];
+  parameters: any[];
 };
 
 const Parameters: React.FunctionComponent<Props> = (props: Props) => {
@@ -13,7 +13,7 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
     <Wrapper>
       <Title>Parametry</Title>
       <ParametersList>
-        {parameters.map((param: ParameterValue) => (
+        {parameters.map((param: any) => (
           <Parameter key={param.name}>
             <span>{param.name}</span>
             <span>{param.value}</span>

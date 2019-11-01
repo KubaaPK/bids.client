@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { lighten } from 'polished';
-import { screenSize, shadows, colors } from '../../../shared/styles/vars';
+import { Link } from 'react-router-dom';
+import { screenSize, colors } from '../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
@@ -9,29 +9,6 @@ const Wrapper = styled.div`
 
   @media ${screenSize.TABLET} {
     order: 3;
-  }
-`;
-
-const Icons = styled.div`
-  @media ${screenSize.MOBILE} {
-    svg {
-      margin: 0 1rem;
-
-      &:last-of-type {
-        margin-right: 0;
-      }
-    }
-  }
-
-  @media ${screenSize.TABLET} {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-
-    svg {
-      position: relative;
-      top: 0.5rem;
-    }
   }
 `;
 
@@ -46,18 +23,24 @@ const ToogleMenuButton = styled.button`
   }
 
   @media ${screenSize.TABLET} {
+    position: relative;
+    top: 0.5rem;
+
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 
     span {
-      position: relative;
-      top: 1rem;
+      align-self: center;
 
       margin-right: 0.5rem;
 
       font-size: 1.2rem;
     }
+  }
+
+  @media ${screenSize.DESKTOP} {
+    cursor: pointer;
   }
 `;
 
@@ -69,19 +52,19 @@ const Menu = styled.ul`
 
     width: 80vw;
     padding: 2rem 1rem 1rem 1rem;
-    box-shadow: ${shadows.LEVEL_1};
 
     background-color: #fff;
+    border: 1px solid #ccc;
 
     list-style-type: none;
   }
 
   @media ${screenSize.TABLET} {
-    width: 35vw;
+    width: 30vw;
   }
 
   @media ${screenSize.DESKTOP} {
-    width: 18vw;
+    width: 15vw;
   }
 `;
 
@@ -107,7 +90,6 @@ const MenuElement = styled.li`
         transition: 0.2s;
         &:hover {
           background-color: ${lighten(0.1, colors.ACCENT)};
-          box-shadow: ${shadows.CALL_TO_ACTION_HOVER};
         }
       }
     }
@@ -136,4 +118,4 @@ const MenuLink = styled(Link)`
   }
 `;
 
-export { Wrapper, Icons, ToogleMenuButton, Menu, MenuElement, MenuLink };
+export { Wrapper, ToogleMenuButton, Menu, MenuElement, MenuLink };

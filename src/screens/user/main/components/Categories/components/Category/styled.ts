@@ -11,7 +11,7 @@ const Category = styled.li`
     list-style-type: none;
     text-align: center;
     a {
-      font-size: 1.25rem;
+      font-size: 1.4rem;
       text-decoration: none;
       color: ${colors.GREYISH};
     }
@@ -28,11 +28,12 @@ const Category = styled.li`
     border-bottom: 0;
 
     a {
-      font-size: 1.5rem;
+      color: ${colors.FONT};
+      font-size: 1.4rem;
 
       transition: 0.2s;
       &:hover {
-        color: ${colors.ACCENT};
+        color: ${colors.SECONDARY_ACCENT};
       }
     }
   }

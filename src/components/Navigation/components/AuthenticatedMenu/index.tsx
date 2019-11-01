@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ChevronDown, User, Layout, ChevronUp } from 'react-feather';
-import * as S from './AuthenticatedMenu.styled';
-import useOutsideClick from '../../../shared/hooks/use-outside-click';
+import * as S from './styled';
+import useOutsideClick from '../../../../shared/hooks/use-outside-click';
 
 type Props = {
   signOut: () => void;

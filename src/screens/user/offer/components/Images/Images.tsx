@@ -1,10 +1,10 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import { Images as ImageModel } from '../../../../../models/offer';
+// import { Images as ImageModel } from '../../../../../models/offer';
 import { Wrapper } from './styled';
 
 type Props = {
-  images: ImageModel[];
+  images: any[];
 };
 
 const Images: React.FunctionComponent<Props> = (props: Props) => {

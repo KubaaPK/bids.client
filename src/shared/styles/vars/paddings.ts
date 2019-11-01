@@ -1,5 +1,5 @@
 export default {
   MOBILE: '2rem',
   TABLET: '4rem',
-  DESKTOP: '2rem'
+  DESKTOP: '6rem'
 };
