@@ -1,5 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-import { Parameter } from './fetch-parameters.action';
+import * as Models from '../../../models';
 
 export enum FetchCategoryParametersActionTypes {
   FETCH_CATEGORY_PARAMETERS = 'parameters/FETCH_CATEGORY_PARAMETERS',
@@ -19,7 +19,7 @@ type FetchingCategoryParametersAction = {
 
 type CategoryParametersFetchedAction = {
   type: FetchCategoryParametersActionTypes.CATEGORY_PARAMETERS_FETCHED;
-  payload: Parameter[];
+  payload: Models.Categories.Parameter[];
 };
 
 type FetchingCategoryParametersFailedAction = {
@@ -43,7 +43,7 @@ export function fetchingCategoryParameters(): FetchingCategoryParametersAction {
 }
 
 export function categoryParametersFetched(
-  parameters: Parameter[]
+  parameters: Models.Categories.Parameter[]
 ): CategoryParametersFetchedAction {
   return {
     type: FetchCategoryParametersActionTypes.CATEGORY_PARAMETERS_FETCHED,

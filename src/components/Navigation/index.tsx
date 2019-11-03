@@ -1,8 +1,8 @@
 import React from 'react';
 import { Search } from 'react-feather';
 import { connect } from 'react-redux';
-import UnauthenticatedMenu from './components/UnauthenticatedMenu';
-import AuthenticatedMenu from './components/AuthenticatedMenu';
+import UnauthenticatedMenu from './UnauthenticatedMenu';
+import AuthenticatedMenu from './AuthenticatedMenu';
 import { State } from '../../redux/reducers';
 import { signOut } from '../../redux/actions/auth/auth.actions';
 import * as S from './styled';

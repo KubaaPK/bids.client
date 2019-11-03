@@ -1,11 +1,5 @@
 import { AjaxError, AjaxResponse } from 'rxjs/ajax';
-
-export type NewCategory = {
-  name: string;
-  parent?: {
-    id: string;
-  };
-};
+import * as Models from '../../../models';
 
 export enum AddCategoryActionTypes {
   ADD_CATEGORY = 'categories/ADD_CATEGORY',
@@ -16,10 +10,10 @@ export enum AddCategoryActionTypes {
 
 export type AddCategoryAction = {
   type: AddCategoryActionTypes.ADD_CATEGORY;
-  payload: NewCategory;
+  payload: Models.Categories.Category;
 };
 
-export type CategoryIsAddingAction = {
+export type AddingCategory = {
   type: AddCategoryActionTypes.CATEGORY_IS_ADDING;
 };
 
@@ -33,14 +27,16 @@ export type AddingCategoryFailedAction = {
   payload: AjaxError;
 };
 
-export function addCategory(newCategory: NewCategory): AddCategoryAction {
+export function addCategory(
+  category: Models.Categories.Category
+): AddCategoryAction {
   return {
     type: AddCategoryActionTypes.ADD_CATEGORY,
-    payload: newCategory
+    payload: category
   };
 }
 
-export function categoryIsAdding(): CategoryIsAddingAction {
+export function addingCategory(): AddingCategory {
   return {
     type: AddCategoryActionTypes.CATEGORY_IS_ADDING
   };
@@ -64,6 +60,6 @@ export function addingCategoryFailed(
 
 export type AddCategoryActions =
   | AddCategoryAction
-  | CategoryIsAddingAction
+  | AddingCategory
   | CategoryAddedAction
   | AddingCategoryFailedAction;

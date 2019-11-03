@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { screenSize, paddings, shadows } from '../../../shared/styles/vars';
+import { screenSize, paddings } from '../../../shared/styles/vars';
 
 const Form = styled.form`
   @media ${screenSize.MOBILE} {
     padding: 1rem ${paddings.MOBILE};
-    box-shadow: ${shadows.LEVEL_1};
 
     background-color: #fff;
   }

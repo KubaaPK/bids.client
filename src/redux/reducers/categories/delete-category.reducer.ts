@@ -1,4 +1,4 @@
-import { AjaxError } from 'rxjs/ajax';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import {
   DeleteCategoryActions,
   DeleteCategoryActionTypes
@@ -6,13 +6,13 @@ import {
 
 export type DeleteCategoryState = {
   isCategoryDeleting: boolean;
-  categoryDeleted: boolean;
+  categoryDeleted: undefined | AjaxResponse;
   categoryDeletingFailed: AjaxError | undefined;
 };
 
 export const initialDeleteCategoryState: DeleteCategoryState = {
   isCategoryDeleting: false,
-  categoryDeleted: false,
+  categoryDeleted: undefined,
   categoryDeletingFailed: undefined
 };
 
@@ -24,7 +24,11 @@ export default function deleteCategoryReducer(
     case DeleteCategoryActionTypes.DELETE_CATEGORY:
       return { ...state, isCategoryDeleting: true };
     case DeleteCategoryActionTypes.CATEGORY_DELETED:
-      return { ...state, isCategoryDeleting: false, categoryDeleted: true };
+      return {
+        ...state,
+        isCategoryDeleting: false,
+        categoryDeleted: action.payload
+      };
     case DeleteCategoryActionTypes.CATEGORY_DELETING_FAILED:
       return {
         ...state,

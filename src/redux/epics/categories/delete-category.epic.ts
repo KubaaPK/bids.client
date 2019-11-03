@@ -25,7 +25,7 @@ const deleteCategoryEpic: Epic<
           Authorization: `Bearer ${localStorage.getItem('access-token')}`
         })
       ).pipe(
-        map(() => categoryDeleted()),
+        map((response: any) => categoryDeleted(response)),
         catchError((error: AjaxError) => of(deletingCategoryFailed(error)))
       )
     )

@@ -1,22 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-import { ParameterType } from './add-parameter.action';
-
-export type Parameter = {
-  id: string;
-  name: string;
-  type: ParameterType;
-  unit: string;
-  required: boolean;
-  dictionary: any[];
-  restrictions: {
-    min: string;
-    max: string;
-    precision: number;
-    minLength: number;
-    maxLength: number;
-    multipleChoices: number;
-  };
-};
+import * as Models from '../../../models';
 
 export enum FetchParametersActionTypes {
   FETCH_PARAMETERS = 'parameters/fetch-parameters',
@@ -35,7 +18,7 @@ export type ParametersAreFetchingAction = {
 
 export type ParametersFetchedAction = {
   type: FetchParametersActionTypes.PARAMETERS_FETCHED;
-  payload: Parameter[];
+  payload: Models.Categories.Parameter[];
 };
 
 export type FetchingParametersFailedAction = {
@@ -56,7 +39,7 @@ export function parametersAreFetching(): ParametersAreFetchingAction {
 }
 
 export function parametersFetched(
-  parameters: Parameter[]
+  parameters: Models.Categories.Parameter[]
 ): ParametersFetchedAction {
   return {
     type: FetchParametersActionTypes.PARAMETERS_FETCHED,

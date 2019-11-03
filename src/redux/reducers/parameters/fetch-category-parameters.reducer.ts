@@ -1,5 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-import { Parameter } from '../../actions/parameters/fetch-parameters.action';
+import * as Models from '../../../models';
 import {
   FetchCategoryParametersActions,
   FetchCategoryParametersActionTypes
@@ -7,7 +7,7 @@ import {
 
 export type FetchCategoryParametersState = {
   fetchingCategoryParameters: boolean;
-  categoryParameters: Parameter[];
+  categoryParameters: Models.Categories.Parameter[];
   fetchingCategoryParametersFailed: undefined | AjaxError;
 };
 

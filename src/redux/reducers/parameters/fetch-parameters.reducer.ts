@@ -1,19 +1,19 @@
 import { AjaxError } from 'rxjs/ajax';
 import {
-  Parameter,
   FetchParametersActionTypes,
   FetchParametersActions
 } from '../../actions/parameters/fetch-parameters.action';
+import * as Models from '../../../models';
 
 export type FetchParametersState = {
   parametersAreFetching: boolean;
-  parametersFetched: undefined | Parameter[];
+  parametersFetched: Models.Categories.Parameter[];
   fetchingParametersFailed: undefined | AjaxError;
 };
 
 export const initialFetchParametersState: FetchParametersState = {
   parametersAreFetching: true,
-  parametersFetched: undefined,
+  parametersFetched: [],
   fetchingParametersFailed: undefined
 };
 

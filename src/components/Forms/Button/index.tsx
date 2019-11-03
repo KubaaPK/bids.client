@@ -3,7 +3,7 @@ import { ClipLoader } from 'react-spinners';
 import * as S from './styled';
 
 type Props = {
-  text: string;
+  text: any;
   type: 'submit' | 'button';
   variant: 'blank' | 'bordered' | 'full';
   isPending?: boolean;

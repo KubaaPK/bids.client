@@ -1,4 +1,4 @@
-import { AjaxError } from 'rxjs/ajax';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 
 export enum DeleteCategoryActionTypes {
   DELETE_CATEGORY = 'categories/DELETE_CATEGORY',
@@ -13,6 +13,7 @@ export type DeleteCategoryAction = {
 
 export type CategoryDeletedAction = {
   type: DeleteCategoryActionTypes.CATEGORY_DELETED;
+  payload: AjaxResponse;
 };
 
 export type CategoryDeletingFailedAction = {
@@ -27,9 +28,10 @@ export function deleteCategory(id: string): DeleteCategoryAction {
   };
 }
 
-export function categoryDeleted(): CategoryDeletedAction {
+export function categoryDeleted(response: AjaxResponse): CategoryDeletedAction {
   return {
-    type: DeleteCategoryActionTypes.CATEGORY_DELETED
+    type: DeleteCategoryActionTypes.CATEGORY_DELETED,
+    payload: response
   };
 }
 

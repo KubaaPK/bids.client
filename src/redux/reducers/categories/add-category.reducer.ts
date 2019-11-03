@@ -5,13 +5,13 @@ import {
 } from '../../actions/categories/add-category.actions';
 
 export type AddCategoryState = {
-  categoryIsAdding: boolean;
+  addingCategory: boolean;
   categoryAdded: AjaxResponse | undefined;
   addingCategoryFailed: AjaxError | undefined;
 };
 
 export const initialAddCategoryState: AddCategoryState = {
-  categoryIsAdding: false,
+  addingCategory: false,
   categoryAdded: undefined,
   addingCategoryFailed: undefined
 };
@@ -22,17 +22,17 @@ export default function addCategoryReducer(
 ): AddCategoryState {
   switch (action.type) {
     case AddCategoryActionTypes.ADD_CATEGORY:
-      return { ...state, categoryIsAdding: true };
+      return { ...state, addingCategory: true };
     case AddCategoryActionTypes.CATEGORY_ADDED:
       return {
         ...state,
-        categoryIsAdding: false,
+        addingCategory: false,
         categoryAdded: action.payload
       };
     case AddCategoryActionTypes.ADDING_CATEGORY_FAILED:
       return {
         ...state,
-        categoryIsAdding: false,
+        addingCategory: false,
         addingCategoryFailed: action.payload
       };
     default:
