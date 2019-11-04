@@ -1,64 +1,90 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { AjaxError } from 'rxjs/ajax';
-import {
-  fetchDeliveryMethods,
-  DeliveryMethodModel
-} from '../../../../redux/actions/deliery-methods/fetch-delivery-methods.action';
+import { Plus } from 'react-feather';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
+import * as Models from '../../../../models';
+import * as S from './styled';
+import * as Typo from '../../../../components/Typography';
 import { State } from '../../../../redux/reducers';
+import { fetchDeliveryMethods } from '../../../../redux/actions/deliery-methods/fetch-delivery-methods.action';
+import DeliveryMethod from './DeliveryMethod';
+import AddDeliveryMethodForm from './AddDeliveryMethodForm';
+import useOutsideClick from '../../../../shared/hooks/use-outside-click';
 
-type Props = {
+type ReduxState = {
   fetchingDeliveryMethods: boolean;
-  deliveryMethods: DeliveryMethodModel[];
+  deliveryMethods: Models.DeliveryMethods.DeliveryMethod[];
   fetchingDeliveryMethodsFailed: AjaxError | undefined;
+  deliveryMethodAdded: AjaxResponse | undefined;
 };
 
-type Dispatch = {
-  fetchDeliveryMethods(): void;
+type ReduxDispatch = {
+  performFetchDeliveryMethods: () => void;
 };
 
-type CompProps = Props & Dispatch;
+type Props = ReduxState & ReduxDispatch;
 
-const DeliveryMethods: React.FunctionComponent<CompProps> = (
-  props: CompProps
-) => {
+const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
   const {
     deliveryMethods,
-    fetchDeliveryMethods,
-    fetchingDeliveryMethods
+    deliveryMethodAdded,
+    performFetchDeliveryMethods
   } = props;
 
+  const [showAddDeliveryMethodForm, setShowAddDeliveryMethodForm] = useState<
+    boolean
+  >(false);
+
   useEffect(() => {
-    fetchDeliveryMethods();
-  }, []);
+    performFetchDeliveryMethods();
+  }, [deliveryMethodAdded, performFetchDeliveryMethods]);
+
+  const addDeliveryMethodFormRef = useRef<HTMLSpanElement>(null);
+
+  useOutsideClick(addDeliveryMethodFormRef, () => {
+    if (showAddDeliveryMethodForm) setShowAddDeliveryMethodForm(false);
+  });
 
   return (
-    <>
-      DELIVERY METHODS GOES HERE
-      {fetchingDeliveryMethods === true ? null : (
-        <ul>
-          {deliveryMethods!.map((method: DeliveryMethodModel) => (
-            <li key={method.id}>{method.name}</li>
-          ))}
-        </ul>
+    <S.Wrapper>
+      <Typo.Title text="Zarządzanie metodami dostaw" />
+      <S.List>
+        {deliveryMethods.map(deliveryMethod => (
+          <DeliveryMethod
+            deliveryMethod={deliveryMethod}
+            key={deliveryMethod.id}
+          />
+        ))}
+      </S.List>
+      <S.ShowAddDeliveryMethodFormButton
+        onClick={() => setShowAddDeliveryMethodForm(!showAddDeliveryMethodForm)}
+      >
+        <Plus />
+      </S.ShowAddDeliveryMethodFormButton>
+      {showAddDeliveryMethodForm && (
+        <span ref={addDeliveryMethodFormRef}>
+          <AddDeliveryMethodForm />
+        </span>
       )}
-    </>
+    </S.Wrapper>
   );
 };
 
-const mapStateToProps = (state: State): Props => {
+const mapStateToProps = (state: State): ReduxState => {
   return {
     deliveryMethods:
       state.deliveryMethods.fetchDeliveryMethods.fetchedDeliveryMethods,
     fetchingDeliveryMethods:
       state.deliveryMethods.fetchDeliveryMethods.fetchingDeliveryMethods,
     fetchingDeliveryMethodsFailed:
-      state.deliveryMethods.fetchDeliveryMethods.fetchingDeliveryMethodsFailed
+      state.deliveryMethods.fetchDeliveryMethods.fetchingDeliveryMethodsFailed,
+    deliveryMethodAdded:
+      state.deliveryMethods.addDeliveryMethod.deliveryMethodAdded
   };
 };
 
-const mapDispatchToProps: Dispatch = {
-  fetchDeliveryMethods
+const mapDispatchToProps: ReduxDispatch = {
+  performFetchDeliveryMethods: fetchDeliveryMethods
 };
 
 export default connect(

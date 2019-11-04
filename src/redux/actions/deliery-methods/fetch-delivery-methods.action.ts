@@ -1,15 +1,10 @@
 import { AjaxError } from 'rxjs/ajax';
-
-export type DeliveryMethodModel = {
-  id: string;
-  name: string;
-  paymentPolicy: string;
-};
+import * as Models from '../../../models';
 
 export enum FetchDeliveryMethodsActionTypes {
-  FETCH_DELIVERY_METHODS = 'delivery-methods/fetch-delivry-methods',
+  FETCH_DELIVERY_METHODS = 'delivery-methods/fetch-delivery-methods',
   FETCHING_DELIVERY_METHODS = 'delivery-methods/fetching-delivery-methods',
-  DELIVERY_METHOD_FETCHED = 'delivery-methods/delivery-methods-fetched',
+  FETCHED_DELIVERY_METHODS = 'delivery-methods/fetched-delivery-methods',
   FETCHING_DELIVERY_METHODS_FAILED = 'delivery-methods/fetching-delivery-methods-failed'
 }
 
@@ -22,8 +17,8 @@ type FetchingDeliveryMethodAction = {
 };
 
 type DeliveryMethodFetchedAction = {
-  type: FetchDeliveryMethodsActionTypes.DELIVERY_METHOD_FETCHED;
-  payload: DeliveryMethodModel[];
+  type: FetchDeliveryMethodsActionTypes.FETCHED_DELIVERY_METHODS;
+  payload: Models.DeliveryMethods.DeliveryMethod[];
 };
 
 type FetchingDeliveryMethodFailedAction = {
@@ -44,10 +39,10 @@ export function fetchingDeliveryMethod(): FetchingDeliveryMethodAction {
 }
 
 export function deliveryMethodsFetched(
-  deliveryMethods: DeliveryMethodModel[]
+  deliveryMethods: Models.DeliveryMethods.DeliveryMethod[]
 ): DeliveryMethodFetchedAction {
   return {
-    type: FetchDeliveryMethodsActionTypes.DELIVERY_METHOD_FETCHED,
+    type: FetchDeliveryMethodsActionTypes.FETCHED_DELIVERY_METHODS,
     payload: deliveryMethods
   };
 }

@@ -7,20 +7,25 @@ import Parameters from './Parameters';
 import DeliveryMethods from './DeliveryMethods';
 import Navigation from '../../../components/Navigation';
 import { fetchParameters } from '../../../redux/actions/parameters/fetch-parameters.action';
+import { fetchDeliveryMethods } from '../../../redux/actions/deliery-methods/fetch-delivery-methods.action';
 
 type ReduxDispatch = {
   performFetchParameters: () => void;
+  performFetchDeliveryMethods: () => void;
 };
 
 type Props = ReduxDispatch;
 
 const Dashboard: React.FunctionComponent<Props> = (props: Props) => {
-  const { performFetchParameters } = props;
-  const [componentName, setComponentName] = useState<string>('parameters');
+  const { performFetchParameters, performFetchDeliveryMethods } = props;
+  const [componentName, setComponentName] = useState<string>(
+    'delivery-methods'
+  );
 
   useEffect(() => {
     performFetchParameters();
-  }, [performFetchParameters]);
+    performFetchDeliveryMethods();
+  }, [performFetchParameters, performFetchDeliveryMethods]);
 
   const renderComponent = (name: string): JSX.Element => {
     switch (name) {
@@ -28,7 +33,7 @@ const Dashboard: React.FunctionComponent<Props> = (props: Props) => {
         return <Categories />;
       case 'parameters':
         return <Parameters />;
-      case 'delivery-method':
+      case 'delivery-methods':
         return <DeliveryMethods />;
       default:
         return <Categories />;
@@ -49,7 +54,8 @@ const Dashboard: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 const mapDispatchToProps: ReduxDispatch = {
-  performFetchParameters: fetchParameters
+  performFetchParameters: fetchParameters,
+  performFetchDeliveryMethods: fetchDeliveryMethods
 };
 
 export default connect(

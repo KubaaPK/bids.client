@@ -8,21 +8,21 @@ export enum AddCategoryActionTypes {
   ADDING_CATEGORY_FAILED = 'categories/ADDING_CATEGORY_FAILED'
 }
 
-export type AddCategoryAction = {
+type AddCategoryAction = {
   type: AddCategoryActionTypes.ADD_CATEGORY;
   payload: Models.Categories.Category;
 };
 
-export type AddingCategory = {
+type AddingCategory = {
   type: AddCategoryActionTypes.CATEGORY_IS_ADDING;
 };
 
-export type CategoryAddedAction = {
+type CategoryAddedAction = {
   type: AddCategoryActionTypes.CATEGORY_ADDED;
   payload: AjaxResponse;
 };
 
-export type AddingCategoryFailedAction = {
+type AddingCategoryFailedAction = {
   type: AddCategoryActionTypes.ADDING_CATEGORY_FAILED;
   payload: AjaxError;
 };

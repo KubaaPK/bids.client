@@ -1,13 +1,13 @@
 import { AjaxError } from 'rxjs/ajax';
 import {
   FetchDeliveryMethodActions,
-  FetchDeliveryMethodsActionTypes,
-  DeliveryMethodModel
+  FetchDeliveryMethodsActionTypes
 } from '../../actions/deliery-methods/fetch-delivery-methods.action';
+import * as Models from '../../../models';
 
 export type FetchDeliveryMethodsState = {
   fetchingDeliveryMethods: boolean;
-  fetchedDeliveryMethods: [] | DeliveryMethodModel[];
+  fetchedDeliveryMethods: Models.DeliveryMethods.DeliveryMethod[];
   fetchingDeliveryMethodsFailed: undefined | AjaxError;
 };
 
@@ -25,7 +25,7 @@ export default function fetchDeliveryMethods(
     case FetchDeliveryMethodsActionTypes.FETCH_DELIVERY_METHODS:
     case FetchDeliveryMethodsActionTypes.FETCHING_DELIVERY_METHODS:
       return { ...state, fetchingDeliveryMethods: true };
-    case FetchDeliveryMethodsActionTypes.DELIVERY_METHOD_FETCHED:
+    case FetchDeliveryMethodsActionTypes.FETCHED_DELIVERY_METHODS:
       return {
         ...state,
         fetchingDeliveryMethods: false,
