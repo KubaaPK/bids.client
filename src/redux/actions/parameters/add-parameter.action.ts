@@ -1,64 +1,44 @@
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
-
-export enum ParameterType {
-  INTEGER = 'integer',
-  SINGLE_STRING = 'single-string',
-  DICTIONARY = 'DICTIONARY',
-  FLOAT = 'float',
-  FLOAT_RANGE = 'float-range'
-}
-
-export type NewParameter = {
-  name: string;
-  type: ParameterType;
-  required?: boolean;
-  unit: string;
-  restrictions: {
-    min?: number;
-    max?: number;
-    precision?: number;
-    minLength?: number;
-    maxLength?: number;
-    multipleChoices?: boolean;
-  };
-};
+import * as Models from '../../../models';
 
 export enum AddParameterActionTypes {
   ADD_PARAMETER = 'parameters/ADD_PARAMETER',
-  PARAMETER_IS_ADDING = 'parameters/PARAMETER_IS_ADDING',
+  ADDING_PARAMETER = 'parameters/PARAMETER_IS_ADDING',
   PARAMETER_ADDED = 'parameters/PARAMETER_ADDED',
   ADDING_PARAMETER_FAILED = 'parameters/ADDING_PARAMETER_FAILED'
 }
 
-export type AddParameterAction = {
+type AddParameterAction = {
   type: AddParameterActionTypes.ADD_PARAMETER;
-  payload: NewParameter;
+  payload: Models.Categories.Parameter;
 };
 
-export type ParameterIsAddingAction = {
-  type: AddParameterActionTypes.PARAMETER_IS_ADDING;
+type AddingParameterAction = {
+  type: AddParameterActionTypes.ADDING_PARAMETER;
 };
 
-export type ParameterAddedAction = {
+type ParameterAddedAction = {
   type: AddParameterActionTypes.PARAMETER_ADDED;
   payload: AjaxResponse;
 };
 
-export type AddingParameterFailedAction = {
+type AddingParameterFailedAction = {
   type: AddParameterActionTypes.ADDING_PARAMETER_FAILED;
   payload: AjaxError;
 };
 
-export function addParameter(newParameter: NewParameter): AddParameterAction {
+export function addParameter(
+  newParameter: Models.Categories.Parameter
+): AddParameterAction {
   return {
     type: AddParameterActionTypes.ADD_PARAMETER,
     payload: newParameter
   };
 }
 
-export function parameterIsAdding(): ParameterIsAddingAction {
+export function addingParameter(): AddingParameterAction {
   return {
-    type: AddParameterActionTypes.PARAMETER_IS_ADDING
+    type: AddParameterActionTypes.ADDING_PARAMETER
   };
 }
 
@@ -80,6 +60,6 @@ export function addingParameterFailed(
 
 export type AddParameterActions =
   | AddParameterAction
-  | ParameterIsAddingAction
+  | AddingParameterAction
   | ParameterAddedAction
   | AddingParameterFailedAction;

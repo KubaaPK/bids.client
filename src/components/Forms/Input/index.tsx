@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as S from './styled';
 
 type Props = {
-  variant: 'password' | 'text' | 'email';
+  variant: 'password' | 'text' | 'email' | 'number';
   id: string;
   onChange?(props: any): void;
   value?: any;
@@ -15,17 +15,10 @@ const Input: React.FunctionComponent<Props> = (props: Props) => {
   const { variant, id, onChange, value, required, min, max } = props;
   const [revealPassword, setPasswordReveal] = useState<boolean>(false);
 
-  const determineInputType = (): string => {
-    if (variant === 'password') {
-      return revealPassword ? 'text' : 'password';
-    }
-    return variant;
-  };
-
   return (
     <S.Wrapper>
       <S.Input
-        type={determineInputType()}
+        type={variant}
         id={id}
         onChange={onChange}
         value={value}

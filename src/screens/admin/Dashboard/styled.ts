@@ -4,7 +4,9 @@ import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 const Wrapper = styled.main`
   @media ${screenSize.MOBILE} {
     min-height: 100vh;
+    height: 100%;
     width: 100%;
+    padding-bottom: 10rem;
 
     background-color: ${colors.PRIMARY};
   }

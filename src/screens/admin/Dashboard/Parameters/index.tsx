@@ -1,84 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { AjaxError } from 'rxjs/ajax';
-import { Table, Column } from 'react-virtualized';
+import { Plus } from 'react-feather';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
+import * as Models from '../../../../models';
+import * as Typo from '../../../../components/Typography';
+import * as S from './styled';
 import { State } from '../../../../redux/reducers';
-import {
-  fetchParameters,
-  parametersAreFetching
-} from '../../../../redux/actions/parameters/fetch-parameters.action';
+import { fetchParameters } from '../../../../redux/actions/parameters/fetch-parameters.action';
+import Parameter from './Parameter';
 import AddParameterForm from './AddParameterForm';
+import useOutsideClick from '../../../../shared/hooks/use-outside-click';
 
-type Props = {
+type ReduxState = {
   fetchingParameters: boolean;
-  parameters: undefined | any[];
-  addingParameterFailed: undefined | AjaxError;
-  parameterAdded: boolean;
+  parameters: Models.Categories.Parameter[];
+  fetchingParametersFailed: AjaxError | undefined;
+  addedParameter: AjaxResponse | undefined;
 };
 
-type Dispatch = {
-  fetchParameters(): void;
-  parametersAreFetching(): void;
+type ReduxDispatch = {
+  performFetchParameters: () => void;
 };
 
-type CompProps = Props & Dispatch;
+type Props = ReduxState & ReduxDispatch;
 
-const Parameters: React.FunctionComponent<CompProps> = (props: CompProps) => {
-  const {
-    fetchParameters,
-    fetchingParameters,
-    parameters,
-    parameterAdded
-  } = props;
-  const [showAddParameterForm, setShowAddParameterForm] = useState(false);
+const Parameters: React.FunctionComponent<Props> = (props: Props) => {
+  const { parameters, addedParameter, performFetchParameters } = props;
+  const [showAddParameterForm, setShowAddParameterForm] = useState<boolean>(
+    false
+  );
+  const addParameterFormRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    parametersAreFetching();
-    fetchParameters();
-    if (parameterAdded) {
-      fetchParameters();
+    if (addedParameter) {
+      performFetchParameters();
     }
-  }, [parameterAdded]);
+  }, [addedParameter, performFetchParameters]);
 
-  const handleAddParameterButtonClick = (): void => {
-    setShowAddParameterForm(!showAddParameterForm);
-  };
+  useOutsideClick(addParameterFormRef, () => {
+    if (showAddParameterForm) setShowAddParameterForm(false);
+  });
 
   return (
-    <>
-      PARAMETRY!
-      {showAddParameterForm === true ? <AddParameterForm /> : null}
-      {fetchingParameters === true ? null : (
-        <Table
-          width={300}
-          height={300}
-          headerHeight={20}
-          rowHeight={30}
-          rowCount={parameters!.length}
-          rowGetter={({ index }) => parameters![index]}
-        >
-          <Column label="Nazwa" dataKey="name" width={100} />
-          <Column label="Typ" dataKey="type" width={100} />
-          <Column label="Jednostka" dataKey="unit" width={100} />
-        </Table>
+    <S.Wrapper>
+      {showAddParameterForm && (
+        <span ref={addParameterFormRef}>
+          <AddParameterForm />
+        </span>
       )}
-    </>
+      <Typo.Title text="Zarządzanie parametrami" />
+      <S.List>
+        {parameters.map(parameter => (
+          <Parameter parameter={parameter} key={parameter.id} />
+        ))}
+      </S.List>
+      <S.ShowAddParameterFormButton
+        onClick={() => setShowAddParameterForm(!showAddParameterForm)}
+      >
+        <Plus />
+      </S.ShowAddParameterFormButton>
+    </S.Wrapper>
   );
 };
 
-const mapStateToProps = (state: State): Props => {
+const mapStateToProps = (state: State): ReduxState => {
   return {
-    fetchingParameters: state.parameters.fetchParameters.parametersAreFetching,
-    addingParameterFailed:
+    fetchingParameters: state.parameters.fetchParameters.fetchingParameters,
+    fetchingParametersFailed:
       state.parameters.fetchParameters.fetchingParametersFailed,
-    parameters: state.parameters.fetchParameters.parametersFetched,
-    parameterAdded: state.parameters.addParameter.parameterIsAdding
+    parameters: state.parameters.fetchParameters.fetchedParameters,
+    addedParameter: state.parameters.addParameter.addedParameter
   };
 };
 
-const mapDispatchToProps: Dispatch = {
-  fetchParameters,
-  parametersAreFetching
+const mapDispatchToProps: ReduxDispatch = {
+  performFetchParameters: fetchParameters
 };
 
 export default connect(

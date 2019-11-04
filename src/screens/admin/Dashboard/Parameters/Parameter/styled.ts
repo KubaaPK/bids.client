@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 import { screenSize } from '../../../../../shared/styles/vars';
 
-const Category = styled.li`
+const Parameter = styled.li`
   @media ${screenSize.MOBILE} {
     list-style-type: none;
 
     padding: 1rem 0;
-
-    &:nth-child(odd) {
-      border-bottom: 1px solid #ccc;
-    }
+    border-bottom: 1px solid #ccc;
   }
 `;
 
@@ -33,4 +30,4 @@ const NameText = styled.span`
 
 const ExpandIcon = styled.span``;
 
-export { Category, Name, NameText, ExpandIcon };
+export { Parameter, Name, NameText, ExpandIcon };

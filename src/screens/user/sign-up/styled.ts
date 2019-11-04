@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {
-  screenSize,
-  colors,
-  shadows,
-  paddings
-} from '../../../shared/styles/vars';
+import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 
 const Main = styled.main`
   @media ${screenSize.MOBILE} {
@@ -49,7 +44,6 @@ const ToSignUpWrapper = styled.div`
 
     margin-top: 2rem;
     padding: 2rem ${paddings.MOBILE};
-    box-shadow: ${shadows.LEVEL_1};
 
     background-color: #fff;
   }

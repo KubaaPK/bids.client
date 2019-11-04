@@ -5,14 +5,14 @@ import {
 } from '../../actions/parameters/add-parameter.action';
 
 export type AddParameterState = {
-  parameterIsAdding: boolean;
-  parameterAdded: undefined | AjaxResponse;
+  addingParameter: boolean;
+  addedParameter: undefined | AjaxResponse;
   addingParameterFailed: undefined | AjaxError;
 };
 
 export const initialAddParameterState: AddParameterState = {
-  parameterIsAdding: false,
-  parameterAdded: undefined,
+  addingParameter: false,
+  addedParameter: undefined,
   addingParameterFailed: undefined
 };
 
@@ -22,18 +22,18 @@ export default function addParameterReducer(
 ): AddParameterState {
   switch (action.type) {
     case AddParameterActionTypes.ADD_PARAMETER:
-    case AddParameterActionTypes.PARAMETER_IS_ADDING:
-      return { ...state, parameterIsAdding: true };
+    case AddParameterActionTypes.ADDING_PARAMETER:
+      return { ...state, addingParameter: true };
     case AddParameterActionTypes.PARAMETER_ADDED:
       return {
         ...state,
-        parameterAdded: action.payload,
-        parameterIsAdding: false
+        addedParameter: action.payload,
+        addingParameter: false
       };
     case AddParameterActionTypes.ADDING_PARAMETER_FAILED:
       return {
         ...state,
-        parameterIsAdding: false,
+        addingParameter: false,
         addingParameterFailed: action.payload
       };
 

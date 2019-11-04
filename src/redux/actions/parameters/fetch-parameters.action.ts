@@ -3,25 +3,25 @@ import * as Models from '../../../models';
 
 export enum FetchParametersActionTypes {
   FETCH_PARAMETERS = 'parameters/fetch-parameters',
-  PARAMETERS_ARE_FETCHING = 'parameters/parameters-are-fetching',
+  FETCHING_PARAMETERS = 'parameters/fetching-parameters',
   PARAMETERS_FETCHED = 'parameters/parameters-fetched',
   FETCHING_PARAMETERS_FAILED = 'parameters/fetching-parameters-failed'
 }
 
-export type FetchParametersAction = {
+type FetchParametersAction = {
   type: FetchParametersActionTypes.FETCH_PARAMETERS;
 };
 
-export type ParametersAreFetchingAction = {
-  type: FetchParametersActionTypes.PARAMETERS_ARE_FETCHING;
+type FetchingParametersAction = {
+  type: FetchParametersActionTypes.FETCHING_PARAMETERS;
 };
 
-export type ParametersFetchedAction = {
+type ParametersFetchedAction = {
   type: FetchParametersActionTypes.PARAMETERS_FETCHED;
   payload: Models.Categories.Parameter[];
 };
 
-export type FetchingParametersFailedAction = {
+type FetchingParametersFailedAction = {
   type: FetchParametersActionTypes.FETCHING_PARAMETERS_FAILED;
   payload: AjaxError;
 };
@@ -32,9 +32,9 @@ export function fetchParameters(): FetchParametersAction {
   };
 }
 
-export function parametersAreFetching(): ParametersAreFetchingAction {
+export function fetchingParameters(): FetchingParametersAction {
   return {
-    type: FetchParametersActionTypes.PARAMETERS_ARE_FETCHING
+    type: FetchParametersActionTypes.FETCHING_PARAMETERS
   };
 }
 
@@ -58,6 +58,6 @@ export function fetchinParametersFailed(
 
 export type FetchParametersActions =
   | FetchParametersAction
-  | ParametersAreFetchingAction
+  | FetchingParametersAction
   | ParametersFetchedAction
   | FetchingParametersFailedAction;

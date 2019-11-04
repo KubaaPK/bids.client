@@ -8,13 +8,20 @@ type Props = {
   }[];
   onChange?(props: any): void;
   defaultMessage?: string;
+  id?: string;
+  required?: boolean;
 };
 
 const Select: React.FunctionComponent<Props> = (props: Props) => {
-  const { options, onChange, defaultMessage } = props;
+  const { options, onChange, defaultMessage, id, required } = props;
 
   return (
-    <S.Select onChange={onChange} defaultValue="disabled">
+    <S.Select
+      onChange={onChange}
+      defaultValue="disabled"
+      id={id}
+      required={required}
+    >
       <S.Option disabled value="disabled">
         {defaultMessage || 'Wybierz opcję...'}
       </S.Option>

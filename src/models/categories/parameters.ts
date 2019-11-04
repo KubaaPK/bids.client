@@ -1,5 +1,5 @@
 export type Parameter = {
-  id: string;
+  id?: string;
   name: string;
   type: 'integer' | 'single-string' | 'dictionary' | 'float' | 'float-range';
   unit: string;

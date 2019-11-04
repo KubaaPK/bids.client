@@ -36,7 +36,7 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
     parameterId: string;
   }>();
 
-  const createSelectOptions = (): { value: string; text: any }[] => {
+  const createSelectOptions = (): { value: any; text: any }[] => {
     return parameters
       .filter(
         parameter => !existingParameters.map(el => el.id).includes(parameter.id)
@@ -77,8 +77,8 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxState => {
   return {
-    fetchingParameters: state.parameters.fetchParameters.parametersAreFetching,
-    parameters: state.parameters.fetchParameters.parametersFetched,
+    fetchingParameters: state.parameters.fetchParameters.fetchingParameters,
+    parameters: state.parameters.fetchParameters.fetchedParameters,
     fetchingParametersFailed:
       state.parameters.fetchParameters.fetchingParametersFailed
   };

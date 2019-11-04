@@ -16,7 +16,7 @@ type Props = ReduxDispatch;
 
 const Dashboard: React.FunctionComponent<Props> = (props: Props) => {
   const { performFetchParameters } = props;
-  const [componentName, setComponentName] = useState<string>('categories');
+  const [componentName, setComponentName] = useState<string>('parameters');
 
   useEffect(() => {
     performFetchParameters();
