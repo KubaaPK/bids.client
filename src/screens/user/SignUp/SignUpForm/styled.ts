@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../shared/styles/vars';
+import { screenSize } from '../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.TABLET} {

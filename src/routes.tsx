@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Main from './screens/user/main';
-import SignUp from './screens/user/sign-up';
-import SignIn from './screens/user/sign-in';
+import Main from './screens/user/Main';
+import SignUp from './screens/user/SignUp';
+import SignIn from './screens/user/SignIn';
 import Dashboard from './screens/admin/Dashboard';
 
 const routes = (

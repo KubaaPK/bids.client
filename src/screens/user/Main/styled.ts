@@ -15,4 +15,5 @@ const Wrapper = styled.main`
   }
 `;
 
+// eslint-disable-next-line import/prefer-default-export
 export { Wrapper };

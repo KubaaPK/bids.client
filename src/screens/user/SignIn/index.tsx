@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from '../../../components/Navigation';
-import SignInForm from './components/SignInForm';
+import SignInForm from './SignInForm';
 import * as Typo from '../../../components/Typography';
 import * as S from './styled';
 

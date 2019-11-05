@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from '../../../components/Navigation';
-import SignUpForm from './components/SignUpForm';
+import SignUpForm from './SignUpForm';
 import * as S from './styled';
 import * as Typo from '../../../components/Typography';
 
