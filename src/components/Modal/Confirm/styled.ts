@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Modal = styled.div`
   @media ${screenSize.MOBILE} {
     position: fixed;
-    top: 40vh;
+    top: 30vh;
     left: 0;
     right: 0;
 

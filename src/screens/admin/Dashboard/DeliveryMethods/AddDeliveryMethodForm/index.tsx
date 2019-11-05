@@ -111,7 +111,7 @@ const mapStateToProps = (state: State): ReduxState => {
     addingDeliveryMethodFailed:
       state.deliveryMethods.addDeliveryMethod.addingDeliveryMethodFailed,
     deliveryMethodAdded:
-      state.deliveryMethods.addDeliveryMethod.deliveryMethodAdded
+      state.deliveryMethods.addDeliveryMethod.addedDeliveryMethod
   };
 };
 

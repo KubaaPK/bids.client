@@ -16,6 +16,7 @@ type ReduxState = {
   deliveryMethods: Models.DeliveryMethods.DeliveryMethod[];
   fetchingDeliveryMethodsFailed: AjaxError | undefined;
   deliveryMethodAdded: AjaxResponse | undefined;
+  deliveryMethodDeleted: AjaxResponse | undefined;
 };
 
 type ReduxDispatch = {
@@ -28,7 +29,8 @@ const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
   const {
     deliveryMethods,
     deliveryMethodAdded,
-    performFetchDeliveryMethods
+    performFetchDeliveryMethods,
+    deliveryMethodDeleted
   } = props;
 
   const [showAddDeliveryMethodForm, setShowAddDeliveryMethodForm] = useState<
@@ -37,7 +39,7 @@ const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
 
   useEffect(() => {
     performFetchDeliveryMethods();
-  }, [deliveryMethodAdded, performFetchDeliveryMethods]);
+  }, [deliveryMethodAdded, performFetchDeliveryMethods, deliveryMethodDeleted]);
 
   const addDeliveryMethodFormRef = useRef<HTMLSpanElement>(null);
 
@@ -79,7 +81,9 @@ const mapStateToProps = (state: State): ReduxState => {
     fetchingDeliveryMethodsFailed:
       state.deliveryMethods.fetchDeliveryMethods.fetchingDeliveryMethodsFailed,
     deliveryMethodAdded:
-      state.deliveryMethods.addDeliveryMethod.deliveryMethodAdded
+      state.deliveryMethods.addDeliveryMethod.addedDeliveryMethod,
+    deliveryMethodDeleted:
+      state.deliveryMethods.deleteDeliveryMethod.deliveryMethodDeleted
   };
 };
 

@@ -5,13 +5,13 @@ import {
 } from '../../actions/categories/delete-category.actions';
 
 export type DeleteCategoryState = {
-  isCategoryDeleting: boolean;
+  deletingCategory: boolean;
   categoryDeleted: undefined | AjaxResponse;
   categoryDeletingFailed: AjaxError | undefined;
 };
 
 export const initialDeleteCategoryState: DeleteCategoryState = {
-  isCategoryDeleting: false,
+  deletingCategory: false,
   categoryDeleted: undefined,
   categoryDeletingFailed: undefined
 };

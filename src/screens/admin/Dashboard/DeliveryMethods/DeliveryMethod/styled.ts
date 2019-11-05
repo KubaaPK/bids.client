@@ -14,9 +14,29 @@ const DeliveryMethod = styled.li`
   }
 `;
 
+const NameAndDeleteWrapper = styled.div`
+  @media ${screenSize.MOBILE} {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
 const Name = styled.p`
   @media ${screenSize.MOBILE} {
     font-size: 1.2rem;
+  }
+`;
+
+const DeleteButton = styled.button`
+  @media ${screenSize.MOBILE} {
+    position: relative;
+    top: 1.5rem;
+
+    border: none;
+    background-color: transparent;
+    color: ${colors.ERROR};
   }
 `;
 
@@ -28,4 +48,10 @@ const PaymentPolicy = styled.p`
   }
 `;
 
-export { DeliveryMethod, Name, PaymentPolicy };
+export {
+  DeliveryMethod,
+  NameAndDeleteWrapper,
+  Name,
+  DeleteButton,
+  PaymentPolicy
+};

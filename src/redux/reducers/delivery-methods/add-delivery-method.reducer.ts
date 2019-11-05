@@ -6,14 +6,14 @@ import {
 
 export type AddDeliveryMethodState = {
   addingDeliveryMethod: boolean;
-  deliveryMethodAdded: AjaxResponse | undefined;
+  addedDeliveryMethod: AjaxResponse | undefined;
   addingDeliveryMethodFailed: AjaxError | undefined;
 };
 
 export const initialAddDeliveryMethodState: AddDeliveryMethodState = {
   addingDeliveryMethod: false,
   addingDeliveryMethodFailed: undefined,
-  deliveryMethodAdded: undefined
+  addedDeliveryMethod: undefined
 };
 
 export default function addDeliveryMethodReducer(
@@ -28,7 +28,7 @@ export default function addDeliveryMethodReducer(
       return {
         ...state,
         addingDeliveryMethod: false,
-        deliveryMethodAdded: action.payload
+        addedDeliveryMethod: action.payload
       };
     case AddDeliveryMethodActionTypes.ADDING_DELIVERY_METHOD_FAILED:
       return {

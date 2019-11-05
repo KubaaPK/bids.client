@@ -7,18 +7,25 @@ import addDeliveryMethodReducer, {
   AddDeliveryMethodState,
   initialAddDeliveryMethodState
 } from './add-delivery-method.reducer';
+import deleteDeliveryMethodReducer, {
+  DeleteDeliveryMethodState,
+  initialDeleteDeliveryMethodState
+} from './delete-delivery-method.reducer';
 
 export type DeliveryMethodsState = {
   fetchDeliveryMethods: FetchDeliveryMethodsState;
   addDeliveryMethod: AddDeliveryMethodState;
+  deleteDeliveryMethod: DeleteDeliveryMethodState;
 };
 
 export const initialDeliveryMethodsState: DeliveryMethodsState = {
   fetchDeliveryMethods: initialFetchDeliveryMethodsState,
-  addDeliveryMethod: initialAddDeliveryMethodState
+  addDeliveryMethod: initialAddDeliveryMethodState,
+  deleteDeliveryMethod: initialDeleteDeliveryMethodState
 };
 
 export default combineReducers({
   fetchDeliveryMethods: fetchDeliveryMethodsReducer,
-  addDeliveryMethod: addDeliveryMethodReducer
+  addDeliveryMethod: addDeliveryMethodReducer,
+  deleteDeliveryMethod: deleteDeliveryMethodReducer
 });
