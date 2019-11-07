@@ -1,5 +1,4 @@
-export type Parameter = {
-  id?: string;
+export type NewParameter = {
   name: string;
   type: 'integer' | 'single-string' | 'dictionary' | 'float' | 'float-range';
   unit: string;

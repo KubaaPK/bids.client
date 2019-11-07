@@ -15,22 +15,22 @@ type ReduxState = {
 };
 
 type ReduxDispatch = {
-  performAddParameter: (newParameter: Models.Categories.Parameter) => void;
+  performAddParameter: (newParameter: Models.Categories.NewParameter) => void;
 };
 
 type Props = ReduxState & ReduxDispatch;
 
 const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
   const { performAddParameter } = props;
-  const [newParameter, setNewParameter] = useState<Models.Categories.Parameter>(
-    {
-      name: '',
-      required: false,
-      restrictions: {},
-      unit: '',
-      type: ''
-    } as any
-  );
+  const [newParameter, setNewParameter] = useState<
+    Models.Categories.NewParameter
+  >({
+    name: '',
+    required: false,
+    restrictions: {},
+    unit: '',
+    type: ''
+  } as any);
 
   const requiredSelectOptions = (): { value: any; text: any }[] => {
     return [

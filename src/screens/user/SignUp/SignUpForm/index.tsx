@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
-import * as Form from '../../../../../components/Forms';
+import * as Form from '../../../../components/Forms';
 import * as S from './styled';
-import * as Models from '../../../../../models';
-import { State } from '../../../../../redux/reducers';
-import { signUp } from '../../../../../redux/actions/accounts/sign-up.action';
-import Notification from '../../../../../components/Notification';
+import * as Models from '../../../../models';
+import { State } from '../../../../redux/reducers';
+import { signUp } from '../../../../redux/actions/accounts/sign-up.action';
+import Notification from '../../../../components/Notification';
 
 type ReduxState = {
   signingUp: boolean;

@@ -5,7 +5,7 @@ import * as S from './styled';
 import Details from './Details';
 
 type Props = {
-  parameter: Models.Categories.Parameter;
+  parameter: Models.Categories.NewParameter;
 };
 
 const Parameter: React.FunctionComponent<Props> = (props: Props) => {

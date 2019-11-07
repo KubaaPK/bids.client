@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
-import { signIn } from '../../../../../redux/actions/auth/auth.actions';
-import * as Form from '../../../../../components/Forms';
-import Notification from '../../../../../components/Notification';
+import { signIn } from '../../../../redux/actions/auth/auth.actions';
+import * as Form from '../../../../components/Forms';
+import Notification from '../../../../components/Notification';
 import * as S from './styled';
-import * as Models from '../../../../../models';
-import { State } from '../../../../../redux/reducers';
-import { saveTokensToLocalStorage } from '../../../../../utils/auth';
+import * as Models from '../../../../models';
+import { State } from '../../../../redux/reducers';
+import { saveTokensToLocalStorage } from '../../../../utils/auth';
 
 type ReduxState = {
   signingIn: boolean;

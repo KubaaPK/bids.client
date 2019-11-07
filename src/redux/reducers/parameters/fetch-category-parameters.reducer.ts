@@ -7,7 +7,7 @@ import {
 
 export type FetchCategoryParametersState = {
   fetchingCategoryParameters: boolean;
-  categoryParameters: Models.Categories.Parameter[];
+  categoryParameters: Models.Categories.NewParameter[];
   fetchingCategoryParametersFailed: undefined | AjaxError;
 };
 

@@ -1,20 +1,20 @@
 import styled from 'styled-components';
-import { screenSize, paddings, colors } from '../../../shared/styles/vars';
+import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 
-export const Wrapper = styled.main`
+const Main = styled.main`
   @media ${screenSize.MOBILE} {
     background-color: ${colors.PRIMARY};
   }
+
+  @media ${screenSize.DESKTOP} {
+    padding: 0 ${paddings.DESKTOP};
+  }
 `;
 
-export const ImagesAndInfo = styled.div`
+const BasicInfoWrapper = styled.div`
   @media ${screenSize.MOBILE} {
-    position: relative;
-    top: 3vh;
-
-    padding: 2rem ${paddings.MOBILE};
-
-    background-color: #ffffff;
+    width: 100%;
+    padding-top: 14rem;
   }
 
   @media ${screenSize.TABLET} {
@@ -22,18 +22,18 @@ export const ImagesAndInfo = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
 
-    padding: 2rem 2rem;
-  }
-
-  @media ${screenSize.DESKTOP} {
-    width: calc(100% - 10rem);
-    margin: 0 auto;
+    width: 100%;
+    padding-top: 10rem;
   }
 `;
 
-export const InfoAndPurchaseWrapper = styled.div`
+const BasicInfo = styled.div`
   @media ${screenSize.TABLET} {
-    width: 50%;
-    padding: 0 2rem 0 4rem;
+    width: 40%;
+    padding: 2rem;
+
+    background-color: #fff;
   }
 `;
+
+export { Main, BasicInfoWrapper, BasicInfo };

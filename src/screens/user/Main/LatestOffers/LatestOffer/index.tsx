@@ -14,7 +14,7 @@ const LatestOffer: React.FunctionComponent<Props> = (props: Props) => {
   );
 
   return (
-    <S.Wrapper to="/">
+    <S.Wrapper to={`/oferta/${offer.id}`}>
       <S.Thumbnail src={offer.images[0].url} />
       <S.Text>
         <S.Title>{offer.name}</S.Title>

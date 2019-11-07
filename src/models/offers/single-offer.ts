@@ -3,9 +3,19 @@ type ParameterValue = {
   value: string;
 };
 
-export type Offer = {
+type DescriptionModel = {
+  items: [
+    {
+      type: 'TEXT' | 'IMAGE';
+      content: string;
+    }
+  ];
+};
+
+export type SingleOffer = {
   id: string;
   name: string;
+  description: DescriptionModel[];
   seller: {
     username: string;
     id: string;

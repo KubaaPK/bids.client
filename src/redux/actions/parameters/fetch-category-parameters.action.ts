@@ -19,7 +19,7 @@ type FetchingCategoryParametersAction = {
 
 type CategoryParametersFetchedAction = {
   type: FetchCategoryParametersActionTypes.CATEGORY_PARAMETERS_FETCHED;
-  payload: Models.Categories.Parameter[];
+  payload: Models.Categories.NewParameter[];
 };
 
 type FetchingCategoryParametersFailedAction = {
@@ -43,7 +43,7 @@ export function fetchingCategoryParameters(): FetchingCategoryParametersAction {
 }
 
 export function categoryParametersFetched(
-  parameters: Models.Categories.Parameter[]
+  parameters: Models.Categories.NewParameter[]
 ): CategoryParametersFetchedAction {
   return {
     type: FetchCategoryParametersActionTypes.CATEGORY_PARAMETERS_FETCHED,

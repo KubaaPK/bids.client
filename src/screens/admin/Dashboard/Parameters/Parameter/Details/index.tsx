@@ -3,7 +3,7 @@ import * as Models from '../../../../../../models';
 import * as S from './styled';
 
 type Props = {
-  parameter: Models.Categories.Parameter;
+  parameter: Models.Categories.NewParameter;
 };
 
 const Details: React.FunctionComponent<Props> = (props: Props) => {

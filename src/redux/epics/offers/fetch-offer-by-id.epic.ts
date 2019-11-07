@@ -12,8 +12,7 @@ import {
 import { State } from '../../reducers';
 import { API_URL } from '../../../consts';
 
-// eslint-disable-next-line import/prefer-default-export
-export const fetchOfferByIdEpic: Epic<
+const fetchOfferByIdEpic: Epic<
   FetchOfferActions,
   FetchOfferActions,
   State
@@ -27,3 +26,5 @@ export const fetchOfferByIdEpic: Epic<
       )
     )
   );
+
+export default fetchOfferByIdEpic;

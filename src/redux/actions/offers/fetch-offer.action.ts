@@ -8,21 +8,21 @@ export enum FetchOfferActionsTypes {
   FETCHING_OFFER_FAILED = 'offers/fetching-offer-failed'
 }
 
-export type FetchOfferAction = {
+type FetchOfferAction = {
   type: FetchOfferActionsTypes.FETCH_OFFER;
   payload: string;
 };
 
-export type FetchingOfferAction = {
+type FetchingOfferAction = {
   type: FetchOfferActionsTypes.FETCHING_OFFER;
 };
 
-export type OfferFetchedAction = {
+type OfferFetchedAction = {
   type: FetchOfferActionsTypes.OFFER_FETCHED;
-  payload: Models.Offers.Offer;
+  payload: Models.Offers.SingleOffer;
 };
 
-export type FetchingOfferFailedAction = {
+type FetchingOfferFailedAction = {
   type: FetchOfferActionsTypes.FETCHING_OFFER_FAILED;
   payload: AjaxError;
 };
@@ -40,7 +40,9 @@ export function fetchingOffer(): FetchingOfferAction {
   };
 }
 
-export function offerFeched(offer: Models.Offers.Offer): OfferFetchedAction {
+export function offerFeched(
+  offer: Models.Offers.SingleOffer
+): OfferFetchedAction {
   return {
     type: FetchOfferActionsTypes.OFFER_FETCHED,
     payload: offer

@@ -6,13 +6,13 @@ import {
 import * as Models from '../../../models';
 
 export type FetchOfferState = {
-  isOfferFetching: boolean;
-  offerFetched: Models.Offers.Offer | undefined;
+  fetchingOffer: boolean;
+  offerFetched: Models.Offers.SingleOffer | undefined;
   offerFetchingFailed: AjaxError | undefined;
 };
 
 export const initialFetchOfferState: FetchOfferState = {
-  isOfferFetching: true,
+  fetchingOffer: true,
   offerFetched: undefined,
   offerFetchingFailed: undefined
 };
@@ -24,13 +24,13 @@ export default function fetchOfferReducer(
   switch (action.type) {
     case FetchOfferActionsTypes.FETCH_OFFER:
     case FetchOfferActionsTypes.FETCHING_OFFER:
-      return { ...state, isOfferFetching: true };
+      return { ...state, fetchingOffer: true };
     case FetchOfferActionsTypes.OFFER_FETCHED:
-      return { ...state, isOfferFetching: false, offerFetched: action.payload };
+      return { ...state, fetchingOffer: false, offerFetched: action.payload };
     case FetchOfferActionsTypes.FETCHING_OFFER_FAILED:
       return {
         ...state,
-        isOfferFetching: false,
+        fetchingOffer: false,
         offerFetchingFailed: action.payload
       };
     default:

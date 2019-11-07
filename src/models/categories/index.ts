@@ -1,2 +1,3 @@
 export * from './category';
-export * from './parameters';
+export * from './new-parameter';
+export * from './parameter';

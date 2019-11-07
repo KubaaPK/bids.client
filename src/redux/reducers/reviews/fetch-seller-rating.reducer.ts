@@ -1,18 +1,18 @@
 import { AjaxError } from 'rxjs/ajax';
+import * as Models from '../../../models';
 import {
   FetchSellerRatingActions,
-  FetchSellerRatingActionTypes,
-  RatingModel
+  FetchSellerRatingActionTypes
 } from '../../actions/reviews/fetch-seller-rating.action';
 
 export type FetchSellerRatingState = {
-  isRatingFetching: boolean;
-  ratingFetched: RatingModel | undefined;
+  fetchingRating: boolean;
+  ratingFetched: Models.Reviews.Rating | undefined;
   ratingFetchingFailed: AjaxError | undefined;
 };
 
 export const initialFetchSellerRatingState: FetchSellerRatingState = {
-  isRatingFetching: true,
+  fetchingRating: true,
   ratingFetched: undefined,
   ratingFetchingFailed: undefined
 };
@@ -23,17 +23,17 @@ export default function fetchSellerRatingReducer(
 ) {
   switch (action.type) {
     case FetchSellerRatingActionTypes.FETCH_SELLER_RATING:
-      return { ...state, isRatingFetching: true };
+      return { ...state, fetchingRating: true };
     case FetchSellerRatingActionTypes.SELLER_RATING_FETCHED:
       return {
         ...state,
         ratingFetched: action.payload,
-        isRatingFetching: false
+        fetchingRating: false
       };
     case FetchSellerRatingActionTypes.FETCHING_SELLER_RATING_FAILED:
       return {
         ...state,
-        isRatingFetching: false,
+        fetchingRating: false,
         ratingFetchingFailed: action.payload
       };
     default:

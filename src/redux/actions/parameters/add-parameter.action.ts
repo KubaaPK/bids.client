@@ -10,7 +10,7 @@ export enum AddParameterActionTypes {
 
 type AddParameterAction = {
   type: AddParameterActionTypes.ADD_PARAMETER;
-  payload: Models.Categories.Parameter;
+  payload: Models.Categories.NewParameter;
 };
 
 type AddingParameterAction = {
@@ -28,7 +28,7 @@ type AddingParameterFailedAction = {
 };
 
 export function addParameter(
-  newParameter: Models.Categories.Parameter
+  newParameter: Models.Categories.NewParameter
 ): AddParameterAction {
   return {
     type: AddParameterActionTypes.ADD_PARAMETER,

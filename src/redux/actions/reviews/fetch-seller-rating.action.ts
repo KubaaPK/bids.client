@@ -1,18 +1,5 @@
 import { AjaxError } from 'rxjs/ajax';
-
-export type RatingModel = {
-  ratings: {
-    complianceWithDescriptionAvg: number;
-    customerServiceAvg: number;
-    deliveryTimeAvg: number;
-    shippingCostAvg: number;
-  };
-  summary: {
-    positives: number;
-    negatives: number;
-    positivesPercent: string;
-  };
-};
+import * as Models from '../../../models';
 
 export enum FetchSellerRatingActionTypes {
   FETCH_SELLER_RATING = 'ratings/FETCH_SELLER_RATING',
@@ -27,7 +14,7 @@ export type FetchSellerRatingAction = {
 
 export type SellerRatingFetchedAction = {
   type: FetchSellerRatingActionTypes.SELLER_RATING_FETCHED;
-  payload: RatingModel;
+  payload: Models.Reviews.Rating;
 };
 
 export type FetchingSellerRatingFailedAction = {
@@ -43,7 +30,7 @@ export function fetchSellerRating(sellerId: string): FetchSellerRatingAction {
 }
 
 export function sellerRatingFetched(
-  rating: RatingModel
+  rating: Models.Reviews.Rating
 ): SellerRatingFetchedAction {
   return {
     type: FetchSellerRatingActionTypes.SELLER_RATING_FETCHED,
