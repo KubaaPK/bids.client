@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import { Search } from 'react-feather';
 import { connect } from 'react-redux';
 import UnauthenticatedMenu from './UnauthenticatedMenu';
@@ -27,6 +28,7 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
 
   const handleSignOut = (): void => {
     performSignOut();
+    firebase.auth().signOut();
     deleteTokensFromLocalStorage();
   };
 

@@ -42,7 +42,7 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
       {isMenuToggled && (
         <S.Menu ref={ref}>
           <S.MenuElement>
-            <S.MenuLink to="/wystaw-przedmiot">Wystaw przedmiot</S.MenuLink>
+            <S.MenuLink to="/dodaj-oferte">Dodaj ofertę</S.MenuLink>
           </S.MenuElement>
           <S.MenuElement>
             <S.MenuLink to="/" onClick={signOut}>

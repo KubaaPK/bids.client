@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../shared/styles/vars';
+import { screenSize, paddings } from '../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.TABLET} {
@@ -10,6 +10,14 @@ const Wrapper = styled.div`
 
   @media ${screenSize.DESKTOP} {
     width: 30%;
+  }
+
+  form {
+    margin-top: 2rem;
+
+    padding: 1rem ${paddings.MOBILE};
+
+    background-color: #fff;
   }
 `;
 

@@ -1,50 +1,50 @@
 import styled from 'styled-components';
-import { Eye, EyeOff } from 'react-feather';
 import { screenSize, colors } from '../../../shared/styles/vars';
 
-const Wrapper = styled.div`
+const InputGroup = styled.div`
   @media ${screenSize.MOBILE} {
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
 `;
 
-const Input = styled.input`
+const Label = styled.label`
+  @media ${screenSize.MOBILE} {
+    margin-bottom: 0.25rem;
+
+    color: ${colors.FONT};
+    font-size: 1.2rem;
+  }
+`;
+
+type InputProps = {
+  hasError: boolean;
+};
+
+const Input = styled.input<InputProps>`
   @media ${screenSize.MOBILE} {
     width: 100%;
     height: 40px;
-
     padding-left: 1rem;
-    border: 1px solid ${colors.GREYISH};
+    border: 1px solid ${props => (props.hasError ? colors.ERROR : '#ccc')};
+    border-radius: 2px;
 
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 
-    transition: 0.2s;
+    transition: 200ms;
     &:focus {
       outline: none;
-
-      border: 1px solid ${colors.ACCENT};
+      border-color: ${props => (props.hasError ? colors.ERROR : colors.ACCENT)};
     }
   }
 `;
 
-const ShowPassword = styled(Eye)`
-  position: absolute;
-  right: 1rem;
-  top: 10px;
-
-  &:hover {
-    cursor: pointer;
+const ErrorMessage = styled.p`
+  @media ${screenSize.MOBILE} {
+    font-size: 1.2rem;
+    color: ${colors.ERROR};
   }
 `;
 
-const HidePassword = styled(EyeOff)`
-  position: absolute;
-  right: 1rem;
-  top: 10px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export { Input, ShowPassword, HidePassword, Wrapper };
+export { InputGroup, Input, Label, ErrorMessage };

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
-import * as F from '../../../../../components/Forms';
-import * as Typo from '../../../../../components/Typography';
+import * as Form from '../../../../../components/Forms';
+import * as Typography from '../../../../../components/Typography';
 import * as S from './styled';
 import * as Models from '../../../../../models';
+import Button from '../../../../../components/Button';
 import { addCategory } from '../../../../../redux/actions/categories/add-category.actions';
 import { State } from '../../../../../redux/reducers';
 
@@ -42,20 +43,20 @@ const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      <F.Form onSubmit={handleSubmit}>
-        <Typo.Title text="Dodaj nową kategorię" />
-        <F.InputGroup>
-          <F.Label htmlFor="name" text="Nazwa kategorii" />
-          <F.Input
-            variant="text"
-            id="name"
-            required
-            onChange={handleInputChange}
-            value={category.name}
-          />
-        </F.InputGroup>
-        <F.Button text="Dodaj kategorię" variant="full" type="submit" />
-      </F.Form>
+      <Form.Form handleSubmit={handleSubmit}>
+        <Typography.Title text="Dodaj nową kategorię" />
+        <Form.Input
+          id="name"
+          label="Nazwa kategorii"
+          type="text"
+          placeholder="np. Moda"
+          restrictions={{
+            required: true
+          }}
+          handleChange={handleInputChange}
+        />
+        <Button text="Dodaj kategorię" variant="full" type="submit" />
+      </Form.Form>
     </S.Wrapper>
   );
 };

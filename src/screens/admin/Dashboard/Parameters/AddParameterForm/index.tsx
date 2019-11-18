@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
-import * as F from '../../../../../components/Forms';
+import * as Form from '../../../../../components/Forms';
 import * as S from './styled';
-import * as Typo from '../../../../../components/Typography';
+import * as Typography from '../../../../../components/Typography';
 import * as Models from '../../../../../models';
+import Button from '../../../../../components/Button';
 import { State } from '../../../../../redux/reducers';
 import { addParameter } from '../../../../../redux/actions/parameters/add-parameter.action';
 
@@ -29,25 +30,37 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
     required: false,
     restrictions: {},
     unit: '',
-    type: ''
+    type: 'single-string'
   } as any);
 
-  const requiredSelectOptions = (): { value: any; text: any }[] => {
+  const parameterRequirednessOptions = (): {
+    id: string;
+    value: any;
+    label: string;
+  }[] => {
     return [
-      { text: 'Wymagany', value: true },
-      { text: 'Niewymagany', value: false }
+      {
+        id: 'required',
+        label: 'Wymagany',
+        value: true
+      },
+      {
+        id: 'notRequired',
+        label: 'Niewymagany',
+        value: false
+      }
     ];
   };
 
-  const parameterTypeSelectOptions = (): { value: any; text: any }[] => {
+  const parameterTypeSelectOptions = (): { value: any; label: string }[] => {
     return [
-      { text: 'Liczba zmiennoprzecinkowa', value: 'float' },
-      { text: 'Liczba całkowita', value: 'integer' },
-      { text: 'Tekst', value: 'single-string' }
+      { label: 'Liczba zmiennoprzecinkowa', value: 'float' },
+      { label: 'Liczba całkowita', value: 'integer' },
+      { label: 'Tekst', value: 'single-string' }
     ];
   };
 
-  const handleSubmit = (ev: React.FormEvent<HTMLInputElement>): void => {
+  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
     performAddParameter(newParameter);
   };
@@ -59,12 +72,19 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
     });
   };
 
-  const handleRequiredSelectChange = (
-    ev: React.FormEvent<HTMLSelectElement>
-  ): void => {
+  const handleRadioRequiredChange = (ev: React.FormEvent<HTMLInputElement>) => {
     setNewParameter({
       ...newParameter,
-      [ev.currentTarget.id]: JSON.parse(ev.currentTarget.value)
+      required: JSON.parse(ev.currentTarget.value)
+    });
+  };
+
+  const handleParameterTypeChange = (
+    ev: React.FormEvent<HTMLSelectElement>
+  ) => {
+    setNewParameter({
+      ...newParameter,
+      type: ev.currentTarget.value as any
     });
   };
 
@@ -82,114 +102,116 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      <F.Form onSubmit={handleSubmit}>
-        <Typo.Title text="Dodaj parametr" />
-        <F.InputGroup>
-          <F.Label htmlFor="name" text="Nazwa" />
-          <F.Input
-            variant="text"
-            id="name"
-            onChange={handleInputChange}
-            required
-          />
-        </F.InputGroup>
-        <F.InputGroup>
-          <F.Label htmlFor="unit" text="Jednostka" />
-          <F.Input
-            variant="text"
-            id="unit"
-            onChange={handleInputChange}
-            required
-          />
-        </F.InputGroup>
-        <F.InputGroup>
-          <F.Label htmlFor="required" text="Czy wymagany?" />
-          <F.Select
-            options={requiredSelectOptions()}
-            defaultMessage="Wskaż czy parametr jest wymagany"
-            onChange={handleRequiredSelectChange}
-            id="required"
-            required
-          />
-        </F.InputGroup>
-        <F.InputGroup>
-          <F.Label htmlFor="type" text="Typ" />
-          <F.Select
-            options={parameterTypeSelectOptions()}
-            defaultMessage="Wybierz typ parametru"
-            onChange={handleInputChange}
-            id="type"
-            required
-          />
-        </F.InputGroup>
-        <F.TextSeparator text="Ograniczenia" />
+      <Form.Form handleSubmit={handleSubmit}>
+        <Typography.Title text="Dodaj parametr" />
+        <Form.Input
+          id="name"
+          label="Nazwa"
+          type="text"
+          restrictions={{ required: true }}
+          handleChange={handleInputChange}
+        />
+        <Form.Input
+          id="unit"
+          label="Jednostka"
+          type="text"
+          restrictions={{ required: true }}
+          handleChange={handleInputChange}
+        />
+        <Form.Radio
+          options={parameterRequirednessOptions()}
+          defaultCheckedLabel="Niewymagany"
+          handleChange={handleRadioRequiredChange}
+        />
+        <Form.Select
+          id="type"
+          defaultSelectValue="single-string"
+          label="Typ parametru"
+          handleChange={handleParameterTypeChange}
+          options={parameterTypeSelectOptions()}
+          restrictions={{ required: true }}
+        />
+        <Form.Typography.TextSeparator
+          text="Ograniczenia"
+          topBottomMargin="4rem"
+        />
         {newParameter.type === 'single-string' && (
           <>
-            <F.InputGroup>
-              <F.Label text="Minimalna długość" htmlFor="minLength" />
-              <F.Input id="minLength" variant="text" required />
-            </F.InputGroup>
-            <F.InputGroup>
-              <F.Label text="Maksymalna długość" htmlFor="maxLength" />
-              <F.Input id="maxLength" variant="text" required />
-            </F.InputGroup>
+            <Form.Input
+              type="text"
+              id="minLength"
+              label="Minimalna długość tekstu"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
+            <Form.Input
+              type="text"
+              id="maxLength"
+              label="Maksymalna długość tekstu"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
           </>
         )}
         {newParameter.type === 'integer' && (
           <>
-            <F.InputGroup>
-              <F.Label text="Minimalna wartość" htmlFor="min" />
-              <F.Input
-                id="min"
-                variant="number"
-                onChange={handleRestricionChange}
-                required
-              />
-            </F.InputGroup>
-            <F.InputGroup>
-              <F.Label text="Maksymalna wartość" htmlFor="max" />
-              <F.Input
-                id="max"
-                variant="number"
-                onChange={handleRestricionChange}
-                required
-              />
-            </F.InputGroup>
+            <Form.Input
+              type="number"
+              id="min"
+              label="Minimalna wartość"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
+            <Form.Input
+              type="number"
+              id="max"
+              label="Maksymalna wartość"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
           </>
         )}
         {newParameter.type === 'float' && (
           <>
-            <F.InputGroup>
-              <F.Label text="Minimalna wartość" htmlFor="min" />
-              <F.Input
-                id="min"
-                variant="number"
-                onChange={handleRestricionChange}
-                required
-              />
-            </F.InputGroup>
-            <F.InputGroup>
-              <F.Label text="Maksymalna wartość" htmlFor="max" />
-              <F.Input
-                id="max"
-                variant="number"
-                onChange={handleRestricionChange}
-                required
-              />
-            </F.InputGroup>
-            <F.InputGroup>
-              <F.Label text="Precyzja" htmlFor="precision" />
-              <F.Input
-                id="precision"
-                variant="number"
-                onChange={handleRestricionChange}
-                required
-              />
-            </F.InputGroup>
+            <Form.Input
+              type="number"
+              id="min"
+              label="Minimalna wartość"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
+            <Form.Input
+              type="number"
+              id="max"
+              label="Maksymalna wartość"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
+            <Form.Input
+              type="number"
+              id="precision"
+              label="Precyzja (miejsca po przecinku)"
+              handleChange={handleRestricionChange}
+              restrictions={{
+                required: true
+              }}
+            />
           </>
         )}
-        <F.Button type="submit" text="Dodaj parametr" variant="full" />
-      </F.Form>
+        <Button type="submit" variant="full" text="Dodaj parametr" />
+      </Form.Form>
     </S.Wrapper>
   );
 };

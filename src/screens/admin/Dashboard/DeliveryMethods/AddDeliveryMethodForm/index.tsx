@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
 import { connect } from 'react-redux';
 import * as S from './styled';
-import * as F from '../../../../../components/Forms';
-import * as Typo from '../../../../../components/Typography';
+import * as Form from '../../../../../components/Forms';
+import * as Typography from '../../../../../components/Typography';
 import * as Models from '../../../../../models';
+import Button from '../../../../../components/Button';
 import { State } from '../../../../../redux/reducers';
 import { addDeliveryMethod } from '../../../../../redux/actions/deliery-methods/add-delivery-method.action';
 
@@ -34,17 +35,20 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
     paymentPolicy: '' as any
   });
 
-  const deliveryMethodPaymentPolicySelectOptions = (): {
+  const paymentPoliciesRadioOptions = (): {
     value: any;
-    text: any;
+    label: string;
+    id: string;
   }[] => {
     return [
       {
-        text: 'Płatność przy odbiorze',
+        id: 'cashOnDelivery',
+        label: 'Płatność przy odbiorze',
         value: 'CASH_ON_DELIVERY'
       },
       {
-        text: 'Płatność z góry',
+        id: 'inAdvance',
+        label: 'Płatność z góry',
         value: 'IN_ADVANCE'
       }
     ];
@@ -65,41 +69,33 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
     } as any);
   };
 
-  const handlePaymentPolicySelectChange = (
-    ev: React.FormEvent<HTMLSelectElement>
+  const handlePaymentPolicyChange = (
+    ev: React.FormEvent<HTMLInputElement>
   ): void => {
     setNewDeliveryMethod({
       ...newDeliveryMethod,
-      [ev.currentTarget.id]: ev.currentTarget.value
+      paymentPolicy: ev.currentTarget.value as any
     });
   };
 
   return (
     <S.Wrapper>
-      <F.Form onSubmit={handleSubmit}>
-        <Typo.Title text="Dodaj metodę dostawy" />
-        <F.InputGroup>
-          <F.Label htmlFor="name" text="Nazwa metody dostawy" />
-          <F.Input
-            variant="text"
-            id="name"
-            required
-            onChange={handleInputChange}
-            value={newDeliveryMethod.name}
-          />
-        </F.InputGroup>
-        <F.InputGroup>
-          <F.Label htmlFor="paymentPolicy" text="Sposób zapłaty" />
-          <F.Select
-            options={deliveryMethodPaymentPolicySelectOptions()}
-            required
-            id="paymentPolicy"
-            defaultMessage="Wybierz sposób zapłaty"
-            onChange={handlePaymentPolicySelectChange}
-          />
-        </F.InputGroup>
-        <F.Button text="Dodaj metodę dostawy" variant="full" type="submit" />
-      </F.Form>
+      <Form.Form handleSubmit={handleSubmit}>
+        <Typography.Title text="Dodaj metodę dostawy" />
+        <Form.Input
+          id="name"
+          type="text"
+          label="Nazwa"
+          handleChange={handleInputChange}
+          restrictions={{ required: true }}
+        />
+        <Form.Radio
+          options={paymentPoliciesRadioOptions()}
+          defaultCheckedLabel="Płatność przy odbiorze"
+          handleChange={handlePaymentPolicyChange}
+        />
+        <Button type="submit" variant="full" text="Dodaj metodę dostawy" />
+      </Form.Form>
     </S.Wrapper>
   );
 };

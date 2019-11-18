@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import { signIn } from '../../../../redux/actions/auth/auth.actions';
 import * as Form from '../../../../components/Forms';
+import Button from '../../../../components/Button';
+import * as Typography from '../../../../components/Typography';
 import Notification from '../../../../components/Notification';
 import * as S from './styled';
 import * as Models from '../../../../models';
@@ -65,10 +67,10 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
     }
   }, [signedIn, signingInFailed, signingIn]);
 
-  const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
     setSignInCredentials({
       ...signInCredentials,
-      [ev.target.id]: ev.target.value
+      [ev.currentTarget.id]: ev.currentTarget.value
     });
   };
 
@@ -79,7 +81,7 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
     });
   };
 
-  const handleFormSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
+  const handleSignIn = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
     performSignIn(signInCredentials);
     clearInputs();
@@ -94,33 +96,28 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
         />
       )}
       {signedIn && <Redirect to="/" />}
-      <Form.Form onSubmit={handleFormSubmit}>
-        <Form.InputGroup>
-          <Form.Label text="Adres email" htmlFor="email" />
-          <Form.Input
-            variant="email"
-            id="email"
-            onChange={handleInputChange}
-            value={signInCredentials.email}
-            required
-          />
-        </Form.InputGroup>
-        <Form.InputGroup>
-          <Form.Label text="Hasło" htmlFor="password" />
-          <Form.Input
-            variant="password"
-            id="password"
-            onChange={handleInputChange}
-            value={signInCredentials.password}
-            required
-          />
-        </Form.InputGroup>
-        <Form.Button
-          variant="full"
-          type="submit"
-          text="Zaloguj się"
-          isPending={signingIn}
+      <Form.Form handleSubmit={handleSignIn}>
+        <Typography.Title text="Zaloguj się" />
+        <Form.Input
+          type="email"
+          id="email"
+          placeholder="np. jan.kowalski22@wp.pl"
+          label="Adres email"
+          handleChange={handleInputChange}
+          restrictions={{
+            required: true
+          }}
         />
+        <Form.Input
+          type="password"
+          id="password"
+          label="Hasło"
+          handleChange={handleInputChange}
+          restrictions={{
+            required: true
+          }}
+        />
+        <Button type="submit" variant="full" text="Zaloguj się" />
       </Form.Form>
     </S.Wrapper>
   );

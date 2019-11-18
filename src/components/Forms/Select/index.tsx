@@ -2,36 +2,42 @@ import React from 'react';
 import * as S from './styled';
 
 type Props = {
-  options: {
-    value: any;
-    text: any;
-  }[];
-  onChange?(props: any): void;
-  defaultMessage?: string;
-  id?: string;
-  required?: boolean;
+  id: string;
+  label: string;
+  options: { value: any; label: string }[];
+  defaultSelectValue?: string;
+  handleChange: (ev: React.FormEvent<HTMLSelectElement>) => void;
+  restrictions?: {
+    required?: boolean;
+  };
 };
 
 const Select: React.FunctionComponent<Props> = (props: Props) => {
-  const { options, onChange, defaultMessage, id, required } = props;
+  const {
+    id,
+    label,
+    options,
+    defaultSelectValue,
+    handleChange,
+    restrictions
+  } = props;
 
   return (
-    <S.Select
-      onChange={onChange}
-      defaultValue="disabled"
-      id={id}
-      required={required}
-    >
-      <S.Option disabled value="disabled">
-        {defaultMessage || 'Wybierz opcję...'}
-      </S.Option>
-      {options.map((option, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <S.Option value={option.value} key={index}>
-          {option.text}
-        </S.Option>
-      ))}
-    </S.Select>
+    <S.SelectWrapper>
+      <S.Label htmlFor={id}>{label}</S.Label>
+      <S.Select
+        onChange={handleChange}
+        defaultValue={defaultSelectValue}
+        id={id}
+        required={restrictions && restrictions.required}
+      >
+        {options.map(option => (
+          <option value={option.value} key={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </S.Select>
+    </S.SelectWrapper>
   );
 };
 

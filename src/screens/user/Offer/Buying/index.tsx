@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './styled';
-import * as Form from '../../../../components/Forms';
+import Button from '../../../../components/Button';
 
 type Props = {
   remainItemsInStock: number;
@@ -44,7 +44,7 @@ const Buying: React.FunctionComponent<Props> = (props: Props) => {
         </S.ChangeNumberOfItemsButton>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
         <S.InStock>z {remainItemsInStock} dostępnych</S.InStock>
-        <Form.Button variant="full" type="submit" text="Kup" />
+        <Button variant="full" type="submit" text="Kup" />
       </S.Form>
     </S.Wrapper>
   );

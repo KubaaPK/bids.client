@@ -1,7 +1,12 @@
 import jwtDecode from 'jwt-decode';
 
 const isUserAuthenticated = (): boolean => {
-  return localStorage.getItem('access-token') !== null;
+  const token = localStorage.getItem('access-token');
+  if (token === null) {
+    return false;
+  }
+
+  return (jwtDecode(token) as any).exp > new Date().getTime() / 1000;
 };
 
 const isUserAnAdmin = (): boolean => {

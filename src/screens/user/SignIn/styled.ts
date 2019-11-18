@@ -19,22 +19,6 @@ const Main = styled.main`
   }
 `;
 
-const TitleWrapper = styled.span`
-  @media ${screenSize.MOBILE} {
-    display: block;
-
-    margin-left: ${paddings.MOBILE};
-  }
-
-  @media ${screenSize.TABLET} {
-    margin-left: 15%;
-  }
-
-  @media ${screenSize.DESKTOP} {
-    margin-left: 35%;
-  }
-`;
-
 const ToSignUpWrapper = styled.div`
   @media ${screenSize.MOBILE} {
     display: flex;
@@ -78,4 +62,4 @@ const LinkToSignUp = styled(Link)`
   }
 `;
 
-export { Main, TitleWrapper, ToSignUpWrapper, ToSignUpMessage, LinkToSignUp };
+export { Main, ToSignUpWrapper, ToSignUpMessage, LinkToSignUp };

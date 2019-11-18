@@ -1,9 +1,8 @@
 import Form from './Form';
 import Input from './Input';
-import InputGroup from './InputGroup';
-import Label from './Label';
-import Button from './Button';
+import Radio from './Radio';
 import Select from './Select';
-import TextSeparator from './TextSeparator';
+import Typography from './Typography';
+import Checkbox from './Checkbox';
 
-export { Form, Input, Select, InputGroup, Label, Button, TextSeparator };
+export { Form, Input, Radio, Select, Typography, Checkbox };

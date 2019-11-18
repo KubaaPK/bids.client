@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from '../../../components/Navigation';
 import SignInForm from './SignInForm';
-import * as Typo from '../../../components/Typography';
 import * as S from './styled';
 
 const SignIn: React.FunctionComponent<{}> = () => {
@@ -9,9 +8,6 @@ const SignIn: React.FunctionComponent<{}> = () => {
     <>
       <Navigation />
       <S.Main>
-        <S.TitleWrapper>
-          <Typo.Title text="Zaloguj się" />
-        </S.TitleWrapper>
         <SignInForm />
         <S.ToSignUpWrapper>
           <S.ToSignUpMessage>Nie masz konta?</S.ToSignUpMessage>

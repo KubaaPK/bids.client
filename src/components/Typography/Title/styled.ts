@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 import { screenSize, colors } from '../../../shared/styles/vars';
 
-const Title = styled.p`
+type Props = {
+  font?: {
+    size?: string;
+  };
+};
+
+const Title = styled.h1<Props>`
   @media ${screenSize.MOBILE} {
     color: ${colors.FONT};
-    font-size: 2rem;
+    font-size: ${props =>
+      props.font && props.font.size ? props.font.size : '1.6rem'};
     font-weight: 400;
   }
 `;

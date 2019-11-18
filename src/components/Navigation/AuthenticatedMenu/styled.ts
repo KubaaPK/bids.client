@@ -97,26 +97,24 @@ const MenuElement = styled.li`
   @media ${screenSize.MOBILE} {
     width: 100%;
 
-    text-align: center;
+    a {
+      font-size: 1.4rem;
+    }
+
     &:first-of-type {
       margin-bottom: 1rem;
-      a {
+
+      border-bottom: 1px solid #ccc;
+      /* a {
         background-color: ${colors.ACCENT};
 
         color: #fff;
-      }
+      } */
     }
   }
 
   @media ${screenSize.DESKTOP} {
-    &:first-of-type {
-      a {
-        transition: 0.2s;
-        &:hover {
-          background-color: ${lighten(0.1, colors.ACCENT)};
-        }
-      }
-    }
+   
   }
 `;
 
@@ -128,10 +126,8 @@ const MenuLink = styled(Link)`
 
     font-size: 1.2rem;
     text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
 
-    color: ${colors.SECONDARY_ACCENT};
+    color: ${lighten(0.2, colors.FONT)};
   }
 
   @media ${screenSize.DESKTOP} {

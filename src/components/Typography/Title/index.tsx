@@ -3,13 +3,15 @@ import * as S from './styled';
 
 type Props = {
   text: string;
-  style?: React.CSSProperties;
+  font?: {
+    size?: string;
+  };
 };
 
 const Title: React.FunctionComponent<Props> = (props: Props) => {
-  const { text, style } = props;
+  const { text, font } = props;
 
-  return <S.Title style={style}>{text}</S.Title>;
+  return <S.Title font={font}>{text}</S.Title>;
 };
 
 export default Title;

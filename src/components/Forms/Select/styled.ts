@@ -1,31 +1,44 @@
 import styled from 'styled-components';
 import { screenSize, colors } from '../../../shared/styles/vars';
 
+const SelectWrapper = styled.div`
+  @media ${screenSize.MOBILE} {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+`;
+
+const Label = styled.label`
+  @media ${screenSize.MOBILE} {
+    margin-bottom: 0.25rem;
+
+    font-size: 1.2rem;
+    color: ${colors.FONT};
+  }
+`;
+
 const Select = styled.select`
   @media ${screenSize.MOBILE} {
     width: 100%;
     height: 40px;
-
     padding-left: 1rem;
-    border: 1px solid ${colors.GREYISH};
+    border-color: #ccc;
 
     background-color: transparent;
 
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 
-    transition: 0.2s;
+    option {
+      font-size: 1.4rem;
+    }
+
     &:focus {
       outline: none;
 
-      border: 1px solid ${colors.ACCENT};
+      border-color: ${colors.ACCENT};
     }
   }
 `;
 
-const Option = styled.option`
-  @media ${screenSize.MOBILE} {
-    font-size: 1.3rem;
-  }
-`;
-
-export { Select, Option };
+export { SelectWrapper, Label, Select };

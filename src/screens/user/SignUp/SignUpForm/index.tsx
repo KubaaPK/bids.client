@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
 import * as Form from '../../../../components/Forms';
+import Button from '../../../../components/Button';
 import * as S from './styled';
+import * as Typography from '../../../../components/Typography';
 import * as Models from '../../../../models';
 import { State } from '../../../../redux/reducers';
 import { signUp } from '../../../../redux/actions/accounts/sign-up.action';
@@ -63,7 +65,9 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
     }
   }, [signingUp, signedUp, signingUpFailed, push]);
 
-  const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
+  const handleFormInputChange = (
+    ev: React.FormEvent<HTMLInputElement>
+  ): void => {
     setSignUpCredentials({
       ...signUpCredentials,
       [ev.currentTarget.id]: ev.currentTarget.value
@@ -79,7 +83,7 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
     });
   };
 
-  const handleFormSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
+  const handleSignUp = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
     performSignUp(signUpCredentials);
     clearInputs();
@@ -93,45 +97,33 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
           variant={notification.variant}
         />
       )}
-      <Form.Form onSubmit={handleFormSubmit}>
-        <Form.InputGroup>
-          <Form.Label text="Adres email" htmlFor="email" />
-          <Form.Input
-            variant="email"
-            id="email"
-            required
-            onChange={handleInputChange}
-            value={signUpCredentials.email}
-          />
-        </Form.InputGroup>
-        <Form.InputGroup>
-          <Form.Label text="Nazwa użytkownika" htmlFor="username" />
-          <Form.Input
-            variant="text"
-            id="username"
-            required
-            min={6}
-            onChange={handleInputChange}
-            value={signUpCredentials.username}
-          />
-        </Form.InputGroup>
-        <Form.InputGroup>
-          <Form.Label text="Hasło" htmlFor="password" />
-          <Form.Input
-            variant="password"
-            id="password"
-            required
-            min={6}
-            onChange={handleInputChange}
-            value={signUpCredentials.password}
-          />
-        </Form.InputGroup>
-        <Form.Button
-          variant="full"
-          type="submit"
-          text="Załóż konto"
-          isPending={signingUp}
+      <Form.Form handleSubmit={handleSignUp}>
+        <Typography.Title text="Załóż konto" />
+        <Form.Input
+          id="email"
+          label="Adres email"
+          type="email"
+          placeholder="np. jan.kowalski22@wp.pl"
+          restrictions={{ required: true }}
+          handleChange={handleFormInputChange}
         />
+        <Form.Input
+          id="username"
+          label="Nazwa użytkownika"
+          type="text"
+          placeholder="np. jankowalski22"
+          restrictions={{ required: true, minLength: 6 }}
+          handleChange={handleFormInputChange}
+        />
+        <Form.Input
+          id="password"
+          label="Hasło"
+          type="password"
+          placeholder=""
+          restrictions={{ required: true, minLength: 6 }}
+          handleChange={handleFormInputChange}
+        />
+        <Button type="submit" text="Załóż konto" variant="full" />
       </Form.Form>
     </S.Wrapper>
   );

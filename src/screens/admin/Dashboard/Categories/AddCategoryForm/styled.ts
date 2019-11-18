@@ -1,13 +1,19 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../shared/styles/vars';
+import { screenSize, paddings } from '../../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
     position: fixed;
-    top: 10rem;
+    top: 15rem;
     left: 0;
 
     width: 100%;
+
+    form {
+      padding: 1rem ${paddings.MOBILE};
+
+      background-color: #fff;
+    }
   }
 
   @media ${screenSize.DESKTOP} {

@@ -63,14 +63,14 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      <F.Form onSubmit={handleSubmit}>
+      {/* <F.Form onSubmit={handleSubmit}>
         <F.Select
           options={createSelectOptions()}
           onChange={handleSelectChange}
           defaultMessage="Wybierz parametr..."
         />
         <F.Button variant="full" type="submit" text="Dodaj parametr" />
-      </F.Form>
+      </F.Form> */}
     </S.Wrapper>
   );
 };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../shared/styles/vars';
+import { screenSize, paddings } from '../../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
@@ -12,6 +12,18 @@ const Wrapper = styled.div`
     max-height: 80vh;
     width: 100%;
     box-sizing: border-box;
+
+    form {
+      padding: 1rem ${paddings.MOBILE};
+
+      background-color: #fff;
+
+      div {
+        :nth-of-type(4) {
+          margin-top: 2rem;
+        }
+      }
+    }
   }
 
   @media ${screenSize.DESKTOP} {
