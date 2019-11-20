@@ -45,6 +45,9 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
             <S.MenuLink to="/dodaj-oferte">Dodaj ofertę</S.MenuLink>
           </S.MenuElement>
           <S.MenuElement>
+            <S.MenuLink to="/moje-konto">Moje konto</S.MenuLink>
+          </S.MenuElement>
+          <S.MenuElement>
             <S.MenuLink to="/" onClick={signOut}>
               Wyloguj się
             </S.MenuLink>

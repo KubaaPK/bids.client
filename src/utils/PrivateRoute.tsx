@@ -17,7 +17,7 @@ const PrivateRoute = ({
             // eslint-disable-next-line react/jsx-props-no-spreading
             <Component {...props} />
           ) : (
-            <Redirect to="zaloguj-sie" />
+            <Redirect to="/zaloguj-sie" />
           )
         // eslint-disable-next-line react/jsx-curly-newline
       }

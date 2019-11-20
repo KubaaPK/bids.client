@@ -8,10 +8,11 @@ type Props = {
     required?: boolean;
   };
   checked?: boolean;
+  handleChange?: (ev: React.FormEvent<HTMLInputElement>) => void;
 };
 
 const Checkbox: React.FunctionComponent<Props> = (props: Props) => {
-  const { label, subLabel, restrictions, checked } = props;
+  const { label, subLabel, restrictions, checked, handleChange } = props;
 
   return (
     <S.Wrapper>
@@ -19,6 +20,7 @@ const Checkbox: React.FunctionComponent<Props> = (props: Props) => {
         type="checkbox"
         required={restrictions && restrictions.required}
         defaultChecked={checked}
+        onChange={handleChange}
       />
       <S.CheckMark />
       <S.LabelText>
