@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { AjaxResponse } from 'rxjs/ajax';
 import * as S from './styled';
 import * as Form from '../../../components/Forms';
 import * as Typography from '../../../components/Typography';
@@ -14,25 +15,41 @@ import Images from './Images';
 import SellingMode from './SellingMode';
 import Delivery from './Delivery';
 import Fee from './Fee';
+import CurrentlySavedDrafts from './CurrentlySavedDrafts';
 import { fetchCategories } from '../../../redux/actions/categories/fetch-categories.actions';
+import { addOffer } from '../../../redux/actions/offers/add-offer.action';
+import { fetchDrafts } from '../../../redux/actions/offers/fetch-drafts.action';
 
 type ReduxState = {
   categories: Models.Categories.Category[];
+  offerAdded: AjaxResponse | undefined;
+  drafts: Models.Offers.Offer[];
+  deletedDraft: AjaxResponse | undefined;
 };
 
 type ReduxDispatch = {
   performFetchCategories: () => void;
+  performAddOffer: (offer: Models.Offers.NewOffer) => void;
+  performFetchDrafts: () => void;
 };
 
 type Props = ReduxState & ReduxDispatch;
 
 const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
-  const { categories, performFetchCategories } = props;
+  const {
+    categories,
+    performFetchCategories,
+    performAddOffer,
+    performFetchDrafts,
+    drafts,
+    deletedDraft
+  } = props;
   const [offer, setOffer] = useState<Models.Offers.NewOffer>();
   const [selectedCategory, selectCategory] = useState<string>();
   const [showCategorySelection, setShowCategorySelection] = useState<boolean>(
     false
   );
+  const [showDraftSelection, setShowDraftSelection] = useState<boolean>(false);
   const [errors, setErrors] = useState({
     category: {
       message: ''
@@ -43,7 +60,18 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     if (categories.length === 0) {
       performFetchCategories();
     }
-  }, [categories, performFetchCategories]);
+    performFetchDrafts();
+
+    if (drafts.length > 0) {
+      setShowDraftSelection(true);
+    } else {
+      setShowDraftSelection(false);
+    }
+
+    if (deletedDraft) {
+      performFetchDrafts();
+    }
+  }, [categories, performFetchCategories, drafts.length, deletedDraft]);
 
   const pickCategory = (category: Models.Categories.Category): void => {
     setShowCategorySelection(false);
@@ -72,7 +100,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
         }
       });
     }
-    console.log(offer);
+    performAddOffer(offer!);
   };
 
   const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
@@ -145,10 +173,20 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     } as any);
   };
 
+  const closeDraftSelection = (): void => {
+    setShowDraftSelection(false);
+  };
+
   return (
     <>
       <Navigation />
       <S.Main>
+        {showDraftSelection && (
+          <CurrentlySavedDrafts
+            drafts={drafts}
+            closeDraftSelection={closeDraftSelection}
+          />
+        )}
         <Form.Form handleSubmit={handleSubmit}>
           <Typography.Title text="Dodaj ofertę" font={{ size: '3rem' }} />
           <S.Section>
@@ -257,12 +295,17 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxState => {
   return {
-    categories: state.categories.fetchCategories.categories
+    categories: state.categories.fetchCategories.categories,
+    offerAdded: state.offers.addOffer.addedOffer,
+    drafts: state.offers.fetchDrafts.fetchedDrafts,
+    deletedDraft: state.offers.deleteDraft.draftDeleted
   };
 };
 
 const mapDispatchToProps: ReduxDispatch = {
-  performFetchCategories: fetchCategories
+  performFetchCategories: fetchCategories,
+  performAddOffer: addOffer,
+  performFetchDrafts: fetchDrafts
 };
 
 export default connect(
