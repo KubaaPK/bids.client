@@ -7,23 +7,31 @@ type Props = {
   onDescriptionChange: (
     description: Models.Offers.NewOffer['description']
   ) => void;
+  restoredDesctiption?: Models.Offers.Offer['description'] | undefined;
 };
 
 const Description: React.FunctionComponent<Props> = (props: Props) => {
-  const { onDescriptionChange } = props;
+  const { onDescriptionChange, restoredDesctiption } = props;
 
   const [description, setDescription] = useState<
     Models.Offers.OfferDescription
   >({
     sections: []
   } as any);
+  const [restoringDescription, setRestoringDescription] = useState<boolean>(
+    true
+  );
 
   useEffect(() => {
-    if (description.sections.length > 0) {
-      onDescriptionChange(description as any);
+    if (restoredDesctiption && restoringDescription) {
+      setDescription({ sections: restoredDesctiption.sections } as any);
+      setRestoringDescription(false);
     }
+    // if (description.sections && description.sections.length > 0) {
+    //   onDescriptionChange(description as any);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [description]);
+  }, [description, restoredDesctiption]);
 
   const addSection = (): void => {
     const newSection: Models.Offers.OfferDescription['sections']['0'] = {
@@ -53,6 +61,7 @@ const Description: React.FunctionComponent<Props> = (props: Props) => {
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             onSectionContentChange={onSectionChange(index)}
+            restoredItems={section}
           />
         ))}
         <S.AddSectionButton type="button" onClick={addSection}>

@@ -31,6 +31,15 @@ export type Offer = {
     ];
   };
   images: { url: string }[];
+  description: {
+    sections: [
+      {
+        type: 'TEXT' | 'IMAGE';
+        content?: string;
+        url?: string;
+      }
+    ];
+  };
   sellingMode: {
     format: 'BUY_NOW';
     price: {

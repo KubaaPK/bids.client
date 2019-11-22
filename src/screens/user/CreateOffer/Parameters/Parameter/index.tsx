@@ -5,10 +5,11 @@ import * as Form from '../../../../../components/Forms';
 type Props = {
   parameter: Models.Categories.Parameter;
   setParameter: (parameter: Models.Offers.NewOffer['parameters'][0]) => void;
+  restoredParameter?: any;
 };
 
 const Parameter: React.FunctionComponent<Props> = (props: Props) => {
-  const { parameter, setParameter } = props;
+  const { parameter, setParameter, restoredParameter } = props;
 
   const parameterType = (): 'number' | 'text' => {
     if (parameter.type === 'float' || parameter.type === 'integer') {
@@ -34,6 +35,7 @@ const Parameter: React.FunctionComponent<Props> = (props: Props) => {
       restrictions={{ required: parameter.required }}
       type={parameterType()}
       handleChange={handleParameterChange}
+      defaultValue={restoredParameter.value}
     />
   );
 };

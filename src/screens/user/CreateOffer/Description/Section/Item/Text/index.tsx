@@ -3,10 +3,11 @@ import * as S from './styled';
 
 type Props = {
   onContentChange: (text: string) => void;
+  restoredItem?: any;
 };
 
 const Text: React.FunctionComponent<Props> = (props: Props) => {
-  const { onContentChange } = props;
+  const { onContentChange, restoredItem } = props;
   return (
     <S.Text
       onChange={
@@ -14,6 +15,7 @@ const Text: React.FunctionComponent<Props> = (props: Props) => {
           onContentChange(ev.currentTarget.value)
         // eslint-disable-next-line react/jsx-curly-newline
       }
+      defaultValue={restoredItem && restoredItem.content}
     />
   );
 };

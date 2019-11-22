@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './styled';
 import * as Form from '../../../../components/Forms';
 import Button from '../../../../components/Button';
 
 type Props = {
   handleAddedImages: (images: string[]) => void;
+  restoredImages?: string[];
 };
 
 const Images: React.FunctionComponent<Props> = (props: Props) => {
-  const { handleAddedImages } = props;
+  const { handleAddedImages, restoredImages } = props;
 
   const [images, setImages] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (restoredImages) {
+      setImages(restoredImages);
+    }
+  }, [restoredImages]);
 
   const addImage = (): void => {
     images.push(imageUrl!);

@@ -10,10 +10,11 @@ type Props = {
   passParameterValue: (
     parameters: Models.Offers.NewOffer['parameters'][0]
   ) => void;
+  restoredParameters?: any;
 };
 
 const Parameters: React.FunctionComponent<Props> = (props: Props) => {
-  const { categoryId, passParameterValue } = props;
+  const { categoryId, passParameterValue, restoredParameters } = props;
   const [parameters, setParameters] = useState<Models.Categories.Parameter[]>();
   const [parametersValues, setParametersValues] = useState<
     {
@@ -26,18 +27,23 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
   const [fetchingParameters, setFetchingParameters] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/sale/categories/${categoryId}/parameters`, {
-      method: 'GET',
-      headers: new Headers({
-        Authorization: `Bearer ${localStorage.getItem('access-token')}`
+    if (!restoredParameters) {
+      fetch(`${API_URL}/sale/categories/${categoryId}/parameters`, {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${localStorage.getItem('access-token')}`
+        })
       })
-    })
-      .then(res => res.json())
-      .then(res => {
-        setParameters(res);
-        setFetchingParameters(false);
-      });
-  }, [categoryId, parametersValues]);
+        .then(res => res.json())
+        .then(res => {
+          setParameters(res);
+          setFetchingParameters(false);
+        });
+    } else {
+      setParameters(restoredParameters as any);
+      setFetchingParameters(false);
+    }
+  }, [categoryId, parametersValues, restoredParameters]);
 
   const handleParameterChange = (
     parameter: Models.Offers.NewOffer['parameters'][0]
@@ -48,11 +54,13 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.Wrapper>
       {!fetchingParameters &&
-        parameters!.map(parameter => (
+        parameters!.map((parameter, index) => (
           <Parameter
             parameter={parameter}
-            key={parameter.id}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             setParameter={handleParameterChange}
+            restoredParameter={restoredParameters && restoredParameters[index]}
           />
         ))}
     </S.Wrapper>

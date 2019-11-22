@@ -14,10 +14,11 @@ type Props = {
     maxLength?: number;
   };
   handleChange: (ev: React.FormEvent<HTMLInputElement>) => void;
+  defaultValue?: any;
 };
 
 const Input: React.FunctionComponent<Props> = (props: Props) => {
-  const { id, label, type, restrictions, placeholder, handleChange } = props;
+  const { id, label, type, defaultValue, restrictions, placeholder, handleChange } = props;
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const handleErrorMessage = (value: string | number): void => {
@@ -69,6 +70,7 @@ const Input: React.FunctionComponent<Props> = (props: Props) => {
       <S.Input
         id={id}
         type={type}
+        defaultValue={defaultValue && defaultValue}
         placeholder={placeholder}
         onChange={ev => {
           handleChange(ev);

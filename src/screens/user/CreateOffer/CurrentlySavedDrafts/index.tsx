@@ -12,15 +12,25 @@ type ReduxDispatch = {
 type OwnProps = {
   drafts: Models.Offers.Offer[];
   closeDraftSelection: () => void;
+  handleDraftSelection: (draft: Models.Offers.Offer) => void;
 };
 
 type Props = ReduxDispatch & OwnProps;
 
 const CurrentlySavedDrafts: React.FunctionComponent<Props> = (props: Props) => {
-  const { drafts, closeDraftSelection, performDeleteDraft } = props;
+  const {
+    drafts,
+    closeDraftSelection,
+    performDeleteDraft,
+    handleDraftSelection
+  } = props;
 
   const handleDraftDelete = (id: string): void => {
     performDeleteDraft(id);
+  };
+
+  const onDraftClick = (draft: Models.Offers.Offer): void => {
+    handleDraftSelection(draft);
   };
 
   return (
@@ -30,17 +40,16 @@ const CurrentlySavedDrafts: React.FunctionComponent<Props> = (props: Props) => {
         <S.Close onClick={closeDraftSelection} />
         <S.Drafts>
           {drafts.map(draft => (
-            <S.Draft key={draft.id}>
+            <S.Draft key={draft.id} onClick={() => onDraftClick(draft)}>
               <S.Thumbnail
                 src={
                   draft.images.length > 0
-                    ? draft.images[0].url
+                    ? ((draft.images[0] as unknown) as string)
                     : 'https://www.menaiortho.com.au/wp-content/uploads/2016/01/image-placeholder-300x210.png'
                 }
               />
               <S.Text>
                 <S.Name>{draft.name}</S.Name>
-                <S.Id>{draft.id}</S.Id>
               </S.Text>
               <S.Delete onClick={() => handleDraftDelete(draft.id)}>
                 Usuń

@@ -65,6 +65,12 @@ const Close = styled(X)`
     top: 1rem;
     right: ${paddings.MOBILE};
   }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const Drafts = styled.ul`
@@ -84,6 +90,12 @@ const Draft = styled.li`
 
     padding: 2rem 0;
     border-bottom: 1px solid #ccc;
+  }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -107,30 +119,42 @@ const Name = styled.p`
   }
 `;
 
-const Id = styled.p`
-  @media ${screenSize.MOBILE} {
-    font-size: 1.3rem;
-  }
-`;
-
-const Delete = styled.div`
+const Delete = styled.button`
   @media ${screenSize.MOBILE} {
     width: 25%;
+    border: 0;
+
+    background-color: transparent;
 
     color: ${colors.SECONDARY_ACCENT};
     font-size: 1.4rem;
     text-transform: uppercase;
     text-align: right;
   }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
-const AddNewOffer = styled.div`
+const AddNewOffer = styled.button`
   @media ${screenSize.MOBILE} {
     margin-top: 2rem;
+    border: 0;
+
+    background-color: transparent;
 
     font-size: 1.4rem;
     color: ${colors.SECONDARY_ACCENT};
     text-transform: uppercase;
+  }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -143,7 +167,6 @@ export {
   Thumbnail,
   Text,
   Name,
-  Id,
   Delete,
   AddNewOffer
 };

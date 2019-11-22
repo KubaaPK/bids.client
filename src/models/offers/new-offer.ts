@@ -1,5 +1,6 @@
 export type NewOffer = {
   name: string;
+  ean: string;
   category: {
     id: string;
   };
@@ -13,9 +14,11 @@ export type NewOffer = {
   description: {
     sections: [
       {
-        type: 'TEXT' | 'IMAGE';
-        content?: string;
-        url?: string;
+        items: {
+          type: 'TEXT' | 'IMAGE';
+          content?: string;
+          url?: string;
+        }[];
       }
     ];
   };
@@ -32,7 +35,7 @@ export type NewOffer = {
   };
   images: string[];
   stock: {
-    avaiable: number;
+    available: number;
     unit: 'UNIT' | 'PAIR' | 'SET';
   };
 };

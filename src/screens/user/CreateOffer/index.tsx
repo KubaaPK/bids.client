@@ -55,6 +55,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       message: ''
     }
   });
+  const [draftRestored, setDraftRestored] = useState<boolean>(false);
 
   useEffect(() => {
     if (categories.length === 0) {
@@ -71,7 +72,22 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     if (deletedDraft) {
       performFetchDrafts();
     }
-  }, [categories, performFetchCategories, drafts.length, deletedDraft]);
+
+    if (draftRestored) {
+      if (offer!.category !== undefined) {
+        selectCategory((offer!.category as any).name);
+      }
+      setShowDraftSelection(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    categories,
+    performFetchCategories,
+    drafts.length,
+    deletedDraft,
+    performFetchDrafts,
+    draftRestored
+  ]);
 
   const pickCategory = (category: Models.Categories.Category): void => {
     setShowCategorySelection(false);
@@ -177,6 +193,12 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     setShowDraftSelection(false);
   };
 
+  const handleDraftSelection = (draft: Models.Offers.Offer): void => {
+    setOffer(draft as any);
+    setShowDraftSelection(false);
+    setDraftRestored(true);
+  };
+
   return (
     <>
       <Navigation />
@@ -185,6 +207,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
           <CurrentlySavedDrafts
             drafts={drafts}
             closeDraftSelection={closeDraftSelection}
+            handleDraftSelection={handleDraftSelection}
           />
         )}
         <Form.Form handleSubmit={handleSubmit}>
@@ -204,6 +227,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
               type="text"
               restrictions={{ required: true }}
               handleChange={handleInputChange}
+              defaultValue={offer && offer.name !== null && offer.name}
             />
             {showCategorySelection && (
               <Categories
@@ -237,11 +261,18 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
               label="EAN (opcjonalnie)"
               type="text"
               handleChange={handleInputChange}
+              defaultValue={offer && offer.ean && offer.ean}
             />
             {selectedCategory && (
               <Parameters
                 categoryId={offer!.category.id}
                 passParameterValue={handleParametersChange}
+                restoredParameters={
+                  draftRestored &&
+                  offer &&
+                  offer.parameters !== null &&
+                  offer.parameters
+                }
               />
             )}
           </S.Section>
@@ -251,8 +282,18 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
               font={{ size: '2.2rem', weight: 500 }}
               topBottomMargin="2rem"
             />
-            <Images handleAddedImages={handleImages} />
-            <Description onDescriptionChange={handleDescriptionChange} />
+            <Images
+              handleAddedImages={handleImages}
+              restoredImages={offer && offer.images}
+            />
+            <Description
+              onDescriptionChange={handleDescriptionChange}
+              restoredDesctiption={
+                offer &&
+                offer.description &&
+                ({ sections: offer.description } as any)
+              }
+            />
           </S.Section>
           <S.Section>
             <Form.Typography.TextSeparator
@@ -263,6 +304,8 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
             <SellingMode
               onSellingModeChange={handleSellingModeChange}
               onStockChange={handleStockChange}
+              restoredSellingMode={offer && offer.sellingMode}
+              restoredStock={offer && (offer.stock as any)}
             />
           </S.Section>
           <S.Section>

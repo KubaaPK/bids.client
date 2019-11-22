@@ -9,16 +9,24 @@ type Props = {
   ) => void;
 
   onStockChange: (stock: Models.Offers.NewOffer['stock']) => void;
+  restoredSellingMode?: Models.Offers.Offer['sellingMode'];
+  restoredStock?: Models.Offers.Offer['stock'];
 };
 
 const SellingMode: React.FunctionComponent<Props> = (props: Props) => {
-  const { onSellingModeChange, onStockChange } = props;
+  const {
+    onSellingModeChange,
+    onStockChange,
+    restoredSellingMode,
+    restoredStock
+  } = props;
+
   const [stock, setStock] = useState<Models.Offers.NewOffer['stock']>({
     unit: 'UNIT'
   } as Models.Offers.NewOffer['stock']);
 
   useEffect(() => {
-    if (stock.avaiable !== undefined && stock.unit !== undefined) {
+    if (stock.available !== undefined && stock.unit !== undefined) {
       onStockChange(stock);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +62,7 @@ const SellingMode: React.FunctionComponent<Props> = (props: Props) => {
   const handleStockChange = (ev: React.FormEvent<HTMLInputElement>): void => {
     setStock({
       ...stock,
-      avaiable: ev.currentTarget.value
+      available: ev.currentTarget.value
     } as any);
   };
 
@@ -82,6 +90,11 @@ const SellingMode: React.FunctionComponent<Props> = (props: Props) => {
           restrictions={{ required: true, min: 1 }}
           handleChange={handlePriceChange}
           label="Cena"
+          defaultValue={
+            restoredSellingMode &&
+            restoredSellingMode.price &&
+            restoredSellingMode.price.amount
+          }
         />
         <Form.Input
           label="Liczba sztuk"
@@ -89,6 +102,9 @@ const SellingMode: React.FunctionComponent<Props> = (props: Props) => {
           restrictions={{ required: true }}
           type="number"
           handleChange={handleStockChange}
+          defaultValue={
+            restoredStock && restoredStock.available && restoredStock.available
+          }
         />
         <Form.Select
           label="Rodzaj zasobu"
