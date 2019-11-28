@@ -14,10 +14,11 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
     <S.Wrapper>
       <Typo.Title text="Parametry" />
       <S.List>
-        {parameters.map((parameter, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Parameter parameter={parameter} key={index} />
-        ))}
+        {parameters &&
+          parameters.map((parameter, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Parameter parameter={parameter} key={index} />
+          ))}
       </S.List>
     </S.Wrapper>
   );

@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import * as Models from '../../models';
 import * as S from './styled';
 import { API_URL } from '../../consts';
 import Offer from './Offer';
 
-type Props = {
-  limit?: number;
-  offset?: number;
-  order?: string;
-  sellerId?: string;
-  categoryId?: string;
-};
-
-const Offers: React.FunctionComponent<Props> = (props: Props) => {
-  const { categoryId, limit, offset, order, sellerId } = props;
+const Offers: React.FunctionComponent<{}> = () => {
   const [offers, setOffers] = useState<Models.Offers.Offer[]>([]);
+  const location = useLocation<any>();
 
   useEffect(() => {
-    fetch(`${API_URL}/sale/offers`)
+    fetch(`${API_URL}/sale/offers${location.search}`)
       .then(res => res.json())
       .then((response: Response) => {
         setOffers((response as unknown) as Models.Offers.Offer[]);
       });
-  }, []);
+  }, [location.search]);
 
   return (
     <S.Wrapper>

@@ -11,7 +11,7 @@ const Category: React.FunctionComponent<Props> = (props: Props) => {
   const { category } = props;
   return (
     <S.Category>
-      <Link to="/">{category.name}</Link>
+      <Link to={`/?category.id=${category.id}`}>{category.name}</Link>
     </S.Category>
   );
 };
