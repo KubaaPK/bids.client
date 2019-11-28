@@ -20,7 +20,7 @@ const Element = styled.li`
 
 const Name = styled.span`
   @media ${screenSize.MOBILE} {
-    width: 10rem;
+    width: 15rem;
 
     font-size: 1.4rem;
     color: ${lighten(0.4, colors.FONT)};

@@ -3,6 +3,7 @@ import Navigation from '../../../components/Navigation';
 import * as S from './styled';
 import Categories from './Categories';
 import LatestOffers from './LatestOffers';
+import Offers from '../../../components/Offers';
 
 const Main: React.FunctionComponent<{}> = () => {
   return (
@@ -11,6 +12,7 @@ const Main: React.FunctionComponent<{}> = () => {
       <S.Wrapper>
         <Categories />
         <LatestOffers />
+        <Offers />
       </S.Wrapper>
     </>
   );

@@ -22,7 +22,7 @@ const List = styled.ul`
   }
 
   @media ${screenSize.TABLET} {
-    top: 11vh;
+    top: 15vh;
   }
 
   @media ${screenSize.DESKTOP} {

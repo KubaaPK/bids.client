@@ -20,7 +20,7 @@ const fetchLatestOffersEpic: Epic<
   action$.pipe(
     filter(isOfType(FetchLatestOffersActionsTypes.FETCH_LATEST_OFFERS)),
     mergeMap(() =>
-      from(ajax.get(`${API_URL}/sale/offers?order='DESC'`)).pipe(
+      from(ajax.get(`${API_URL}/sale/offers?order=DESC&limit=2`)).pipe(
         map((response: AjaxResponse) => latestOffersFetched(response.response)),
         catchError(error => of(latestOffersFetchingFailed(error)))
       )
