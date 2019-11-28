@@ -1,0 +1,63 @@
+import styled from 'styled-components';
+import { colors, paddings, screenSize } from '../../../../shared/styles/vars';
+
+const Wrapper = styled.div`
+  @media ${screenSize.MOBILE} {
+    padding: 2rem ${paddings.MOBILE};
+
+    background-color: #fff;
+  }
+`;
+
+const CategoryWrapper = styled.div`
+  @media ${screenSize.MOBILE} {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+`;
+
+const CategoryText = styled.p`
+  @media ${screenSize.MOBILE} {
+    margin: 0;
+
+    font-size: 1.4rem;
+  }
+`;
+
+const SelectCategory = styled.span`
+  @media ${screenSize.MOBILE} {
+    margin-left: 0.5rem;
+
+    font-size: 1.2rem;
+    color: ${colors.SECONDARY_ACCENT};
+  }
+`;
+
+const SelectedCategory = styled.p`
+  @media ${screenSize.MOBILE} {
+    width: 100%;
+    margin-bottom: 0;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  @media ${screenSize.MOBILE} {
+    maring: 0;
+
+    font-size: 1.4rem;
+    color: ${colors.ERROR};
+  }
+`;
+
+export {
+  Wrapper,
+  CategoryText,
+  CategoryWrapper,
+  ErrorMessage,
+  SelectedCategory,
+  SelectCategory
+};

@@ -18,7 +18,10 @@ import deliveryMethodsReducer, {
   DeliveryMethodsState,
   initialDeliveryMethodsState
 } from './delivery-methods';
-import shippingRatesReducer, { initialShippingRatesState, ShippingRatesState } from './shipping-rates';
+import shippingRatesReducer, {
+  initialShippingRatesState,
+  ShippingRatesState
+} from './shipping-rates';
 
 export type State = {
   accounts: AccountsState;

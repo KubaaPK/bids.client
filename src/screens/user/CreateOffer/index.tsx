@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AjaxResponse } from 'rxjs/ajax';
 import * as S from './styled';
@@ -8,29 +9,41 @@ import * as Models from '../../../models';
 import Button from '../../../components/Button';
 import { State } from '../../../redux/reducers';
 import Navigation from '../../../components/Navigation';
-import Categories from './Categories';
-import Parameters from './Parameters';
-import Description from './Description';
-import Images from './Images';
-import SellingMode from './SellingMode';
-import Delivery from './Delivery';
-import Fee from './Fee';
+import Categories from './Form/Categories';
+import Parameters from './Form/Parameters';
+import Description from './Form/Description';
+import Images from './Form/Images';
+import SellingMode from './Form/SellingMode';
+import Delivery from './Form/Delivery';
+import Fee from './Form/Fee';
+import TitleAndCategory from './TitleAndCategory';
 import CurrentlySavedDrafts from './CurrentlySavedDrafts';
 import { fetchCategories } from '../../../redux/actions/categories/fetch-categories.actions';
-import { addOffer } from '../../../redux/actions/offers/add-offer.action';
 import { fetchDrafts } from '../../../redux/actions/offers/fetch-drafts.action';
+import { updateDraft } from '../../../redux/actions/offers/update-draft.action';
+import { fetchShippingRates } from '../../../redux/actions/shipping-rates/fetch-shipping-rates.action';
+import { publishOffer } from '../../../redux/actions/offers/publish-offer.action';
 
 type ReduxState = {
   categories: Models.Categories.Category[];
   offerAdded: AjaxResponse | undefined;
   drafts: Models.Offers.Offer[];
   deletedDraft: AjaxResponse | undefined;
+  addedOffer: AjaxResponse | undefined;
+  draftUpdated: AjaxResponse | undefined;
+  shippingRates: Models.ShippingRates.ShippingRate[];
+  offerPublished: AjaxResponse | undefined;
 };
 
 type ReduxDispatch = {
   performFetchCategories: () => void;
-  performAddOffer: (offer: Models.Offers.NewOffer) => void;
   performFetchDrafts: () => void;
+  performDraftUpdate: (
+    id: string,
+    updatedDraft: Models.Offers.NewOffer
+  ) => void;
+  performFetchShippingRates: () => void;
+  performPublishOffer: (draftOfferId: string) => void;
 };
 
 type Props = ReduxState & ReduxDispatch;
@@ -39,10 +52,15 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
   const {
     categories,
     performFetchCategories,
-    performAddOffer,
     performFetchDrafts,
+    performFetchShippingRates,
     drafts,
-    deletedDraft
+    deletedDraft,
+    offerAdded,
+    performDraftUpdate,
+    shippingRates,
+    performPublishOffer,
+    offerPublished
   } = props;
   const [offer, setOffer] = useState<Models.Offers.NewOffer>();
   const [selectedCategory, selectCategory] = useState<string>();
@@ -50,34 +68,71 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     false
   );
   const [showDraftSelection, setShowDraftSelection] = useState<boolean>(false);
+
   const [errors, setErrors] = useState({
     category: {
       message: ''
     }
   });
   const [draftRestored, setDraftRestored] = useState<boolean>(false);
+  const [preOfferCreated, setPreOfferCreated] = useState<boolean>(false);
+  const [draftId, setDraftId] = useState<string>();
+  const [counter, setCounter] = useState<number>(0);
+  const { push } = useHistory();
+
+  useEffect(() => {
+    performFetchDrafts();
+    performFetchShippingRates();
+  }, [performFetchDrafts, performFetchShippingRates]);
 
   useEffect(() => {
     if (categories.length === 0) {
       performFetchCategories();
     }
-    performFetchDrafts();
-
     if (drafts.length > 0) {
       setShowDraftSelection(true);
     } else {
       setShowDraftSelection(false);
     }
 
-    if (deletedDraft) {
+    if (deletedDraft !== undefined) {
       performFetchDrafts();
+      setPreOfferCreated(false);
+      setShowDraftSelection(false);
+      selectCategory(undefined);
+    }
+
+    if (preOfferCreated && counter === 0) {
+      performFetchDrafts();
+      if (offerAdded) {
+        const createdDraft = drafts.find(
+          el => el.id === offerAdded.response.id
+        );
+        setOffer(createdDraft as any);
+        if (createdDraft) {
+          setDraftId(createdDraft!.id);
+          setDraftRestored(true);
+          setShowDraftSelection(false);
+        }
+        setShowDraftSelection(false);
+      }
     }
 
     if (draftRestored) {
-      if (offer!.category !== undefined) {
+      if (offer && offer.category !== undefined) {
         selectCategory((offer!.category as any).name);
+        setDraftId((offer! as any).id);
+        setPreOfferCreated(true);
+        setShowDraftSelection(false);
       }
-      setShowDraftSelection(false);
+    }
+
+    if (offer && counter === 1) {
+      performDraftUpdate(draftId!, offer as any);
+    }
+
+    if (offerPublished) {
+      push(`/oferta/${draftId}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -86,8 +141,19 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     drafts.length,
     deletedDraft,
     performFetchDrafts,
-    draftRestored
+    draftRestored,
+    preOfferCreated,
+    offer,
+    shippingRates,
+    offerPublished
   ]);
+
+  useEffect(() => {
+    return () => {
+      setPreOfferCreated(false);
+      setOffer(undefined as any);
+    };
+  }, []);
 
   const pickCategory = (category: Models.Categories.Category): void => {
     setShowCategorySelection(false);
@@ -116,7 +182,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
         }
       });
     }
-    performAddOffer(offer!);
+    performPublishOffer(draftId!);
   };
 
   const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
@@ -124,6 +190,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       [ev.currentTarget.id]: ev.currentTarget.value
     } as any);
+    setCounter(1);
   };
 
   const handleParametersChange = (
@@ -146,6 +213,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       parameters: updatedParameters
     } as any);
+    setCounter(1);
   };
 
   const handleImages = (images: string[]): void => {
@@ -153,6 +221,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       images
     } as any);
+    setCounter(1);
   };
 
   const handleShippingRateChange = (id: string): void => {
@@ -162,6 +231,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
         id
       }
     } as any);
+    setCounter(1);
   };
 
   const handleSellingModeChange = (
@@ -171,6 +241,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       sellingMode
     } as any);
+    setCounter(1);
   };
 
   const handleStockChange = (stock: Models.Offers.NewOffer['stock']): void => {
@@ -178,6 +249,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       stock
     } as any);
+    setCounter(1);
   };
 
   const handleDescriptionChange = (
@@ -187,6 +259,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       ...offer,
       description
     } as any);
+    setCounter(1);
   };
 
   const closeDraftSelection = (): void => {
@@ -199,10 +272,28 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     setDraftRestored(true);
   };
 
+  const afterPreOfferCreated = (preOffer: any): void => {
+    setOffer({
+      category: preOffer.category,
+      name: preOffer.name,
+      shippingRate: {
+        id: shippingRates[0].id
+      }
+    } as any);
+    setPreOfferCreated(true);
+  };
+
   return (
     <>
       <Navigation />
       <S.Main>
+        {!preOfferCreated && (
+          <TitleAndCategory
+            categories={categories}
+            draftCreated={afterPreOfferCreated}
+            shippingRates={shippingRates}
+          />
+        )}
         {showDraftSelection && (
           <CurrentlySavedDrafts
             drafts={drafts}
@@ -210,127 +301,137 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
             handleDraftSelection={handleDraftSelection}
           />
         )}
-        <Form.Form handleSubmit={handleSubmit}>
-          <Typography.Title text="Dodaj ofertę" font={{ size: '3rem' }} />
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Nazwa i kategoria"
-              topBottomMargin="2rem"
-              font={{
-                size: '2.2rem',
-                weight: 500
-              }}
-            />
-            <Form.Input
-              id="name"
-              label="Tytuł oferty"
-              type="text"
-              restrictions={{ required: true }}
-              handleChange={handleInputChange}
-              defaultValue={offer && offer.name !== null && offer.name}
-            />
-            {showCategorySelection && (
-              <Categories
-                categories={categories}
-                close={() => setShowCategorySelection(false)}
-                selectCategory={pickCategory}
+        {preOfferCreated && (
+          <Form.Form handleSubmit={handleSubmit}>
+            <Typography.Title text="Dodaj ofertę" font={{ size: '3rem' }} />
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Nazwa i kategoria"
+                topBottomMargin="2rem"
+                font={{
+                  size: '2.2rem',
+                  weight: 500
+                }}
               />
-            )}
-            <S.CategoryWrapper>
-              <S.CategoryText>Kategoria</S.CategoryText>
-              <S.SelectCategory
-                onClick={() => setShowCategorySelection(!showCategorySelection)}
-              >
-                {selectedCategory ? 'Zmień' : 'Wybierz'}
-              </S.SelectCategory>
-              <S.SelectedCategory>{selectedCategory}</S.SelectedCategory>
-              <S.ErrorMessage>{errors.category.message}</S.ErrorMessage>
-            </S.CategoryWrapper>
-          </S.Section>
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Cechy oferty"
-              topBottomMargin="2rem"
-              font={{
-                size: '2.2rem',
-                weight: 500
-              }}
-            />
-            <Form.Input
-              id="ean"
-              label="EAN (opcjonalnie)"
-              type="text"
-              handleChange={handleInputChange}
-              defaultValue={offer && offer.ean && offer.ean}
-            />
-            {selectedCategory && (
-              <Parameters
-                categoryId={offer!.category.id}
-                passParameterValue={handleParametersChange}
-                restoredParameters={
-                  draftRestored &&
-                  offer &&
-                  offer.parameters !== null &&
-                  offer.parameters
+              <Form.Input
+                id="name"
+                label="Tytuł oferty"
+                type="text"
+                restrictions={{ required: true }}
+                handleChange={handleInputChange}
+                defaultValue={offer && offer.name !== null && offer.name}
+              />
+              {showCategorySelection && (
+                <Categories
+                  categories={categories}
+                  close={() => setShowCategorySelection(false)}
+                  selectCategory={pickCategory}
+                />
+              )}
+              <S.CategoryWrapper>
+                <S.CategoryText>Kategoria</S.CategoryText>
+                <S.SelectCategory
+                  onClick={
+                    () => setShowCategorySelection(!showCategorySelection)
+                    // eslint-disable-next-line react/jsx-curly-newline
+                  }
+                >
+                  {selectedCategory ? 'Zmień' : 'Wybierz'}
+                </S.SelectCategory>
+                <S.SelectedCategory>{selectedCategory}</S.SelectedCategory>
+                <S.ErrorMessage>{errors.category.message}</S.ErrorMessage>
+              </S.CategoryWrapper>
+            </S.Section>
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Cechy oferty"
+                topBottomMargin="2rem"
+                font={{
+                  size: '2.2rem',
+                  weight: 500
+                }}
+              />
+              <Form.Input
+                id="ean"
+                label="EAN (opcjonalnie)"
+                type="text"
+                handleChange={handleInputChange}
+                defaultValue={offer && offer.ean && offer.ean}
+              />
+              {selectedCategory && (
+                <Parameters
+                  categoryId={offer && offer.category && offer!.category.id}
+                  passParameterValue={handleParametersChange}
+                  restoredParameters={
+                    draftRestored &&
+                    offer &&
+                    offer.parameters !== null &&
+                    offer.parameters
+                  }
+                />
+              )}
+            </S.Section>
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Zdjęcia i opis"
+                font={{ size: '2.2rem', weight: 500 }}
+                topBottomMargin="2rem"
+              />
+              <Images
+                handleAddedImages={handleImages}
+                restoredImages={offer && offer.images}
+              />
+              <Description
+                onDescriptionChange={handleDescriptionChange}
+                restoredDesctiption={
+                  offer && offer.description
+                    ? offer.description
+                    : ({ sections: [] } as any)
                 }
               />
-            )}
-          </S.Section>
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Zdjęcia i opis"
-              font={{ size: '2.2rem', weight: 500 }}
-              topBottomMargin="2rem"
-            />
-            <Images
-              handleAddedImages={handleImages}
-              restoredImages={offer && offer.images}
-            />
-            <Description
-              onDescriptionChange={handleDescriptionChange}
-              restoredDesctiption={
-                offer &&
-                offer.description &&
-                ({ sections: offer.description } as any)
-              }
-            />
-          </S.Section>
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Format sprzedaży"
-              font={{ size: '2.2rem', weight: 500 }}
-              topBottomMargin="2rem"
-            />
-            <SellingMode
-              onSellingModeChange={handleSellingModeChange}
-              onStockChange={handleStockChange}
-              restoredSellingMode={offer && offer.sellingMode}
-              restoredStock={offer && (offer.stock as any)}
-            />
-          </S.Section>
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Dostawa i płatność"
-              font={{ size: '2.2rem', weight: 500 }}
-              topBottomMargin="2rem"
-            />
-            <Delivery handleShippingRateChange={handleShippingRateChange} />
-          </S.Section>
-          <S.Section>
-            <Form.Typography.TextSeparator
-              text="Podsumowanie"
-              font={{ size: '2.2rem', weight: 500 }}
-              topBottomMargin="2rem"
-            />
-            <Fee
-              categoryName={selectedCategory}
-              sellingMode={offer && offer.sellingMode}
-            />
-          </S.Section>
-          <S.Section>
-            <Button type="submit" variant="full" text="Dodaj ofertę" />
-          </S.Section>
-        </Form.Form>
+            </S.Section>
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Format sprzedaży"
+                font={{ size: '2.2rem', weight: 500 }}
+                topBottomMargin="2rem"
+              />
+              <SellingMode
+                onSellingModeChange={handleSellingModeChange}
+                onStockChange={handleStockChange}
+                restoredSellingMode={offer && offer.sellingMode}
+                restoredStock={offer && (offer.stock as any)}
+              />
+            </S.Section>
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Dostawa i płatność"
+                font={{ size: '2.2rem', weight: 500 }}
+                topBottomMargin="2rem"
+              />
+              <Delivery
+                handleShippingRateChange={handleShippingRateChange}
+                restoredShippingRate={
+                  offer && offer.shippingRate && (offer.shippingRate.id as any)
+                }
+              />
+            </S.Section>
+            <S.Section>
+              <Form.Typography.TextSeparator
+                text="Podsumowanie"
+                font={{ size: '2.2rem', weight: 500 }}
+                topBottomMargin="2rem"
+              />
+              <Fee
+                categoryName={selectedCategory}
+                sellingMode={offer && offer.sellingMode}
+              />
+            </S.Section>
+            <S.Section>
+              <Button type="submit" variant="full" text="Dodaj ofertę" />
+            </S.Section>
+          </Form.Form>
+        )}
       </S.Main>
     </>
   );
@@ -341,14 +442,20 @@ const mapStateToProps = (state: State): ReduxState => {
     categories: state.categories.fetchCategories.categories,
     offerAdded: state.offers.addOffer.addedOffer,
     drafts: state.offers.fetchDrafts.fetchedDrafts,
-    deletedDraft: state.offers.deleteDraft.draftDeleted
+    deletedDraft: state.offers.deleteDraft.draftDeleted,
+    addedOffer: state.offers.addOffer.addedOffer,
+    draftUpdated: state.offers.updateDraft.updatedDraft,
+    shippingRates: state.shippingRates.fetchShippingRates.shippingRates,
+    offerPublished: state.offers.publishOffer.offerPublished
   };
 };
 
 const mapDispatchToProps: ReduxDispatch = {
   performFetchCategories: fetchCategories,
-  performAddOffer: addOffer,
-  performFetchDrafts: fetchDrafts
+  performFetchDrafts: fetchDrafts,
+  performDraftUpdate: updateDraft,
+  performFetchShippingRates: fetchShippingRates,
+  performPublishOffer: publishOffer
 };
 
 export default connect(

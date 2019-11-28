@@ -19,6 +19,14 @@ import deleteDraftReducer, {
   DeleteDraftState,
   initialDeleteDraftState
 } from './delete-draft.reducer';
+import updateDraftReducer, {
+  UpdateDraftState,
+  initialUpdateDraftState
+} from './update-draft.reducer';
+import publishOfferReducer, {
+  PublishOfferState,
+  initialPublishOfferState
+} from './publish-offer.reducer';
 
 export type OffersState = {
   latestOffers: LatestOffersState;
@@ -26,6 +34,8 @@ export type OffersState = {
   addOffer: AddOfferState;
   fetchDrafts: FetchDraftsState;
   deleteDraft: DeleteDraftState;
+  updateDraft: UpdateDraftState;
+  publishOffer: PublishOfferState;
 };
 
 export const initialOffersState: OffersState = {
@@ -33,7 +43,9 @@ export const initialOffersState: OffersState = {
   fetchOffer: initialFetchOfferState,
   addOffer: initialAddOfferState,
   fetchDrafts: initialFetchDraftsState,
-  deleteDraft: initialDeleteDraftState
+  deleteDraft: initialDeleteDraftState,
+  updateDraft: initialUpdateDraftState,
+  publishOffer: initialPublishOfferState
 };
 
 export default combineReducers({
@@ -41,5 +53,7 @@ export default combineReducers({
   fetchOffer: fetchOfferReducer,
   addOffer: addOfferReducer,
   fetchDrafts: fetchDraftsReducer,
-  deleteDraft: deleteDraftReducer
+  deleteDraft: deleteDraftReducer,
+  updateDraft: updateDraftReducer,
+  publishOffer: publishOfferReducer
 });
