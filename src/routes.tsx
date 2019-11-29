@@ -9,6 +9,7 @@ import Offer from './screens/user/Offer';
 import CreateOffer from './screens/user/CreateOffer';
 import Profile from './screens/user/Profile';
 import ShippingRates from './screens/user/Profile/ShippingRates';
+import PurchaseConfirmation from './screens/user/PurchaseConfirmation';
 
 const routes = (
   <>
@@ -26,6 +27,12 @@ const routes = (
       exact
       path="/moje-konto/moje-cenniki"
       component={ShippingRates}
+    />
+
+    <PrivateRoute
+      exact
+      path="/potwierdzenie-zakupu"
+      component={PurchaseConfirmation}
     />
   </>
 );

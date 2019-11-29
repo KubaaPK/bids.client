@@ -7,6 +7,7 @@ import * as Form from '../../../components/Forms';
 import * as Typography from '../../../components/Typography';
 import * as Models from '../../../models';
 import Button from '../../../components/Button';
+import Main from '../../../components/Layout/Main';
 import { State } from '../../../redux/reducers';
 import Navigation from '../../../components/Navigation';
 import Categories from './Form/Categories';
@@ -286,7 +287,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <>
       <Navigation />
-      <S.Main>
+      <Main>
         {!preOfferCreated && (
           <TitleAndCategory
             categories={categories}
@@ -432,7 +433,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
             </S.Section>
           </Form.Form>
         )}
-      </S.Main>
+      </Main>
     </>
   );
 };

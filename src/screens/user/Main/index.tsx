@@ -4,16 +4,19 @@ import * as S from './styled';
 import Categories from './Categories';
 import LatestOffers from './LatestOffers';
 import Offers from '../../../components/Offers';
+import MainWrapper from '../../../components/Layout/Main';
 
 const Main: React.FunctionComponent<{}> = () => {
   return (
     <>
       <Navigation />
-      <S.Wrapper>
-        <Categories />
-        <LatestOffers />
-        <Offers />
-      </S.Wrapper>
+      <MainWrapper>
+        <S.Wrapper>
+          <Categories />
+          <LatestOffers />
+          <Offers />
+        </S.Wrapper>
+      </MainWrapper>
     </>
   );
 };

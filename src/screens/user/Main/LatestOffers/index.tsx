@@ -4,7 +4,7 @@ import { AjaxError } from 'rxjs/ajax';
 import { ClipLoader } from 'react-spinners';
 import * as Models from '../../../../models';
 import * as S from './styled';
-import * as Typo from '../../../../components/Typography';
+import * as Typography from '../../../../components/Typography';
 import { State } from '../../../../redux/reducers';
 import { fetchLatestOffers } from '../../../../redux/actions/offers/fetch-latest-offers.action';
 import LatestOffer from './LatestOffer';
@@ -44,7 +44,7 @@ const LatestOffers: React.FunctionComponent<Props> = (props: Props) => {
       )}
       {!fetchingLatestOffers && (
         <S.Wrapper>
-          <Typo.Title text="Ostatnio dodane" />
+          <Typography.SectionTitle bold text="Ostatnio dodane" />
           <S.LatestOffers>
             {latestOffers.map((latestOffer: Models.Offers.Offer) => (
               <LatestOffer offer={latestOffer} key={latestOffer.id} />

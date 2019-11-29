@@ -33,10 +33,6 @@ const Wrapper = styled(Link)`
     width: 50%;
     margin: 2rem 0;
 
-    &:nth-child(-n + 2) {
-      border-bottom: 1px solid #eaeaea;
-    }
-
     transition: 0.1s;
     &:hover {
       background-color: #eaeaea;

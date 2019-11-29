@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize, paddings, colors } from '../../../../../shared/styles/vars';
+import { screenSize, paddings, colors } from '../../../../../shared/styles';
 
 const Outer = styled.div`
   @media ${screenSize.MOBILE} {
@@ -63,8 +63,14 @@ const Title = styled.p`
 
 const Category = styled.li`
   @media ${screenSize.MOBILE} {
+    margin: 1rem 0;
+
     font-size: 1.4rem;
     color: ${colors.SECONDARY_ACCENT};
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -88,6 +94,12 @@ const Close = styled.p`
 
   @media ${screenSize.TABLET} {
     width: 60%;
+  }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 

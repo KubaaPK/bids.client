@@ -6,12 +6,17 @@ type Props = {
   font?: {
     size?: string;
   };
+  marginFromLeft?: boolean;
 };
 
 const Title: React.FunctionComponent<Props> = (props: Props) => {
-  const { text, font } = props;
+  const { text, font, marginFromLeft } = props;
 
-  return <S.Title font={font}>{text}</S.Title>;
+  return (
+    <S.Title font={font} marginFromLeft={marginFromLeft}>
+      {text}
+    </S.Title>
+  );
 };
 
 export default Title;

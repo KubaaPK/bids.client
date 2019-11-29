@@ -18,7 +18,15 @@ type Props = {
 };
 
 const Input: React.FunctionComponent<Props> = (props: Props) => {
-  const { id, label, type, defaultValue, restrictions, placeholder, handleChange } = props;
+  const {
+    id,
+    label,
+    type,
+    defaultValue,
+    restrictions,
+    placeholder,
+    handleChange
+  } = props;
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const handleErrorMessage = (value: string | number): void => {

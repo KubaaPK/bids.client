@@ -97,7 +97,7 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
       )}
       {signedIn && <Redirect to="/" />}
       <Form.Form handleSubmit={handleSignIn}>
-        <Typography.Title text="Zaloguj się" />
+        <Typography.SectionTitle text="Zaloguj się" size="large" bold={false} />
         <Form.Input
           type="email"
           id="email"
@@ -107,6 +107,7 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
           restrictions={{
             required: true
           }}
+          defaultValue={signInCredentials.email}
         />
         <Form.Input
           type="password"
@@ -116,6 +117,7 @@ const SignInForm: React.FunctionComponent<Props> = (props: Props) => {
           restrictions={{
             required: true
           }}
+          defaultValue={signInCredentials.password}
         />
         <Button type="submit" variant="full" text="Zaloguj się" />
       </Form.Form>

@@ -2,23 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 
-const Main = styled.main`
-  @media ${screenSize.MOBILE} {
-    height: 100vh;
-    padding-top: 20vh;
-
-    background-color: ${colors.PRIMARY};
-  }
-
-  @media ${screenSize.TABLET} {
-    padding-top: 15vh;
-  }
-
-  @media ${screenSize.DESKTOP} {
-    padding-top: 12vh;
-  }
-`;
-
 const ToSignUpWrapper = styled.div`
   @media ${screenSize.MOBILE} {
     display: flex;
@@ -62,4 +45,4 @@ const LinkToSignUp = styled(Link)`
   }
 `;
 
-export { Main, ToSignUpWrapper, ToSignUpMessage, LinkToSignUp };
+export { ToSignUpWrapper, ToSignUpMessage, LinkToSignUp };

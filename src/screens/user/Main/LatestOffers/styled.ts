@@ -4,7 +4,7 @@ import { screenSize, paddings } from '../../../../shared/styles/vars';
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
     height: 100%;
-    margin-top: 11.4rem;
+    padding: 0 2rem;
 
     background-color: #fff;
     > p:first-child {
@@ -13,11 +13,9 @@ const Wrapper = styled.div`
   }
 
   @media ${screenSize.TABLET} {
-    margin-top: 8rem;
   }
 
   @media ${screenSize.DESKTOP} {
-    margin-top: 8.6rem;
     margin-right: ${paddings.DESKTOP};
     width: calc(79vw - 14rem);
 

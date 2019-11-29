@@ -98,7 +98,7 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
         />
       )}
       <Form.Form handleSubmit={handleSignUp}>
-        <Typography.Title text="Załóż konto" />
+        <Typography.SectionTitle text="Załóż konto" bold={false} size="large" />
         <Form.Input
           id="email"
           label="Adres email"

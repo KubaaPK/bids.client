@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as S from './styled';
+import * as Models from '../../../../models';
 import Button from '../../../../components/Button';
 
 type Props = {
-  remainItemsInStock: number;
+  offer: Models.Offers.SingleOffer;
 };
 
 const Buying: React.FunctionComponent<Props> = (props: Props) => {
-  const { remainItemsInStock } = props;
+  const { offer } = props;
   const [numberOfItemsToBuy, setNumberOfItemsToBuy] = useState<number>(1);
 
   const changeItemsToBuy = (num: number) => {
     if (
       (num === -1 && numberOfItemsToBuy > 1) ||
-      (num === 1 && numberOfItemsToBuy < remainItemsInStock)
+      (num === 1 && numberOfItemsToBuy < offer.stock.available)
     ) {
       setNumberOfItemsToBuy(numberOfItemsToBuy + num);
     }
@@ -33,7 +35,7 @@ const Buying: React.FunctionComponent<Props> = (props: Props) => {
           type="number"
           value={numberOfItemsToBuy}
           min={1}
-          max={remainItemsInStock}
+          max={offer.stock.available}
           readOnly
         />
         <S.ChangeNumberOfItemsButton
@@ -43,8 +45,18 @@ const Buying: React.FunctionComponent<Props> = (props: Props) => {
           +
         </S.ChangeNumberOfItemsButton>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-        <S.InStock>z {remainItemsInStock} dostępnych</S.InStock>
-        <Button variant="full" type="submit" text="Kup" />
+        <S.InStock>z {offer.stock.available} dostępnych</S.InStock>
+        <Link
+          to={{
+            pathname: '/potwierdzenie-zakupu',
+            state: {
+              offer,
+              amount: numberOfItemsToBuy
+            }
+          }}
+        >
+          <Button variant="full" type="submit" text="Kup" />
+        </Link>
       </S.Form>
     </S.Wrapper>
   );

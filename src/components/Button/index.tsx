@@ -12,7 +12,7 @@ const Button: React.FunctionComponent<Props> = (props: Props) => {
   const { type, text, variant, handleClick } = props;
 
   return (
-    <S.Button type={type} variant={variant} onClick={handleClick}>
+    <S.Button type={type} variant={variant} onClick={handleClick} role="button">
       {text}
     </S.Button>
   );

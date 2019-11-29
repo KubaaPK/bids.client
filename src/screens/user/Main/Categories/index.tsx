@@ -7,6 +7,7 @@ import * as S from './styled';
 import { State } from '../../../../redux/reducers';
 import { fetchCategories } from '../../../../redux/actions/categories/fetch-categories.actions';
 import Category from './Category';
+import * as Typography from '../../../../components/Typography';
 
 type ReduxState = {
   fetchingCategories: boolean;
@@ -38,7 +39,6 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
     <>
       {fetchingCategories && (
         <S.List>
-          <S.Title>Kategorie</S.Title>
           <S.Spinner>
             <ClipLoader size={15} />
           </S.Spinner>
@@ -46,7 +46,7 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
       )}
       {categories.length > 0 && (
         <S.List>
-          <S.Title>Kategorie</S.Title>
+          <Typography.SectionTitle bold size="medium" text="Kategorie" />
           {categories.map((category: Models.Categories.Category) => (
             <Category category={category} key={category.id} />
           ))}

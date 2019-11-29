@@ -55,16 +55,18 @@ const TitleAndCategory: React.FunctionComponent<Props> = (props: Props) => {
 
   const pickCategory = (category: Models.Categories.Category): void => {
     setShowCategorySelection(false);
-    selectCategory(category.name);
-    setPreOffer({
-      ...preOffer,
-      category: {
-        id: category!.id!
-      },
-      shippingRate: {
-        id: shippingRates[0].id
-      }
-    });
+    if (preOffer.name) {
+      setPreOffer({
+        ...preOffer,
+        category: {
+          id: category!.id!
+        },
+        shippingRate: {
+          id: shippingRates[0].id
+        }
+      });
+      selectCategory(category.name);
+    }
   };
 
   return (
@@ -74,6 +76,7 @@ const TitleAndCategory: React.FunctionComponent<Props> = (props: Props) => {
         font={{
           size: '2.5rem'
         }}
+        marginFromLeft
       />
 
       <S.Wrapper>
@@ -82,6 +85,9 @@ const TitleAndCategory: React.FunctionComponent<Props> = (props: Props) => {
           label="Tytuł oferty"
           type="text"
           handleChange={onTitleChange}
+          restrictions={{
+            required: true
+          }}
         />
         <S.CategoryWrapper>
           <S.CategoryText>Kategoria</S.CategoryText>

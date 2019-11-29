@@ -7,6 +7,11 @@ const Wrapper = styled.div`
 
     background-color: #fff;
   }
+
+  @media ${screenSize.DESKTOP} {
+    width: calc(100vw - ${paddings.DESKTOP} * 2);
+    margin: 0 auto;
+  }
 `;
 
 const CategoryWrapper = styled.div`
@@ -31,6 +36,12 @@ const SelectCategory = styled.span`
 
     font-size: 1.2rem;
     color: ${colors.SECONDARY_ACCENT};
+  }
+
+  @media ${screenSize.DESKTOP} {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 

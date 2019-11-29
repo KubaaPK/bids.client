@@ -48,7 +48,7 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
               <Info seller={offer!.seller.username} name={offer!.name} />
               <SellerReviews sellerId={offer!.seller.id} />
               <Price price={offer!.sellingMode.price.amount} />
-              <Buying remainItemsInStock={offer!.stock.available} />
+              <Buying offer={offer!} />
             </S.BasicInfo>
           </S.BasicInfoWrapper>
           <Parameters parameters={offer!.parameters} />

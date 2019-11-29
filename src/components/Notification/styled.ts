@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-import {
-  screenSize,
-  colors,
-  shadows,
-  paddings
-} from '../../shared/styles/vars';
+import { screenSize, colors, paddings } from '../../shared/styles/vars';
 
 type Props = {
   variant: 'info' | 'success' | 'error' | 'warning';
@@ -54,7 +49,6 @@ const Wrapper = styled.div<Props>`
 
     width: 100vw;
     padding: 1rem;
-    box-shadow: ${shadows.CALL_TO_ACTION};
 
     background-color: ${props => setBackgroundColor(props.variant)};
 

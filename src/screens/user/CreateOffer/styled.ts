@@ -1,37 +1,6 @@
 import styled from 'styled-components';
 import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 
-const Main = styled.main`
-  @media ${screenSize.MOBILE} {
-    min-height: 100vh;
-    padding-top: 14rem;
-
-    background-color: ${colors.PRIMARY};
-
-    h1 {
-      margin-left: 2rem;
-    }
-
-    form {
-      margin-top: 2rem;
-
-      background-color: transparent;
-    }
-  }
-
-  @media ${screenSize.TABLET} {
-    padding-top: 12vh;
-
-    form {
-      margin-top: 0;
-    }
-  }
-
-  @media ${screenSize.DESKTOP} {
-    padding: 12vh ${paddings.DESKTOP} 1rem ${paddings.DESKTOP};
-  }
-`;
-
 const Title = styled.h1`
   @media ${screenSize.MOBILE} {
     padding-left: ${paddings.MOBILE};
@@ -123,7 +92,6 @@ const ErrorMessage = styled.p`
 `;
 
 export {
-  Main,
   Title,
   Section,
   CategoryWrapper,
