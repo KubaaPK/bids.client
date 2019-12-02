@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import * as Models from '../../../../../../models';
+import * as Models from '../../../../../models';
 import * as S from './styled';
-import * as Forms from '../../../../../../components/Forms';
+import * as Forms from '../../../../../components/Forms';
 
 type Props = {
   deliveryMethod: Models.DeliveryMethods.DeliveryMethod;
@@ -13,7 +13,8 @@ const DeliveryMethod: React.FunctionComponent<Props> = (props: Props) => {
   const [showRateSettings, setShowRateSettings] = useState<boolean>(false);
   const [rate, setRate] = useState<Models.ShippingRates.NewRate>({
     deliveryMethod: {
-      id: ''
+      id: '',
+      name: ''
     },
     firstItemRate: {
       amount: '',
@@ -26,6 +27,7 @@ const DeliveryMethod: React.FunctionComponent<Props> = (props: Props) => {
     if (
       rate &&
       rate.deliveryMethod.id &&
+      rate.deliveryMethod.name &&
       rate.maxQuantityPerPackage &&
       rate.firstItemRate
     ) {
@@ -39,10 +41,10 @@ const DeliveryMethod: React.FunctionComponent<Props> = (props: Props) => {
     setRate({
       ...rate,
       deliveryMethod: {
-        id: deliveryMethod.id
+        id: deliveryMethod.id,
+        name: deliveryMethod.name
       }
     } as any);
-    console.log(rate);
     if (showRateSettings) {
       setRate(undefined as any);
     }

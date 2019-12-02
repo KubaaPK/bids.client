@@ -22,6 +22,10 @@ import shippingRatesReducer, {
   initialShippingRatesState,
   ShippingRatesState
 } from './shipping-rates';
+import purchasesReducer, {
+  PurchasesState,
+  initialPurchasesState
+} from './purchases';
 
 export type State = {
   accounts: AccountsState;
@@ -32,6 +36,7 @@ export type State = {
   parameters: ParametersState;
   deliveryMethods: DeliveryMethodsState;
   shippingRates: ShippingRatesState;
+  purchases: PurchasesState;
 };
 
 export const initialState: State = {
@@ -42,7 +47,8 @@ export const initialState: State = {
   reviews: initialReviewsState,
   parameters: initialParametersState,
   deliveryMethods: initialDeliveryMethodsState,
-  shippingRates: initialShippingRatesState
+  shippingRates: initialShippingRatesState,
+  purchases: initialPurchasesState
 };
 
 export default combineReducers({
@@ -53,5 +59,6 @@ export default combineReducers({
   reviews: reviewsReducer,
   parameters: parametersReducer,
   deliveryMethods: deliveryMethodsReducer,
-  shippingRates: shippingRatesReducer
+  shippingRates: shippingRatesReducer,
+  purchases: purchasesReducer
 });

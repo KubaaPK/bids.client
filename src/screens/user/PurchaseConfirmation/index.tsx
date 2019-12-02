@@ -1,21 +1,43 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { useLocation, Link, useHistory } from 'react-router-dom';
+import { AjaxResponse } from 'rxjs/ajax';
 import * as Models from '../../../models';
 import * as S from './styled';
 import * as Typography from '../../../components/Typography';
 import Navigation from '../../../components/Navigation';
 import Select from '../../../components/Forms/Select';
 import Button from '../../../components/Button';
+import { State } from '../../../redux/reducers';
+import { newPurchase } from '../../../redux/actions/purchases/new-purchase.action';
 
-const PurchaseConfirmation: React.FunctionComponent<{}> = () => {
+type ReduxState = {
+  purchaseProcessed: AjaxResponse | undefined;
+  processingPurchase: boolean;
+};
+
+type ReduxDispatch = {
+  performNewPurchase: (newPurchase: Models.Purchases.NewPurchase) => void;
+};
+
+type Props = ReduxState & ReduxDispatch;
+
+const PurchaseConfirmation: React.FunctionComponent<Props> = (props: Props) => {
+  const { performNewPurchase, processingPurchase, purchaseProcessed } = props;
+
   const [offer, setOffer] = useState<Models.Offers.SingleOffer>();
+  const [selectedShippingRate, selectShippingRate] = useState<
+    Models.Offers.SingleOffer['shippingRate']['rates'][0]
+  >();
   const [loadingOffer, setLoadingOffer] = useState<boolean>(true);
   const [boughtAmount, setBoughtAmount] = useState<number>();
   const { state } = useLocation();
+  const { push } = useHistory();
 
   useEffect(() => {
     setOffer(state.offer);
+    selectShippingRate(state.offer.shippingRate.rates[0]);
     setBoughtAmount(state.amount);
     setLoadingOffer(false);
   }, [state]);
@@ -24,9 +46,18 @@ const PurchaseConfirmation: React.FunctionComponent<{}> = () => {
     return offer!.shippingRate.rates.map(rate => {
       return {
         value: rate.firstItemRate.amount,
-        label: rate.deliveryMethod.id
+        label: rate.deliveryMethod.name
       };
     });
+  };
+
+  const confirmPurchase = (): void => {
+    performNewPurchase({
+      offerId: offer!.id,
+      productAmount: boughtAmount!
+    });
+
+    push('/');
   };
 
   return (
@@ -59,10 +90,16 @@ const PurchaseConfirmation: React.FunctionComponent<{}> = () => {
               <S.ToPay>
                 Do zapłaty:
                 <S.TotalPurchasePrice>
-                  {offer!.sellingMode.price.amount}zł
+                  {offer!.sellingMode.price.amount}zł +{' '}
+                  {selectedShippingRate!.firstItemRate.amount}zł
                 </S.TotalPurchasePrice>
               </S.ToPay>
-              <Button type="button" variant="full" text="Potwierdzam zakup" />
+              <Button
+                type="button"
+                variant="full"
+                text="Potwierdzam zakup"
+                handleClick={confirmPurchase}
+              />
             </S.PurchaseSummary>
           </>
         )}
@@ -71,4 +108,18 @@ const PurchaseConfirmation: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default PurchaseConfirmation;
+const mapStateToProps = (state: State): ReduxState => {
+  return {
+    purchaseProcessed: state.purchases.newPurchase.purchaseProcessed,
+    processingPurchase: state.purchases.newPurchase.processingPurchase
+  };
+};
+
+const mapDispatchToProps: ReduxDispatch = {
+  performNewPurchase: newPurchase
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PurchaseConfirmation);

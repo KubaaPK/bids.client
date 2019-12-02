@@ -6,6 +6,7 @@ import * as DeliveryMethods from './delivery-methods';
 import * as Reviews from './reviews';
 import * as ShippingRates from './shipping-rates';
 import * as Fees from './fees';
+import * as Purchases from './purchases';
 
 export {
   Auth,
@@ -15,5 +16,6 @@ export {
   DeliveryMethods,
   Reviews,
   ShippingRates,
-  Fees
+  Fees,
+  Purchases
 };

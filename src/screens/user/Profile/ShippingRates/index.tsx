@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './styled';
 import * as Typography from '../../../../components/Typography';
 import Navigation from '../../../../components/Navigation';
@@ -8,7 +8,7 @@ import Options from '../Options';
 import Rates from './Rates';
 
 const ShippingRates: React.FunctionComponent<{}> = () => {
-  const [showForm, setShowForm] = React.useState<boolean>(false);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   return (
     <>

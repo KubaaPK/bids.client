@@ -27,6 +27,7 @@ export type SingleOffer = {
       {
         deliveryMethod: {
           id: string;
+          name: string;
         };
         maxQuantityPerPackage: number;
         firstItemRate: {

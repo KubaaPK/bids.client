@@ -24,7 +24,8 @@ const Section = styled.div`
   }
 
   @media ${screenSize.DESKTOP} {
-    margin: 2rem 0;
+    width: calc(100vw - ${paddings.DESKTOP} * 2);
+    margin: 2rem auto 2rem auto;
 
     &:nth-of-type(2) {
       input {

@@ -5,6 +5,7 @@ import * as Models from '../../../../../models';
 import * as S from './styled';
 import { State } from '../../../../../redux/reducers';
 import { fetchShippingRates } from '../../../../../redux/actions/shipping-rates/fetch-shipping-rates.action';
+import Rate from './Rate';
 
 type ReduxState = {
   rates: Models.ShippingRates.ShippingRate[];
@@ -27,15 +28,12 @@ const Rates: React.FunctionComponent<Props> = (props: Props) => {
   }, [performFetchRates, shippingRateAdded]);
 
   return (
-    <S.Rates>
-      {!fetchingRates &&
-        rates.map(rate => (
-          <S.Rate key={rate.id}>
-            <S.Name>{rate.name}</S.Name>
-            <S.Edit>Edytuj</S.Edit>
-          </S.Rate>
-        ))}
-    </S.Rates>
+    <>
+      <S.Rates>
+        {!fetchingRates &&
+          rates.map(rate => <Rate rate={rate} key={rate.id} />)}
+      </S.Rates>
+    </>
   );
 };
 

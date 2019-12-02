@@ -13,6 +13,7 @@ type OwnProps = {
   categories: Models.Categories.Category[];
   shippingRates: Models.ShippingRates.ShippingRate[];
   draftCreated: (preOffer: any) => void;
+  setSelectedCategoryName: (category: Models.Categories.Category) => void;
 };
 
 type ReduxState = {
@@ -27,7 +28,13 @@ type ReduxDispatch = {
 type Props = OwnProps & ReduxState & ReduxDispatch;
 
 const TitleAndCategory: React.FunctionComponent<Props> = (props: Props) => {
-  const { categories, performAddOffer, draftCreated, shippingRates } = props;
+  const {
+    categories,
+    performAddOffer,
+    draftCreated,
+    shippingRates,
+    setSelectedCategoryName
+  } = props;
   const [preOffer, setPreOffer] = useState<Partial<Models.Offers.NewOffer>>({
     name: '',
     category: {
@@ -66,6 +73,7 @@ const TitleAndCategory: React.FunctionComponent<Props> = (props: Props) => {
         }
       });
       selectCategory(category.name);
+      setSelectedCategoryName(category);
     }
   };
 

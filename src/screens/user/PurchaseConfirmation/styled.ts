@@ -141,8 +141,10 @@ const ToPay = styled.p`
   }
 `;
 
-const TotalPurchasePrice = styled.p`
+const TotalPurchasePrice = styled.span`
   @media ${screenSize.MOBILE} {
+    display: block;
+
     color: ${colors.FONT};
     font-size: 1.4rem;
     font-weight: 700;

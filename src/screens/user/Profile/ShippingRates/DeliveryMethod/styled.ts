@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../../shared/styles/vars';
+import { screenSize } from '../../../../../shared/styles/vars';
 
 const DeliveryMethod = styled.li`
   @media ${screenSize.MOBILE} {
@@ -84,5 +84,4 @@ const RateSettings = styled.div`
   }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
 export { DeliveryMethod, RateSettings };

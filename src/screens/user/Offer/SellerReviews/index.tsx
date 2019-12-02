@@ -45,7 +45,7 @@ const SellerReviews: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      {!fetchingReviews && (
+      {!fetchingReviews && reviews!.summary.positivesPercent !== 'NaN%' && (
         <>
           <S.PercentageRating>
             {/* eslint-disable-next-line react/jsx-one-expression-per-line */}

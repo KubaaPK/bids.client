@@ -100,7 +100,6 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
       performFetchDrafts();
       setPreOfferCreated(false);
       setShowDraftSelection(false);
-      selectCategory(undefined);
     }
 
     if (preOfferCreated && counter === 0) {
@@ -120,8 +119,8 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     if (draftRestored) {
-      if (offer && offer.category !== undefined) {
-        selectCategory((offer!.category as any).name);
+      if (offer) {
+        selectCategory(offer.category.name);
         setDraftId((offer! as any).id);
         setPreOfferCreated(true);
         setShowDraftSelection(false);
@@ -293,6 +292,7 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
             categories={categories}
             draftCreated={afterPreOfferCreated}
             shippingRates={shippingRates}
+            setSelectedCategoryName={pickCategory}
           />
         )}
         {showDraftSelection && (
@@ -304,7 +304,11 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
         )}
         {preOfferCreated && (
           <Form.Form handleSubmit={handleSubmit}>
-            <Typography.Title text="Dodaj ofertę" font={{ size: '3rem' }} />
+            <Typography.Title
+              text="Dodaj ofertę"
+              font={{ size: '3rem' }}
+              marginFromLeft
+            />
             <S.Section>
               <Form.Typography.TextSeparator
                 text="Nazwa i kategoria"

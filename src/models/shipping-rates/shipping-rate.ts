@@ -6,6 +6,8 @@ export type ShippingRate = {
       maxQuantityPerPackage: number;
       deliveryMethod: {
         id: string;
+        name: string;
+        paymentPolicy: 'IN_ADVANCE' | 'CASH_ON_DELIVERY';
       };
       firstItemRate: {
         currency: string;

@@ -8,8 +8,7 @@ import * as Models from '../../../../../models';
 import { State } from '../../../../../redux/reducers';
 import { fetchDeliveryMethods } from '../../../../../redux/actions/deliery-methods/fetch-delivery-methods.action';
 import { addShippingRate } from '../../../../../redux/actions/shipping-rates/add-shipping-rate.action';
-
-import DeliveryMethod from './DeliveryMethod';
+import DeliveryMethod from '../DeliveryMethod';
 import Button from '../../../../../components/Button';
 
 type OwnProps = {

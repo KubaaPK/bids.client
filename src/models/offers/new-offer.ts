@@ -3,6 +3,7 @@ export type NewOffer = {
   ean: string;
   category: {
     id: string;
+    name?: string;
   };
   sellingMode: {
     format: 'BUY_NOW';
