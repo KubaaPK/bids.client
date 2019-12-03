@@ -10,6 +10,7 @@ import CreateOffer from './screens/user/CreateOffer';
 import Profile from './screens/user/Profile';
 import ShippingRates from './screens/user/Profile/ShippingRates';
 import PurchaseConfirmation from './screens/user/PurchaseConfirmation';
+import Sales from './screens/user/Profile/Sales';
 
 const routes = (
   <>
@@ -27,6 +28,11 @@ const routes = (
       exact
       path="/moje-konto/moje-cenniki"
       component={ShippingRates}
+    />
+    <PrivateRoute
+      exact
+      path="/moje-konto/moja-sprzedaz/sprzedane"
+      component={Sales}
     />
 
     <PrivateRoute

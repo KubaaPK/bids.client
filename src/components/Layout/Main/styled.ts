@@ -3,14 +3,19 @@ import { colors, screenSize } from '../../../shared/styles';
 
 const Main = styled.main`
   @media ${screenSize.MOBILE} {
-    min-height: 100vh;
-    padding: 12rem 0 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 
-    background-color: ${colors.BACKGROUND};
+    padding-top: 13rem;
+    padding-bottom: 2rem;
+    min-height: 100vh;
+
+    background-color: ${colors.PRIMARY};
   }
 
   @media ${screenSize.TABLET} {
-    padding-top: 8rem;
+    flex-direction: row;
   }
 
   @media ${screenSize.DESKTOP} {

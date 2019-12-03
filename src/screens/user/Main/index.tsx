@@ -11,11 +11,9 @@ const Main: React.FunctionComponent<{}> = () => {
     <>
       <Navigation />
       <MainWrapper>
-        <S.Wrapper>
-          <Categories />
-          <LatestOffers />
-          <Offers />
-        </S.Wrapper>
+        <Categories />
+        <LatestOffers />
+        <Offers />
       </MainWrapper>
     </>
   );

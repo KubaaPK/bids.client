@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 
   @media ${screenSize.DESKTOP} {
     margin-right: ${paddings.DESKTOP};
+    margin-left: 9.3rem;
     width: calc(79vw - 14rem);
 
     text-align: center;

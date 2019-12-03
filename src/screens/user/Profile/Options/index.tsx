@@ -13,8 +13,17 @@ const Options: React.FunctionComponent<{}> = () => {
     );
   };
 
+  const salesOptions = () => {
+    return (
+      <S.Option>
+        <Link to="/moje-konto/moja-sprzedaz/sprzedane">Sprzedane</Link>
+      </S.Option>
+    );
+  };
+
   return (
     <S.Options>
+      <Accordion title="Moja sprzedaż" content={salesOptions()} />
       <Accordion title="Ustawienia sprzedaży" content={sellingOptions()} />
     </S.Options>
   );

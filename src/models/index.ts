@@ -7,6 +7,7 @@ import * as Reviews from './reviews';
 import * as ShippingRates from './shipping-rates';
 import * as Fees from './fees';
 import * as Purchases from './purchases';
+import * as Sales from './sales';
 
 export {
   Auth,
@@ -17,5 +18,6 @@ export {
   Reviews,
   ShippingRates,
   Fees,
-  Purchases
+  Purchases,
+  Sales
 };
