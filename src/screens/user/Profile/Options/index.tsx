@@ -28,11 +28,20 @@ const Options: React.FunctionComponent<{}> = () => {
     );
   };
 
+  const pricingOptions = () => {
+    return (
+      <S.Option>
+        <Link to="/moje-konto/rachunki/rozliczenia">Rozliczenia</Link>
+      </S.Option>
+    );
+  };
+
   return (
     <S.Options>
       <Accordion title="Moja sprzedaż" content={salesOptions()} />
-      <Accordion title="Moje zakupy" content={buyingsOptions()} />
       <Accordion title="Ustawienia sprzedaży" content={sellingOptions()} />
+      <Accordion title="Moje zakupy" content={buyingsOptions()} />
+      <Accordion title="Rachunki" content={pricingOptions()} />
     </S.Options>
   );
 };

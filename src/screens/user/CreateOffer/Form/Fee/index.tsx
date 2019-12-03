@@ -11,7 +11,7 @@ type Props = {
 
 const Fee: React.FunctionComponent<Props> = (props: Props) => {
   const { categoryName, sellingMode, productAmount = 1 } = props;
-  const [fee, setFee] = useState<Models.Fees.Fee>();
+  const [fee, setFee] = useState<Models.Fees.Fee['fee']>();
   const [fetchingFee, setFetchingFee] = useState<boolean>(true);
 
   useEffect(() => {

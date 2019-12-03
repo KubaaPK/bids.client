@@ -30,11 +30,4 @@ const Wrapper = styled.div`
   }
 `;
 
-const Sales = styled.ul`
-  @media ${screenSize.MOBILE} {
-    width: 100%;
-    padding-left: 0;
-  }
-`;
-
-export { Wrapper, Sales };
+export { Wrapper };

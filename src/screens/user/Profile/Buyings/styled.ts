@@ -32,6 +32,8 @@ const Wrapper = styled.div`
 
 const Buyings = styled.ul`
   @media ${screenSize.MOBILE} {
+    width: 100%;
+
     padding-left: 0;
   }
 `;

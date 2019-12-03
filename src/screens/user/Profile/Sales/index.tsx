@@ -6,6 +6,7 @@ import Navigation from '../../../../components/Navigation';
 import Main from '../../../../components/Layout/Main';
 import * as Typography from '../../../../components/Typography';
 import Sale from './Sale';
+import NoOfferPlaceoholder from '../NoOfferPlaceholder';
 import { API_URL } from '../../../../consts';
 
 const Sales: React.FunctionComponent<{}> = () => {
@@ -37,9 +38,11 @@ const Sales: React.FunctionComponent<{}> = () => {
             }}
           />
           <S.Sales>
-            {sales.map(sale => (
-              <Sale sale={sale} key={sale.id} />
-            ))}
+            {sales.length > 0 ? (
+              sales.map(sale => <Sale sale={sale} key={sale.id} />)
+            ) : (
+              <NoOfferPlaceoholder text="Historia sprzedaży jest pusta. :(" />
+            )}
           </S.Sales>
         </S.Wrapper>
       </Main>

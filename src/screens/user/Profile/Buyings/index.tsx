@@ -7,6 +7,7 @@ import Navigation from '../../../../components/Navigation';
 import Main from '../../../../components/Layout/Main';
 import Buying from './Buying';
 import { API_URL } from '../../../../consts';
+import NoOfferPlaceholder from '../NoOfferPlaceholder';
 
 const Buyings: React.FunctionComponent<{}> = () => {
   const [purchases, setPurchases] = useState<Models.Purchases.Purchase[]>([]);
@@ -36,9 +37,13 @@ const Buyings: React.FunctionComponent<{}> = () => {
           />
 
           <S.Buyings>
-            {purchases.map(buying => (
-              <Buying buying={buying} key={buying.id} />
-            ))}
+            {purchases.length > 0 ? (
+              purchases.map(buying => (
+                <Buying buying={buying} key={buying.id} />
+              ))
+            ) : (
+              <NoOfferPlaceholder text="Historia zakupów jest pusta. :(" />
+            )}
           </S.Buyings>
         </S.Wrapper>
       </Main>
