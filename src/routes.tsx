@@ -11,6 +11,7 @@ import Profile from './screens/user/Profile';
 import ShippingRates from './screens/user/Profile/ShippingRates';
 import PurchaseConfirmation from './screens/user/PurchaseConfirmation';
 import Sales from './screens/user/Profile/Sales';
+import Buyings from './screens/user/Profile/Buyings';
 
 const routes = (
   <>
@@ -33,6 +34,11 @@ const routes = (
       exact
       path="/moje-konto/moja-sprzedaz/sprzedane"
       component={Sales}
+    />
+    <PrivateRoute
+      exact
+      path="/moje-konto/moje-zakupy/kupione"
+      component={Buyings}
     />
 
     <PrivateRoute

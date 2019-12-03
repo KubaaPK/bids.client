@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import * as S from './styled';
 import Accordion from '../../../../components/Accordion';
 
@@ -21,9 +20,18 @@ const Options: React.FunctionComponent<{}> = () => {
     );
   };
 
+  const buyingsOptions = () => {
+    return (
+      <S.Option>
+        <Link to="/moje-konto/moje-zakupy/kupione">Kupione</Link>
+      </S.Option>
+    );
+  };
+
   return (
     <S.Options>
       <Accordion title="Moja sprzedaż" content={salesOptions()} />
+      <Accordion title="Moje zakupy" content={buyingsOptions()} />
       <Accordion title="Ustawienia sprzedaży" content={sellingOptions()} />
     </S.Options>
   );
