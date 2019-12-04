@@ -4,7 +4,7 @@ import * as Models from '../../../../../models';
 import * as S from './styled';
 import { API_URL } from '../../../../../consts';
 
-const Saldo: React.FunctionComponent<{}> = () => {
+const Fee: React.FunctionComponent<{}> = () => {
   const [fees, setFees] = useState<Models.Fees.Fee[]>([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Saldo: React.FunctionComponent<{}> = () => {
       .then(res => setFees(res));
   }, []);
 
-  const calculateSaldo = (): string => {
+  const calculateFee = (): string => {
     if (fees.length > 0) {
       return `-${fees
         .filter(fee => fee.status === 'UN_PAID')
@@ -31,9 +31,11 @@ const Saldo: React.FunctionComponent<{}> = () => {
   return (
     <S.Wrapper>
       <S.SubTitle>Bieżące saldo</S.SubTitle>
-      <S.Saldo>{calculateSaldo()}zł</S.Saldo>
+      <S.Fee debt={Number.parseFloat(calculateFee()) < 0}>
+        {calculateFee()}zł
+      </S.Fee>
     </S.Wrapper>
   );
 };
 
-export default Saldo;
+export default Fee;

@@ -10,7 +10,11 @@ const Main: React.FunctionComponent<{}> = () => {
   return (
     <>
       <Navigation />
-      <MainWrapper>
+      <MainWrapper
+        props={{
+          desktopDirection: 'row'
+        }}
+      >
         <Categories />
         <LatestOffers />
         <Offers />

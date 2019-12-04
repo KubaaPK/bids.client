@@ -16,12 +16,16 @@ const SubTitle = styled.p`
   }
 `;
 
-const Saldo = styled.p`
+type FeeProps = {
+  debt: boolean;
+};
+
+const Fee = styled.p<FeeProps>`
   @media ${screenSize.MOBILE} {
     font-size: 2.2rem;
     font-weight: 700;
-    color: ${colors.ERROR};
+    color: ${props => (props.debt ? colors.ERROR : '#000000')};
   }
 `;
 
-export { Wrapper, SubTitle, Saldo };
+export { Wrapper, SubTitle, Fee };

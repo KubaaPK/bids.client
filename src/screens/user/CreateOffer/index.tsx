@@ -286,7 +286,11 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <>
       <Navigation />
-      <Main>
+      <Main
+        props={{
+          desktopDirection: 'column'
+        }}
+      >
         {!preOfferCreated && (
           <TitleAndCategory
             categories={categories}

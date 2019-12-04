@@ -4,13 +4,17 @@ import * as Typography from '../../../../components/Typography';
 import Options from '../Options';
 import Navigation from '../../../../components/Navigation';
 import Main from '../../../../components/Layout/Main';
-import Saldo from './Saldo';
+import Fee from './Fee';
 
 const BillingSettlements: React.FunctionComponent<{}> = () => {
   return (
     <>
       <Navigation />
-      <Main>
+      <Main
+        props={{
+          desktopDirection: 'row'
+        }}
+      >
         <Options />
         <S.Wrapper>
           <Typography.Title
@@ -19,7 +23,7 @@ const BillingSettlements: React.FunctionComponent<{}> = () => {
               size: '2rem'
             }}
           />
-          <Saldo />
+          <Fee />
         </S.Wrapper>
       </Main>
     </>

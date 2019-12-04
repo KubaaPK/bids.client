@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import { colors, screenSize } from '../../../shared/styles';
 
-const Main = styled.main`
+type Props = {
+  mobileDirection?: 'column' | 'row';
+  tabletDirection?: 'column' | 'row';
+  desktopDirection?: 'column' | 'row';
+};
+
+const Main = styled.main<Props>`
   @media ${screenSize.MOBILE} {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: ${props => props.mobileDirection || 'column'};
 
     padding-top: 13rem;
     padding-bottom: 2rem;
@@ -15,10 +21,12 @@ const Main = styled.main`
   }
 
   @media ${screenSize.TABLET} {
-    flex-direction: row;
+    flex-direction: ${props => props.tabletDirection || 'column'};
+    padding-top: 8rem;
   }
 
   @media ${screenSize.DESKTOP} {
+    flex-direction: ${props => props.desktopDirection || 'column'};
     padding-top: 10rem;
   }
 `;

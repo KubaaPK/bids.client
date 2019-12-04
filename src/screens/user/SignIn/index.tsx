@@ -8,7 +8,11 @@ const SignIn: React.FunctionComponent<{}> = () => {
   return (
     <>
       <Navigation />
-      <Main>
+      <Main
+        props={{
+          desktopDirection: 'column'
+        }}
+      >
         <SignInForm />
         <S.ToSignUpWrapper>
           <S.ToSignUpMessage>Nie masz konta?</S.ToSignUpMessage>

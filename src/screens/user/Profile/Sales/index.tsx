@@ -28,7 +28,11 @@ const Sales: React.FunctionComponent<{}> = () => {
   return (
     <>
       <Navigation />
-      <Main>
+      <Main
+        props={{
+          desktopDirection: 'row'
+        }}
+      >
         <Options />
         <S.Wrapper>
           <Typography.Title
