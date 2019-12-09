@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import firebase from 'firebase';
 import { Search } from 'react-feather';
 import { connect } from 'react-redux';
@@ -7,16 +7,20 @@ import AuthenticatedMenu from './AuthenticatedMenu';
 import { State } from '../../redux/reducers';
 import { signOut } from '../../redux/actions/auth/auth.actions';
 import * as S from './styled';
+import * as Models from '../../models';
 import { deleteTokensFromLocalStorage } from '../../utils/auth';
+import { fetchReviewRequests } from '../../redux/actions/reviews/fetch-review-requests.action';
 
 type ReduxProps = {
   isAuthneticated: boolean;
   isAdmin: boolean;
   displayName: string;
+  fetchedNotificationRequests: Models.Reviews.ReviewRequest[];
 };
 
 type ReduxDispatch = {
   performSignOut(): void;
+  performFetchReviewRequests(): void;
 };
 
 type NavigationProps = ReduxProps & ReduxDispatch;
@@ -24,7 +28,28 @@ type NavigationProps = ReduxProps & ReduxDispatch;
 const Navigation: React.FunctionComponent<NavigationProps> = (
   props: NavigationProps
 ) => {
-  const { isAuthneticated, performSignOut, isAdmin, displayName } = props;
+  const {
+    isAuthneticated,
+    performSignOut,
+    performFetchReviewRequests,
+    isAdmin,
+    displayName,
+    fetchedNotificationRequests
+  } = props;
+
+  const [notificationCount, setNotificationCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (isAuthneticated) {
+      performFetchReviewRequests();
+    }
+  }, [isAuthneticated, performFetchReviewRequests]);
+
+  useEffect(() => {
+    if (fetchedNotificationRequests) {
+      setNotificationCount((fetchedNotificationRequests as any).length);
+    }
+  }, [fetchedNotificationRequests]);
 
   const handleSignOut = (): void => {
     performSignOut();
@@ -40,6 +65,7 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
           signOut={handleSignOut}
           isAdmin={isAdmin}
           displayName={displayName}
+          notificationCount={notificationCount}
         />
       ) : (
         <UnauthenticatedMenu />
@@ -62,12 +88,15 @@ const mapStateToProps = (state: State): ReduxProps => {
   return {
     isAuthneticated: state.auth.isAuthenticated,
     isAdmin: state.auth.isAdmin,
-    displayName: state.auth.displayName
+    displayName: state.auth.displayName,
+    fetchedNotificationRequests:
+      state.reviews.fetchReviewRequests.fetchedReviewRequests
   };
 };
 
 const mapDispatchToProps: ReduxDispatch = {
-  performSignOut: signOut
+  performSignOut: signOut,
+  performFetchReviewRequests: fetchReviewRequests
 };
 
 export default connect(

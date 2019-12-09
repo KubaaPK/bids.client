@@ -14,12 +14,15 @@ const Button = styled.button.attrs({
     height: 40px;
 
     background-color: ${props =>
-      props.variant === 'full' ? colors.ACCENT : 'transparent'};
+      props.variant === 'full' ? colors.ACCENT : 'transparent'} !important;
     border: ${props =>
-      props.variant === 'bordered' ? `1px solid ${colors.ACCENT}` : 'none'};
+      props.variant === 'bordered'
+        ? `1px solid ${colors.ACCENT}`
+        : 'none'} !important;
     border-radius: 3px;
 
-    color: ${props => (props.variant === 'full' ? '#fff' : colors.ACCENT)};
+    color: ${props =>
+      props.variant === 'full' ? '#fff' : colors.ACCENT} !important;
     font-size: 1.3rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -29,7 +32,10 @@ const Button = styled.button.attrs({
     transition: 0.2s;
 
     &:hover {
-      background-color: ${lighten(0.15, colors.ACCENT)};
+      background-color: ${props =>
+        props.variant === 'full'
+          ? lighten(0.15, colors.ACCENT)
+          : 'transparent'} !important;
 
       cursor: pointer;
     }

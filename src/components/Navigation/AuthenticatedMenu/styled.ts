@@ -41,6 +41,9 @@ const Icons = styled.div`
 
 const ToogleMenuButton = styled.button`
   @media ${screenSize.MOBILE} {
+    position: relative;
+    display: block;
+
     background-color: transparent;
     border: none;
 
@@ -95,7 +98,16 @@ const Menu = styled.ul`
 
 const MenuElement = styled.li`
   @media ${screenSize.MOBILE} {
+    position: relative;
+
     width: 100%;
+    
+    span {
+      top: 0.9rem !important;
+      left: 11rem !important;
+      
+      padding-left: 0.55rem;
+    }
 
     a {
       font-size: 1.4rem;
@@ -138,4 +150,37 @@ const MenuLink = styled(Link)`
   }
 `;
 
-export { Wrapper, Icons, ToogleMenuButton, Menu, MenuElement, MenuLink };
+const NotificationBubble = styled.span`
+  @media ${screenSize.MOBILE} {
+    position: absolute !important;
+    top: -0.5rem !important;
+    right: 0rem;
+
+    height: 20px;
+    width: 20px;
+    margin: 0 !important;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+
+    background-color: ${colors.ACCENT};
+
+    font-size: 1.2rem;
+    color: #fff;
+  }
+
+  @media ${screenSize.TABLET} {
+    top: -1rem !important;
+    right: -1rem;
+  }
+`;
+
+export {
+  Wrapper,
+  Icons,
+  ToogleMenuButton,
+  Menu,
+  MenuElement,
+  MenuLink,
+  NotificationBubble
+};

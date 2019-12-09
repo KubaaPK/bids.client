@@ -14,7 +14,7 @@ const UnauthenticatedMenu: React.FunctionComponent<{}> = () => {
   return (
     <S.Wrapper>
       <S.ToogleMenuButton onClick={() => toggleMenu(!isMenuToggled)}>
-        {window.innerWidth <= 320 ? (
+        {window.innerWidth <= 768 ? (
           <User />
         ) : (
           <>

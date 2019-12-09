@@ -13,6 +13,7 @@ import PurchaseConfirmation from './screens/user/PurchaseConfirmation';
 import Sales from './screens/user/Profile/Sales';
 import Buyings from './screens/user/Profile/Buyings';
 import BillingSettlements from './screens/user/Profile/BillingSettlements';
+import ReviewRequests from './screens/user/Profile/ReviewRequests';
 
 const routes = (
   <>
@@ -52,6 +53,8 @@ const routes = (
       path="/potwierdzenie-zakupu"
       component={PurchaseConfirmation}
     />
+
+    <PrivateRoute exact path="/oceny/wystaw" component={ReviewRequests} />
   </>
 );
 

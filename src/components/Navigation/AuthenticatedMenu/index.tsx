@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, User, Layout, ChevronUp } from 'react-feather';
@@ -8,10 +9,11 @@ type Props = {
   signOut: () => void;
   isAdmin: boolean;
   displayName: string;
+  notificationCount: number;
 };
 
 const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
-  const { signOut, isAdmin, displayName } = props;
+  const { signOut, isAdmin, displayName, notificationCount } = props;
   const [isMenuToggled, toggleMenu] = useState<boolean>(false);
   const ref = useRef<HTMLUListElement>(null);
 
@@ -28,11 +30,23 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
           </Link>
         )}
         <S.ToogleMenuButton onClick={() => toggleMenu(!isMenuToggled)}>
-          {window.innerWidth <= 320 ? (
-            <User />
+          {window.innerWidth <= 768 ? (
+            <>
+              <User />
+              {notificationCount > 0 && (
+                <S.NotificationBubble>{notificationCount}</S.NotificationBubble>
+              )}
+            </>
           ) : (
             <>
-              <span>{displayName}</span>
+              <span>
+                {displayName}
+                {notificationCount > 0 && (
+                  <S.NotificationBubble>
+                    {notificationCount}
+                  </S.NotificationBubble>
+                )}
+              </span>
               {isMenuToggled ? <ChevronUp /> : <ChevronDown />}
             </>
           )}
@@ -46,6 +60,9 @@ const AuthenticatedMenu: React.FunctionComponent<Props> = (props: Props) => {
           </S.MenuElement>
           <S.MenuElement>
             <S.MenuLink to="/moje-konto">Moje konto</S.MenuLink>
+            {notificationCount > 0 && (
+              <S.NotificationBubble>{notificationCount}</S.NotificationBubble>
+            )}
           </S.MenuElement>
           <S.MenuElement>
             <S.MenuLink to="/" onClick={signOut}>
