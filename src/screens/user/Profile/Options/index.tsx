@@ -59,6 +59,9 @@ const Options: React.FunctionComponent<Props> = (props: Props) => {
           <Link to="/oceny/wystaw">Wystaw</Link>
         </S.Option>
         <S.Option>
+          <Link to="/oceny/wystawione">Wystawione</Link>
+        </S.Option>
+        <S.Option>
           <Link to="/">Otrzymane</Link>
         </S.Option>
       </>

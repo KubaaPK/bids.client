@@ -14,6 +14,7 @@ import Sales from './screens/user/Profile/Sales';
 import Buyings from './screens/user/Profile/Buyings';
 import BillingSettlements from './screens/user/Profile/BillingSettlements';
 import ReviewRequests from './screens/user/Profile/ReviewRequests';
+import IssuedReviews from './screens/user/Profile/IssuedReviews';
 
 const routes = (
   <>
@@ -55,6 +56,7 @@ const routes = (
     />
 
     <PrivateRoute exact path="/oceny/wystaw" component={ReviewRequests} />
+    <PrivateRoute exact path="/oceny/wystawione" component={IssuedReviews} />
   </>
 );
 

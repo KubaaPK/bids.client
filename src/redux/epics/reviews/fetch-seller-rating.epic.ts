@@ -20,7 +20,9 @@ const fetchSellerRating: Epic<
   action$.pipe(
     filter(isOfType(FetchSellerRatingActionTypes.FETCH_SELLER_RATING)),
     mergeMap(action =>
-      from(ajax.getJSON(`${API_URL}/sale/reviews/${action.payload}`)).pipe(
+      from(
+        ajax.getJSON(`${API_URL}/sale/reviews/seller/${action.payload}`)
+      ).pipe(
         map((response: any) => sellerRatingFetched(response)),
         catchError((error: AjaxError) => of(fetchingSellerRatingFailed(error)))
       )
