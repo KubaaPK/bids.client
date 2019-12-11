@@ -1,7 +1,7 @@
 import { Epic } from 'redux-observable';
 import { from, of } from 'rxjs';
 import { filter, map, mergeMap, catchError } from 'rxjs/operators';
-import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { ajax } from 'rxjs/ajax';
 import { isOfType } from 'typesafe-actions';
 import {
   FetchReviewRequestsActions,

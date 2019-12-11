@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { screenSize, colors } from '../../../../../../shared/styles';
+import { screenSize } from '../../../../../../shared/styles';
 
 const Rate = styled.li`
   @media ${screenSize.MOBILE} {

@@ -11,6 +11,9 @@ const Offers: React.FunctionComponent<{}> = () => {
   const [offerListDisplayType, setOfferListDisplayType] = useState<
     'grid' | 'list'
   >(localStorage.getItem('offer-list-display-style') as 'list' | 'grid');
+  const [sortOptions, setSortOptions] = useState<{
+    order?: 'DESC' | 'ASC';
+  }>();
   const location = useLocation<any>();
 
   useEffect(() => {
@@ -19,11 +22,26 @@ const Offers: React.FunctionComponent<{}> = () => {
       .then((response: Response) => {
         setOffers((response as unknown) as Models.Offers.Offer[]);
       });
-  }, [location.search]);
+
+    if (sortOptions && sortOptions.order) {
+      fetch(`${API_URL}/sale/offers?order=${sortOptions.order}`)
+        .then(res => res.json())
+        .then((response: Response) => {
+          setOffers((response as unknown) as Models.Offers.Offer[]);
+        });
+    }
+  }, [location.search, sortOptions]);
+
+  const handleSort = (opts: any): void => {
+    setSortOptions(opts);
+  };
 
   return (
     <S.Wrapper variant={offerListDisplayType}>
-      <OffersListSettings setOfferListDisplayType={setOfferListDisplayType} />
+      <OffersListSettings
+        setOfferListDisplayType={setOfferListDisplayType}
+        handleSort={handleSort}
+      />
       {offers.map(offer => (
         <Offer
           offer={offer}

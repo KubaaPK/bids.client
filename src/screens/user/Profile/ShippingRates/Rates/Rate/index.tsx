@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Models from '../../../../../../models';
 import * as S from './styled';
 

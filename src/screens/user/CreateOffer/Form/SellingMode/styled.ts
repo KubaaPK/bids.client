@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { screenSize } from '../../../../../shared/styles/vars';
-import screenSizes from '../../../../../shared/styles/vars/screen-sizes';
 
 const StockWrapper = styled.div`
   @media ${screenSize.MOBILE} {

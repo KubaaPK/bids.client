@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { screenSize, colors } from '../../../../../shared/styles/vars';
+import { screenSize } from '../../../../../shared/styles/vars';
 
 const Rates = styled.ul`
   @media ${screenSize.MOBILE} {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { X, ThumbsDown, ThumbsUp } from 'react-feather';
+import { X } from 'react-feather';
 import { screenSize, paddings, colors } from '../../../../../../shared/styles';
 
 const Outline = styled.div`

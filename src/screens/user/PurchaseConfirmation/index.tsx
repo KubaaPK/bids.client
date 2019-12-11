@@ -24,7 +24,7 @@ type ReduxDispatch = {
 type Props = ReduxState & ReduxDispatch;
 
 const PurchaseConfirmation: React.FunctionComponent<Props> = (props: Props) => {
-  const { performNewPurchase, processingPurchase, purchaseProcessed } = props;
+  const { performNewPurchase } = props;
 
   const [offer, setOffer] = useState<Models.Offers.SingleOffer>();
   const [selectedShippingRate, selectShippingRate] = useState<

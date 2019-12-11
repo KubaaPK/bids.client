@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
 import * as S from './styled';
-import * as F from '../../../../../../../components/Forms';
 import * as Models from '../../../../../../../models';
 import { State } from '../../../../../../../redux/reducers';
 import { assignParameter } from '../../../../../../../redux/actions/categories/assign-parameter.action';

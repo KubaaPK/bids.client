@@ -1,6 +1,5 @@
 import React from 'react';
 import Navigation from '../../../components/Navigation';
-import * as S from './styled';
 import Categories from './Categories';
 import Offers from '../../../components/Offers';
 import MainWrapper from '../../../components/Layout/Main';

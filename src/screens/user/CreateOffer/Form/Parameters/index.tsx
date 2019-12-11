@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as Models from '../../../../../models';
-import * as Form from '../../../../../components/Forms';
 import * as S from './styled';
 import { API_URL } from '../../../../../consts';
 import Parameter from './Parameter';
@@ -16,8 +15,7 @@ type Props = {
 const Parameters: React.FunctionComponent<Props> = (props: Props) => {
   const { categoryId, passParameterValue, restoredParameters } = props;
   const [parameters, setParameters] = useState<Models.Categories.Parameter[]>();
-  const [restoredParametersValues, setRestoredParametersValues] = useState();
-  const [parametersValues, setParametersValues] = useState<
+  const [, setParametersValues] = useState<
     {
       id: string;
       name: string;
@@ -43,6 +41,7 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
     if (restoredParameters) {
       setParametersValues(restoredParameters as any);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleParameterChange = (
