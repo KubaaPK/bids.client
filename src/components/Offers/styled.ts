@@ -1,15 +1,31 @@
 import styled from 'styled-components';
-import { screenSize, paddings } from '../../shared/styles/vars';
+import { screenSize } from '../../shared/styles/vars';
 
-const Wrapper = styled.ul`
+type Props = {
+  variant: 'list' | 'grid';
+};
+
+const Wrapper = styled.ul<Props>`
   @media ${screenSize.MOBILE} {
     height: 100%;
     width: 100%;
     padding-left: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: ${props => (props.variant === 'list' ? 'column' : 'row')};
+
+    a {
+      width: ${props => (props.variant === 'list' ? '100%' : '49%')};
+
+      &:nth-of-type(even) {
+        margin-left: ${props => (props.variant === 'list' ? 0 : '2%')};
+      }
+    }
   }
 
   @media ${screenSize.DESKTOP} {
-    margin-left: calc(100vw - calc(79vw - 8rem));
+    margin-left: 10rem;
     width: calc(79vw - 14rem);
   }
 `;

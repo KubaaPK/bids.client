@@ -5,10 +5,11 @@ import * as PriceUtils from '../../../utils/price';
 
 type Props = {
   offer: Models.Offers.Offer;
+  displayType: 'grid' | 'list';
 };
 
 const Offer: React.FunctionComponent<Props> = (props: Props) => {
-  const { offer } = props;
+  const { offer, displayType } = props;
 
   const price: [string, string] = PriceUtils.tupledMainAndPennies(
     offer.sellingMode.price.amount
@@ -18,12 +19,16 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
     <S.Offer to={`/oferta/${offer.id}`}>
       <S.Thumbnail src={offer.images[0].url} />
       <S.Text>
-        <S.Title>{offer.name}</S.Title>
+        <S.Title>
+          {displayType === 'grid' && offer.name.length > 20
+            ? `${offer.name.substring(0, 20)}...`
+            : offer.name}
+        </S.Title>
         <S.Price>
           <S.MainPart>{price[0]}</S.MainPart>
           <S.CommaSeparator>,</S.CommaSeparator>
           <S.Pennies>
-            {price[1]}
+            {price[1] ? <span>price[1]</span> : <span>00</span>}
             {offer.sellingMode.price.currency === 'PLN' ? 'zł' : 'zł'}
           </S.Pennies>
         </S.Price>

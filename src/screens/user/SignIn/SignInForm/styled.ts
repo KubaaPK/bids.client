@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   form {
     margin-top: 2rem;
 
-    padding: 1rem ${paddings.MOBILE};
+    padding: 1rem ${paddings.MOBILE} 2rem ${paddings.MOBILE};
 
     background-color: #fff;
   }

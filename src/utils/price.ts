@@ -13,9 +13,9 @@ const calulatePriceWithShipping = (
   price: string,
   shippingRatePrice: string
 ): string => {
-  return (
-    Number.parseFloat(price) + Number.parseFloat(shippingRatePrice)
-  ).toFixed(2);
+  return (Number.parseFloat(price) + Number.parseFloat(shippingRatePrice))
+    .toFixed(2)
+    .replace('.', ',');
 };
 
 export { tupledMainAndPennies, calulatePriceWithShipping };

@@ -6,6 +6,9 @@ import { paddings, screenSize, colors } from '../../shared/styles/vars';
 const Navbar = styled.nav`
   @media ${screenSize.MOBILE} {
     position: fixed;
+    top: 0;
+    left: 0;
+
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -15,12 +18,9 @@ const Navbar = styled.nav`
     width: 100%;
 
     padding: 2rem ${paddings.MOBILE};
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.05);
 
     background-color: #fff;
-  }
-
-  @media ${screenSize.TABLET} {
-    /* justify-content: initial; */
   }
 
   @media ${screenSize.DESKTOP} {

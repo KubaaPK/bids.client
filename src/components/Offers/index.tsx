@@ -4,9 +4,13 @@ import * as Models from '../../models';
 import * as S from './styled';
 import { API_URL } from '../../consts';
 import Offer from './Offer';
+import OffersListSettings from './OffersListSettings';
 
 const Offers: React.FunctionComponent<{}> = () => {
   const [offers, setOffers] = useState<Models.Offers.Offer[]>([]);
+  const [offerListDisplayType, setOfferListDisplayType] = useState<
+    'grid' | 'list'
+  >(localStorage.getItem('offer-list-display-style') as 'list' | 'grid');
   const location = useLocation<any>();
 
   useEffect(() => {
@@ -18,9 +22,14 @@ const Offers: React.FunctionComponent<{}> = () => {
   }, [location.search]);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper variant={offerListDisplayType}>
+      <OffersListSettings setOfferListDisplayType={setOfferListDisplayType} />
       {offers.map(offer => (
-        <Offer offer={offer} key={offer.id} />
+        <Offer
+          offer={offer}
+          key={offer.id}
+          displayType={offerListDisplayType}
+        />
       ))}
     </S.Wrapper>
   );

@@ -12,7 +12,8 @@ const List = styled.ul`
     width: 100%;
     height: 100%;
     padding-left: 0;
-    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
     background-color: #ffffff;
 
     &::-webkit-scrollbar {
