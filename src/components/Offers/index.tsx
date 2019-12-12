@@ -7,33 +7,69 @@ import Offer from './Offer';
 import OffersListSettings from './OffersListSettings';
 
 const Offers: React.FunctionComponent<{}> = () => {
-  const [offers, setOffers] = useState<Models.Offers.Offer[]>([]);
+  const [offers, setOffers] = useState<Models.Offers.Offers>({
+    offers: [],
+    totalAmount: 0
+  });
   const [offerListDisplayType, setOfferListDisplayType] = useState<
     'grid' | 'list'
   >(localStorage.getItem('offer-list-display-style') as 'list' | 'grid');
   const [sortOptions, setSortOptions] = useState<{
     order?: 'DESC' | 'ASC';
-  }>();
+  }>({
+    order: 'DESC'
+  });
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const location = useLocation<any>();
 
-  useEffect(() => {
-    fetch(`${API_URL}/sale/offers${location.search}`)
-      .then(res => res.json())
-      .then((response: Response) => {
-        setOffers((response as unknown) as Models.Offers.Offer[]);
-      });
+  const OFFERS_PER_PAGE: number = 30;
 
-    if (sortOptions && sortOptions.order) {
-      fetch(`${API_URL}/sale/offers?order=${sortOptions.order}`)
+  useEffect(() => {
+    fetch(
+      `${API_URL}/sale/offers?order=${
+        sortOptions.order
+      }&limit=${OFFERS_PER_PAGE}&${pageNumber ? `offset=${0}` : ''}`
+    )
+      .then(res => res.json())
+      .then((response: any) => {
+        setOffers({
+          offers: response[0] as Models.Offers.Offers['offers'],
+          totalAmount: response[1] as number
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    if (sortOptions.order || pageNumber || location.search) {
+      fetch(
+        `${API_URL}/sale/offers${
+          location.search ? `${location.search}` : '?'
+        }&order=${sortOptions.order}&limit=${OFFERS_PER_PAGE}&${
+          pageNumber && pageNumber > 1
+            ? `offset=${OFFERS_PER_PAGE * (pageNumber - 1)}`
+            : ''
+        }`
+      )
         .then(res => res.json())
-        .then((response: Response) => {
-          setOffers((response as unknown) as Models.Offers.Offer[]);
+        .then((response: any) => {
+          setOffers({
+            offers: response[0] as Models.Offers.Offers['offers'],
+            totalAmount: response[1] as number
+          });
         });
     }
-  }, [location.search, sortOptions]);
+  }, [sortOptions, pageNumber, location.search]);
 
   const handleSort = (opts: any): void => {
     setSortOptions(opts);
+  };
+
+  const handleNextPageChange = (): void => {
+    setPageNumber(pageNumber + 1);
+  };
+
+  const handlePageChange = (number: number): void => {
+    setPageNumber(number);
   };
 
   return (
@@ -41,8 +77,12 @@ const Offers: React.FunctionComponent<{}> = () => {
       <OffersListSettings
         setOfferListDisplayType={setOfferListDisplayType}
         handleSort={handleSort}
+        offersAmount={offers.totalAmount}
+        handleNextPageChange={handleNextPageChange}
+        handlePageChange={handlePageChange}
+        currentPageNumber={pageNumber}
       />
-      {offers.map(offer => (
+      {offers.offers.map(offer => (
         <Offer
           offer={offer}
           key={offer.id}

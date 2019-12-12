@@ -7,7 +7,7 @@ import * as Models from '../../../models';
 
 export type LatestOffersState = {
   fetchingLatestOffers: boolean;
-  latestOffers: Models.Offers.Offer[];
+  latestOffers: Models.Offers.Offers['offers'];
   fetchingLatestOffersFailed: AjaxError | undefined;
 };
 

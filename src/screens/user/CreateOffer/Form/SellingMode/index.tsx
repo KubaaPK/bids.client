@@ -9,8 +9,8 @@ type Props = {
   ) => void;
 
   onStockChange: (stock: Models.Offers.NewOffer['stock']) => void;
-  restoredSellingMode?: Models.Offers.Offer['sellingMode'];
-  restoredStock?: Models.Offers.Offer['stock'];
+  restoredSellingMode?: Models.Offers.Offers['offers'][0]['sellingMode'];
+  restoredStock?: Models.Offers.Offers['offers'][0]['stock'];
 };
 
 const SellingMode: React.FunctionComponent<Props> = (props: Props) => {

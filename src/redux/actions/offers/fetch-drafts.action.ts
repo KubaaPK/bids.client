@@ -19,7 +19,7 @@ type FetchingDraftsAction = {
 
 type FetchedDraftsAction = {
   type: FetchDraftsActionsTypes.FETCHED_DRAFTS;
-  payload: Models.Offers.Offer[];
+  payload: Models.Offers.Offers['offers'];
 };
 
 type FetchingDraftsFailedAction = {
@@ -41,7 +41,7 @@ export function fetchingDrafts(status: boolean): FetchingDraftsAction {
 }
 
 export function fetchedDrafts(
-  drafts: Models.Offers.Offer[]
+  drafts: Models.Offers.Offers['offers']
 ): FetchedDraftsAction {
   return {
     type: FetchDraftsActionsTypes.FETCHED_DRAFTS,

@@ -11,7 +11,7 @@ import LatestOffer from './LatestOffer';
 
 type ReduxState = {
   fetchingLatestOffers: boolean;
-  latestOffers: Models.Offers.Offer[];
+  latestOffers: Models.Offers.Offers['offers'];
   fetchingLatestOffersFailed: AjaxError | undefined;
 };
 
@@ -46,9 +46,11 @@ const LatestOffers: React.FunctionComponent<Props> = (props: Props) => {
         <S.Wrapper>
           <Typography.SectionTitle bold text="Ostatnio dodane" />
           <S.LatestOffers>
-            {latestOffers.map((latestOffer: Models.Offers.Offer) => (
-              <LatestOffer offer={latestOffer} key={latestOffer.id} />
-            ))}
+            {latestOffers.map(
+              (latestOffer: Models.Offers.Offers['offers'][0]) => (
+                <LatestOffer offer={latestOffer} key={latestOffer.id} />
+              )
+            )}
           </S.LatestOffers>
         </S.Wrapper>
       )}

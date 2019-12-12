@@ -16,15 +16,23 @@ const Wrapper = styled.ul<Props>`
     flex-direction: ${props => (props.variant === 'list' ? 'column' : 'row')};
 
     a {
-      width: ${props => (props.variant === 'list' ? '100%' : '49%')};
+      width: ${props => (props.variant === 'list' ? '100%' : '50%')};
+
+      border-bottom: ${props =>
+        props.variant === 'list' ? '1px solid #cecece' : '0'};
+
+      &:last-of-type {
+        border: 0;
+      }
 
       &:nth-of-type(even) {
-        margin-left: ${props => (props.variant === 'list' ? 0 : '2%')};
+        margin-left: ${props => (props.variant === 'list' ? 0 : '0%')};
       }
     }
   }
 
   @media ${screenSize.DESKTOP} {
+    margin-top: 0;
     margin-left: 10rem;
     width: calc(79vw - 14rem);
   }

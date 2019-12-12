@@ -4,7 +4,7 @@ import * as S from './styled';
 import * as PriceUtils from '../../../../../utils/price';
 
 type Props = {
-  offer: Models.Offers.Offer;
+  offer: Models.Offers.Offers['offers'][0];
 };
 
 const LatestOffer: React.FunctionComponent<Props> = (props: Props) => {

@@ -7,7 +7,9 @@ type Props = {
   onDescriptionChange: (
     description: Models.Offers.NewOffer['description']
   ) => void;
-  restoredDesctiption?: Models.Offers.Offer['description'] | undefined;
+  restoredDesctiption?:
+    | Models.Offers.Offers['offers'][0]['description']
+    | undefined;
 };
 
 const Description: React.FunctionComponent<Props> = (props: Props) => {

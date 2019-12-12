@@ -17,9 +17,12 @@ const Wrapper = styled.div`
   }
 
   @media ${screenSize.DESKTOP} {
+    position: relative;
+
     width: calc(79vw - 14rem);
     height: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+    padding-bottom: 4rem;
   }
 `;
 

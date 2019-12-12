@@ -12,7 +12,6 @@ const Offer = styled(Link)`
 
     height: 100%;
     width: 100%;
-    margin: 1.5rem 0;
     padding: ${paddings.MOBILE};
 
     background-color: #fff;
@@ -46,6 +45,7 @@ const Thumbnail = styled.img`
 
 const Text = styled.div`
   @media ${screenSize.MOBILE} {
+    width: calc(100% - 14rem);
     padding-left: 1.5rem;
   }
 `;

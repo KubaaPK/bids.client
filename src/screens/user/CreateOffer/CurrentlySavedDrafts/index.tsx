@@ -10,9 +10,9 @@ type ReduxDispatch = {
 };
 
 type OwnProps = {
-  drafts: Models.Offers.Offer[];
+  drafts: Models.Offers.Offers['offers'];
   closeDraftSelection: () => void;
-  handleDraftSelection: (draft: Models.Offers.Offer) => void;
+  handleDraftSelection: (draft: Models.Offers.Offers['offers'][0]) => void;
 };
 
 type Props = ReduxDispatch & OwnProps;
@@ -29,7 +29,7 @@ const CurrentlySavedDrafts: React.FunctionComponent<Props> = (props: Props) => {
     performDeleteDraft(id);
   };
 
-  const onDraftClick = (draft: Models.Offers.Offer): void => {
+  const onDraftClick = (draft: Models.Offers.Offers['offers'][0]): void => {
     handleDraftSelection(draft);
   };
 

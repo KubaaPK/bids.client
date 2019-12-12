@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
 import * as S from './styled';
 import Select from '../../Forms/Select';
+import Pagination from './Pagination';
 
 type Props = {
   setOfferListDisplayType: (style: 'list' | 'grid') => void;
   handleSort: (opts: any) => void;
+  offersAmount: number;
+  handlePageChange: (pageNumber: number) => void;
+  handleNextPageChange: () => void;
+  currentPageNumber: number;
 };
 
 const OffersListSettings: React.FunctionComponent<Props> = (props: Props) => {
-  const { setOfferListDisplayType, handleSort } = props;
+  const {
+    setOfferListDisplayType,
+    handleSort,
+    offersAmount,
+    handleNextPageChange,
+    handlePageChange,
+    currentPageNumber
+  } = props;
 
   const [offerListStyle, setOfferListStyle] = useState(
     localStorage.getItem('offer-list-display-style')
@@ -49,6 +61,13 @@ const OffersListSettings: React.FunctionComponent<Props> = (props: Props) => {
         options={offerSortSelectOptions()}
         id="offerSort"
         label=""
+        defaultSelectValue="DESC"
+      />
+      <Pagination
+        offersAmount={offersAmount}
+        handleNextPageChange={handleNextPageChange}
+        handlePageChange={handlePageChange}
+        currentPageNumber={currentPageNumber}
       />
     </S.Wrapper>
   );

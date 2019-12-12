@@ -28,7 +28,7 @@ import { publishOffer } from '../../../redux/actions/offers/publish-offer.action
 type ReduxState = {
   categories: Models.Categories.Category[];
   offerAdded: AjaxResponse | undefined;
-  drafts: Models.Offers.Offer[];
+  drafts: Models.Offers.Offers['offers'];
   deletedDraft: AjaxResponse | undefined;
   addedOffer: AjaxResponse | undefined;
   draftUpdated: AjaxResponse | undefined;
@@ -266,7 +266,9 @@ const CreateOffer: React.FunctionComponent<Props> = (props: Props) => {
     setShowDraftSelection(false);
   };
 
-  const handleDraftSelection = (draft: Models.Offers.Offer): void => {
+  const handleDraftSelection = (
+    draft: Models.Offers.Offers['offers'][0]
+  ): void => {
     setOffer(draft as any);
     setShowDraftSelection(false);
     setDraftRestored(true);

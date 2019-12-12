@@ -7,7 +7,7 @@ import {
 
 export type FetchDraftsState = {
   fetchingDrafts: boolean;
-  fetchedDrafts: Models.Offers.Offer[];
+  fetchedDrafts: Models.Offers.Offers['offers'];
   fetchingDraftsFailed: AjaxError | undefined;
 };
 

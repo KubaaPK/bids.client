@@ -18,7 +18,7 @@ type FetchingLatestOffersAction = {
 
 type LatestOffersFetchedAction = {
   type: FetchLatestOffersActionsTypes.LATEST_OFFERS_FETCHED;
-  payload: Models.Offers.Offer[];
+  payload: Models.Offers.Offers['offers'];
 };
 
 type LatestOffersFetchingFailedAction = {
@@ -39,7 +39,7 @@ export function fetchingLatestOffers(): FetchingLatestOffersAction {
 }
 
 export function latestOffersFetched(
-  offers: Models.Offers.Offer[]
+  offers: Models.Offers.Offers['offers']
 ): LatestOffersFetchedAction {
   return {
     type: FetchLatestOffersActionsTypes.LATEST_OFFERS_FETCHED,

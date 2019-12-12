@@ -3,7 +3,7 @@ type ParameterValue = {
   value: string;
 };
 
-export type Offer = {
+type Offer = {
   id: string;
   name: string;
   seller: {
@@ -55,4 +55,9 @@ export type Offer = {
     id: string;
   };
   parameters: ParameterValue[];
+};
+
+export type Offers = {
+  offers: Offer[];
+  totalAmount: number;
 };
