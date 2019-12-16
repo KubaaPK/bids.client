@@ -4,8 +4,6 @@ import { screenSize, colors, paddings } from '../../../../shared/styles/vars';
 const List = styled.ul`
   @media ${screenSize.MOBILE} {
     position: relative;
-    top: 12rem;
-
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -13,28 +11,33 @@ const List = styled.ul`
     -ms-overflow-style: -ms-autohiding-scrollbar;
     width: 100%;
     height: 100%;
-    margin-top: 0;
     padding-left: 0;
-
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
     background-color: #ffffff;
 
     &::-webkit-scrollbar {
       display: none;
     }
-  }
 
-  @media ${screenSize.TABLET} {
-    top: 8.5rem;
+    h2 {
+      display: none;
+    }
   }
 
   @media ${screenSize.DESKTOP} {
-    top: 8.5rem;
-    left: ${paddings.DESKTOP};
     flex-direction: column;
-    width: 20vw;
-    padding: 0 2rem 2rem 2rem;
+    left: ${paddings.DESKTOP};
 
-    border-radius: 3px;
+    width: 20vw;
+    margin-top: 0;
+    padding: 0 2rem 2rem 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+
+    h2 {
+      display: initial;
+    }
   }
 `;
 

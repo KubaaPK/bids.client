@@ -19,10 +19,14 @@ type ReduxDispatch = {
   performAddCategory: (category: Models.Categories.Category) => void;
 };
 
-type Props = ReduxState & ReduxDispatch;
+type OwnProps = {
+  closeForm: () => void;
+};
+
+type Props = OwnProps & ReduxState & ReduxDispatch;
 
 const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
-  const { performAddCategory } = props;
+  const { performAddCategory, closeForm } = props;
   const [category, setCategory] = useState<Models.Categories.Category>({
     name: ''
   });
@@ -44,7 +48,7 @@ const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.Wrapper>
       <Form.Form handleSubmit={handleSubmit}>
-        <Typography.Title text="Dodaj nową kategorię" />
+        <Typography.Title text="Dodaj nową kategorię" font={{ size: '2rem' }} />
         <Form.Input
           id="name"
           label="Nazwa kategorii"
@@ -56,6 +60,9 @@ const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
           handleChange={handleInputChange}
         />
         <Button text="Dodaj kategorię" variant="full" type="submit" />
+        <S.CloseBottom type="button" onClick={closeForm}>
+          Zamknij
+        </S.CloseBottom>
       </Form.Form>
     </S.Wrapper>
   );

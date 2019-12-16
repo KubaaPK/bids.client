@@ -19,7 +19,7 @@ const Wrapper = styled.ul<Props>`
       width: ${props => (props.variant === 'list' ? '100%' : '50%')};
 
       border-bottom: ${props =>
-        props.variant === 'list' ? '1px solid #cecece' : '0'};
+        props.variant === 'list' ? '2px solid hsl(210, 23%, 95%)' : '0'};
 
       &:last-of-type {
         border: 0;
@@ -35,6 +35,8 @@ const Wrapper = styled.ul<Props>`
     margin-top: 0;
     margin-left: 10rem;
     width: calc(79vw - 14rem);
+
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
   }
 `;
 

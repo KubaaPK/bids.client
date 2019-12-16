@@ -13,8 +13,8 @@ const Parameter: React.FunctionComponent<Props> = (props: Props) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <S.Parameter>
-      <S.Name onClick={() => setShowDetails(!showDetails)}>
+    <S.Parameter onClick={() => setShowDetails(!showDetails)}>
+      <S.Name>
         <S.NameText>{parameter.name}</S.NameText>
         <S.ExpandIcon>
           {showDetails ? <ChevronUp /> : <ChevronDown />}

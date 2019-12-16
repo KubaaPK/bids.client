@@ -1,7 +1,7 @@
 export default {
   PRIMARY: '#ECEFF1',
   DARK: '#444',
-  ACCENT: '#FF4747',
+  ACCENT: 'hsl(224, 73%, 59%)',
   SECONDARY_ACCENT: '#009688',
   GREYISH: '#aaaaaa',
 

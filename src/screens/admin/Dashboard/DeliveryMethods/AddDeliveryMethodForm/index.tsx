@@ -21,12 +21,16 @@ type ReduxDispatch = {
   ) => void;
 };
 
-type Props = ReduxState & ReduxDispatch;
+type OwnProps = {
+  closeForm: () => void;
+};
+
+type Props = OwnProps & ReduxState & ReduxDispatch;
 
 const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
   props: Props
 ) => {
-  const { performAddDeliveryMethod } = props;
+  const { performAddDeliveryMethod, closeForm } = props;
 
   const [newDeliveryMethod, setNewDeliveryMethod] = useState<
     Models.DeliveryMethods.NewDeliveryMethod
@@ -95,6 +99,9 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
           handleChange={handlePaymentPolicyChange}
         />
         <Button type="submit" variant="full" text="Dodaj metodę dostawy" />
+        <S.CloseBottom type="button" onClick={closeForm}>
+          Zamknij
+        </S.CloseBottom>
       </Form.Form>
     </S.Wrapper>
   );

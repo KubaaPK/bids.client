@@ -8,9 +8,12 @@ const ToSignUpWrapper = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+    align-items: baseline;
 
     margin-top: 2rem;
     padding: 2rem ${paddings.MOBILE};
+    border-radius: 5px;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     background-color: #fff;
   }

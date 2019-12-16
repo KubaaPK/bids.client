@@ -34,6 +34,10 @@ const Offer = styled(Link)`
     &:hover {
       background-color: #eaeaea;
     }
+
+    &:last-of-type {
+      border-radius: 0 0 5px 5px;
+    }
   }
 `;
 

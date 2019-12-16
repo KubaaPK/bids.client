@@ -2,9 +2,24 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import { screenSize, paddings, colors } from '../../../../shared/styles/vars';
 
-const Wrapper = styled.div`
-  @media ${screenSize.TABLET} {
+const Outline = styled.div`
+  @media ${screenSize.DESKTOP} {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: hsla(0, 0%, 0%, 0.5);
   }
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+
+  height: 100%;
 `;
 
 const List = styled.ul`
@@ -21,6 +36,7 @@ const ShowAddCategoryFormButton = styled.button`
 
     padding: 0.5rem 1rem;
     border: 0;
+    border-radius: 5px;
 
     background-color: ${colors.ACCENT};
 
@@ -39,4 +55,4 @@ const ShowAddCategoryFormButton = styled.button`
   }
 `;
 
-export { Wrapper, List, ShowAddCategoryFormButton };
+export { Outline, Wrapper, List, ShowAddCategoryFormButton };

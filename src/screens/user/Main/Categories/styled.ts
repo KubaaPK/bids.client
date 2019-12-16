@@ -32,8 +32,8 @@ const List = styled.ul`
     width: 20vw;
     margin-top: 0;
     padding: 0 2rem 2rem 2rem;
-
-    border-radius: 3px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     h2 {
       display: initial;

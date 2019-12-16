@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { lighten } from 'polished';
-import { screenSize, colors } from '../../../shared/styles/vars';
+import { screenSize, colors, paddings } from '../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
@@ -78,55 +78,37 @@ const Menu = styled.ul`
     right: 2rem;
     z-index: 999;
 
-    width: 80vw;
-    padding: 2rem 1rem 1rem 1rem;
+    width: 50vw;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     background-color: #fff;
-    border: 1px solid #ccc;
 
     list-style-type: none;
   }
 
   @media ${screenSize.TABLET} {
-    width: 35vw;
+    top: 6rem;
+    width: 30vw;
   }
 
   @media ${screenSize.DESKTOP} {
-    width: 18vw;
+    right: ${paddings.DESKTOP};
+    width: 15vw;
   }
 `;
 
 const MenuElement = styled.li`
   @media ${screenSize.MOBILE} {
-    position: relative;
-
     width: 100%;
-    
-    span {
-      top: 0.9rem !important;
-      left: 11rem !important;
-      
-      padding-left: 0.55rem;
+    /* margin: 1rem 0; */
+
+    text-align: center;
+
+    &:nth-of-type(2) {
+      border-top: 2px solid hsl(210, 25%, 95%);
     }
-
-    a {
-      font-size: 1.4rem;
-    }
-
-    &:first-of-type {
-      margin-bottom: 1rem;
-
-      border-bottom: 1px solid #ccc;
-      /* a {
-        background-color: ${colors.ACCENT};
-
-        color: #fff;
-      } */
-    }
-  }
-
-  @media ${screenSize.DESKTOP} {
-   
   }
 `;
 
@@ -134,18 +116,19 @@ const MenuLink = styled(Link)`
   @media ${screenSize.MOBILE} {
     display: block;
 
-    padding: 1rem 3rem;
+    padding: 1rem;
 
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-decoration: none;
+    text-align: left;
 
-    color: ${lighten(0.2, colors.FONT)};
+    color: hsla(0, 0%, 15%, 0.65);
   }
 
   @media ${screenSize.DESKTOP} {
     transition: 0.2s;
     &:hover {
-      color: ${lighten(0.1, colors.SECONDARY_ACCENT)};
+      color: hsla(0, 0%, 15%, 1);
     }
   }
 `;

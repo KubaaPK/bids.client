@@ -49,6 +49,15 @@ const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
+      {showAddDeliveryMethodForm && (
+        <S.Outline>
+          <span ref={addDeliveryMethodFormRef}>
+            <AddDeliveryMethodForm
+              closeForm={() => setShowAddDeliveryMethodForm(false)}
+            />
+          </span>
+        </S.Outline>
+      )}
       <Typo.Title text="Zarządzanie metodami dostaw" />
       <S.List>
         {deliveryMethods.map(deliveryMethod => (
@@ -63,11 +72,6 @@ const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
       >
         <Plus />
       </S.ShowAddDeliveryMethodFormButton>
-      {showAddDeliveryMethodForm && (
-        <span ref={addDeliveryMethodFormRef}>
-          <AddDeliveryMethodForm />
-        </span>
-      )}
     </S.Wrapper>
   );
 };

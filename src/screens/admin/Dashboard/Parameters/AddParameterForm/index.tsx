@@ -9,6 +9,10 @@ import Button from '../../../../../components/Button';
 import { State } from '../../../../../redux/reducers';
 import { addParameter } from '../../../../../redux/actions/parameters/add-parameter.action';
 
+type OwnProps = {
+  closeForm: () => void;
+};
+
 type ReduxState = {
   addingParameter: boolean;
   addedParameter: AjaxResponse | undefined;
@@ -19,10 +23,10 @@ type ReduxDispatch = {
   performAddParameter: (newParameter: Models.Categories.NewParameter) => void;
 };
 
-type Props = ReduxState & ReduxDispatch;
+type Props = OwnProps & ReduxState & ReduxDispatch;
 
 const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
-  const { performAddParameter } = props;
+  const { performAddParameter, closeForm } = props;
   const [newParameter, setNewParameter] = useState<
     Models.Categories.NewParameter
   >({
@@ -103,7 +107,7 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.Wrapper>
       <Form.Form handleSubmit={handleSubmit}>
-        <Typography.Title text="Dodaj parametr" />
+        <Typography.Title text="Dodaj parametr" font={{ size: '2rem' }} />
         <Form.Input
           id="name"
           label="Nazwa"
@@ -131,10 +135,7 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
           options={parameterTypeSelectOptions()}
           restrictions={{ required: true }}
         />
-        <Form.Typography.TextSeparator
-          text="Ograniczenia"
-          topBottomMargin="4rem"
-        />
+        <Form.Typography.TextSeparator text="Ograniczenia" />
         {newParameter.type === 'single-string' && (
           <>
             <Form.Input
@@ -211,6 +212,9 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
           </>
         )}
         <Button type="submit" variant="full" text="Dodaj parametr" />
+        <S.CloseBottom type="button" onClick={closeForm}>
+          Zamknij
+        </S.CloseBottom>
       </Form.Form>
     </S.Wrapper>
   );

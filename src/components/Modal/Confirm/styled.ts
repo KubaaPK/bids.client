@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import { screenSize, colors } from '../../../shared/styles/vars';
 
+type Props = {
+  variant: 'warning';
+};
+
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
     position: fixed;
@@ -17,26 +21,39 @@ const Wrapper = styled.div`
   }
 `;
 
-const Modal = styled.div`
+const Modal = styled.div<Props>`
   @media ${screenSize.MOBILE} {
     position: fixed;
-    top: 30vh;
+    bottom: 0;
     left: 0;
     right: 0;
 
     width: 100%;
-    padding: 2rem;
     margin: 0 auto;
+    border-top: ${props =>
+      props.variant === 'warning' ? '5px solid hsla(0, 100%, 50%, 0.6)' : 0};
 
     background-color: #fff;
   }
 
   @media ${screenSize.TABLET} {
+    top: 30vh;
+    bottom: auto;
     width: 50%;
+    border-top: 0;
+    border-left: ${props =>
+      props.variant === 'warning' ? '5px solid hsla(0, 100%, 50%, 0.6)' : 0};
+    border-radius: 5px;
   }
 
   @media ${screenSize.DESKTOP} {
     width: 30%;
+  }
+`;
+
+const Content = styled.div`
+  @media ${screenSize.MOBILE} {
+    padding: 2rem 2rem 0 2rem;
   }
 `;
 
@@ -53,8 +70,8 @@ const Icon = styled.div`
 
 const Title = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.1rem;
-    text-align: center;
+    font-size: 1.2rem;
+    text-align: left;
   }
 
   @media ${screenSize.DESKTOP} {
@@ -65,9 +82,10 @@ const Title = styled.p`
 const Buttons = styled.div`
   @media ${screenSize.MOBILE} {
     margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ccc;
+    padding: 2rem 1rem;
+    border-top: 1px solid hsla(255, 0%, 0%, 0.2);
 
+    background-color: hsla(255, 0%, 0%, 0.1);
     text-align: right;
 
     button {
@@ -75,7 +93,7 @@ const Buttons = styled.div`
       margin: 0 0.5rem;
       border: 0;
 
-      font-size: 1.1rem;
+      font-size: 1.2rem;
 
       &:last-of-type {
         margin-right: 0;
@@ -85,7 +103,7 @@ const Buttons = styled.div`
 
   @media ${screenSize.DESKTOP} {
     margin-top: 3rem;
-    padding-top: 1rem;
+    padding: 2rem 1rem;
 
     button {
       font-size: 1.3rem;
@@ -95,6 +113,8 @@ const Buttons = styled.div`
 
 const AcceptButton = styled.button`
   @media ${screenSize.MOBILE} {
+    border-radius: 5px;
+
     background-color: ${colors.ERROR};
 
     color: #fff;
@@ -123,4 +143,13 @@ const RejectButton = styled.button`
   }
 `;
 
-export { Wrapper, Modal, Icon, Title, Buttons, AcceptButton, RejectButton };
+export {
+  Wrapper,
+  Modal,
+  Content,
+  Icon,
+  Title,
+  Buttons,
+  AcceptButton,
+  RejectButton
+};

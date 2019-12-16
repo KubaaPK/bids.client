@@ -5,10 +5,19 @@ const Category = styled.li`
   @media ${screenSize.MOBILE} {
     list-style-type: none;
 
-    padding: 1rem 0;
+    padding: 2rem 1rem;
+    border-bottom: 2px solid hsl(210, 25%, 90%);
 
-    &:nth-child(odd) {
-      border-bottom: 1px solid #ccc;
+    &:last-of-type {
+      border: 0;
+    }
+  }
+
+  @media ${screenSize.DESKTOP} {
+    transition: 0.2s;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
     }
   }
 `;

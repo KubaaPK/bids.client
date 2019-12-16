@@ -9,7 +9,7 @@ const Parameter = styled.li`
 
 const Name = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 `;
 

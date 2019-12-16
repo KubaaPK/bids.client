@@ -23,6 +23,8 @@ const Wrapper = styled.div`
     height: 100%;
     margin-bottom: 0;
     padding-bottom: 4rem;
+
+    border-radius: 5px 5px 0 0;
   }
 `;
 

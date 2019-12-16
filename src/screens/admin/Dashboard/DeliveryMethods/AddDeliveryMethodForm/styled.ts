@@ -24,14 +24,26 @@ const Wrapper = styled.div`
 
   @media ${screenSize.DESKTOP} {
     top: 15rem;
-    left: calc(60vw - 15vw);
+    left: 0;
+    right: 0;
 
     display: block;
     width: 30vw;
-
-    border: 1px solid #ccc;
+    margin: 0 auto;
   }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { Wrapper };
+const CloseBottom = styled.button`
+  @media ${screenSize.MOBILE} {
+    width: 100%;
+    height: 40px;
+    margin-top: 1rem;
+    border: 0;
+
+    background-color: transparent;
+
+    font-size: 1.2rem;
+  }
+`;
+
+export { Wrapper, CloseBottom };

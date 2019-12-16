@@ -8,8 +8,10 @@ const DeliveryMethod = styled.li`
 
     padding: 1rem 0;
 
-    &:nth-child(odd) {
-      border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid hsl(210, 25%, 90%);
+
+    &:last-of-type {
+      border-bottom: 0;
     }
   }
 `;

@@ -2,6 +2,20 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import { screenSize, colors, paddings } from '../../../../shared/styles/vars';
 
+const Outline = styled.div`
+  @media ${screenSize.DESKTOP} {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: hsla(0, 0%, 0%, 0.5);
+  }
+`;
+
 const Wrapper = styled.div`
   position: relative;
 
@@ -23,6 +37,7 @@ const ShowAddParameterFormButton = styled.button`
 
     padding: 0.5rem 1rem;
     border: 0;
+    border-radius: 5px;
 
     background-color: ${colors.ACCENT};
 
@@ -41,4 +56,4 @@ const ShowAddParameterFormButton = styled.button`
   }
 `;
 
-export { Wrapper, List, ShowAddParameterFormButton };
+export { Outline, Wrapper, List, ShowAddParameterFormButton };

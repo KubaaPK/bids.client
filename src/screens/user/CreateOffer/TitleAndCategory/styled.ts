@@ -4,6 +4,7 @@ import { colors, paddings, screenSize } from '../../../../shared/styles/vars';
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
     padding: 2rem ${paddings.MOBILE};
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     background-color: #fff;
   }

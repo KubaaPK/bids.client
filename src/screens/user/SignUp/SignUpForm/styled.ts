@@ -1,11 +1,26 @@
 import styled from 'styled-components';
-import { screenSize, paddings } from '../../../../shared/styles/vars';
+import { screenSize } from '../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
+  @media ${screenSize.MOBILE} {
+    h2 {
+      margin-top: 0;
+    }
+
+    form {
+      padding: 3rem 2rem;
+    }
+  }
+
   @media ${screenSize.TABLET} {
     width: 70%;
 
     margin: 0 auto;
+
+    form {
+      border-radius: 5px;
+      box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+    }
   }
 
   @media ${screenSize.DESKTOP} {
@@ -14,9 +29,6 @@ const Wrapper = styled.div`
 
   form {
     margin-top: 2rem;
-
-    padding: 1rem ${paddings.MOBILE} 1.5rem ${paddings.MOBILE};
-
     background-color: #fff;
   }
 `;

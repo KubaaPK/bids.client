@@ -56,6 +56,14 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
+      {showAddCategoryForm && (
+        <S.Outline>
+          <span ref={addCategoryFormRef}>
+            <AddCategoryForm closeForm={() => setShowAddCategoryForm(false)} />
+          </span>
+        </S.Outline>
+      )}
+
       <Typo.Title text="Zarządzanie kategoriami" />
       <S.List>
         {categories.map(category => (
@@ -67,11 +75,6 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
       >
         <Plus />
       </S.ShowAddCategoryFormButton>
-      {showAddCategoryForm && (
-        <span ref={addCategoryFormRef}>
-          <AddCategoryForm />
-        </span>
-      )}
     </S.Wrapper>
   );
 };

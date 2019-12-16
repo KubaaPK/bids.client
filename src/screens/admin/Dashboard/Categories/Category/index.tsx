@@ -13,8 +13,8 @@ const Category: React.FunctionComponent<Props> = (props: Props) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <S.Category>
-      <S.Name onClick={() => setShowDetails(!showDetails)}>
+    <S.Category onClick={() => setShowDetails(!showDetails)}>
+      <S.Name>
         <S.NameText>{category.name}</S.NameText>
         <S.ExpandIcon>
           {showDetails ? <ChevronUp /> : <ChevronDown />}

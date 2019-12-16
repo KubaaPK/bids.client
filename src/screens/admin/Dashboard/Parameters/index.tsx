@@ -44,10 +44,15 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.Wrapper>
       {showAddParameterForm && (
-        <span ref={addParameterFormRef}>
-          <AddParameterForm />
-        </span>
+        <S.Outline>
+          <span ref={addParameterFormRef}>
+            <AddParameterForm
+              closeForm={() => setShowAddParameterForm(false)}
+            />
+          </span>
+        </S.Outline>
       )}
+
       <Typo.Title text="Zarządzanie parametrami" />
       <S.List>
         {parameters.map(parameter => (

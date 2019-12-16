@@ -30,9 +30,11 @@ const Confirm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      <S.Modal>
-        <S.Icon>{setIcon(variant)}</S.Icon>
-        <S.Title>{modalTitle}</S.Title>
+      <S.Modal variant={variant}>
+        <S.Content>
+          <S.Icon>{setIcon(variant)}</S.Icon>
+          <S.Title>{modalTitle}</S.Title>
+        </S.Content>
         <S.Buttons>
           <S.AcceptButton onClick={handleConfirm}>
             {confirmText || 'Potwierdź'}

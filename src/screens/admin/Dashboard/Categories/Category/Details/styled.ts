@@ -10,7 +10,7 @@ const Leaf = styled.p`
 
     font-size: 1.2rem;
 
-    opacity: 0.3;
+    opacity: 0.5;
   }
 `;
 
@@ -46,6 +46,7 @@ const DeleteButton = styled.button`
 const ParametersTitle = styled.p`
   @media ${screenSize.MOBILE} {
     font-size: 1.2rem;
+    font-weight: 500;
   }
 `;
 

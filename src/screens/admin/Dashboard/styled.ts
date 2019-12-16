@@ -1,45 +1,32 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { screenSize, colors, paddings } from '../../../shared/styles/vars';
-
-const Wrapper = styled.main`
-  @media ${screenSize.MOBILE} {
-    min-height: 100vh;
-    height: 100%;
-    width: 100%;
-    padding-bottom: 10rem;
-
-    background-color: ${colors.PRIMARY};
-  }
-
-  @media ${screenSize.DESKTOP} {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`;
+import { screenSize, paddings } from '../../../shared/styles/vars';
 
 const ComponentWrapper = styled.div`
   @media ${screenSize.MOBILE} {
     position: relative;
-    top: 12rem;
+    top: 1rem;
 
     padding: 1rem ${paddings.MOBILE};
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     background-color: #fff;
   }
 
   @media ${screenSize.TABLET} {
-    top: 9rem;
+    top: 2rem;
   }
 
   @media ${screenSize.DESKTOP} {
-    top: 8.5rem;
-    right: ${paddings.DESKTOP};
+    top: 0;
 
-    width: calc(79vw - 12rem);
+    width: calc(79vw - 14rem);
     height: 100%;
+    margin-top: 0;
+    margin-left: 10rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
   }
 `;
 
-export { Wrapper, ComponentWrapper };
+export { ComponentWrapper };

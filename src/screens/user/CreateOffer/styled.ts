@@ -15,6 +15,7 @@ const Section = styled.div`
   @media ${screenSize.MOBILE} {
     margin: 1rem 0;
     padding: 1rem ${paddings.MOBILE};
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 
     background-color: #fff;
 
