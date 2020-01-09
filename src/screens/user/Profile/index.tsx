@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './styled';
-import Navigation from '../../../components/Navigation';
+import { Navigation } from '../../../components/organisms';
 import Options from './Options';
 
 const Profile: React.FunctionComponent<{}> = () => {

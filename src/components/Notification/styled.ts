@@ -8,11 +8,11 @@ type Props = {
 const setBackgroundColor = (variant: Props['variant']): string => {
   switch (variant) {
     case 'error':
-      return colors.ERROR;
+      return colors.error.background;
     case 'info':
       return colors.INFO;
     case 'success':
-      return colors.SUCCESS;
+      return colors.success.background;
     case 'warning':
       return colors.WARNING;
     default:
@@ -23,11 +23,11 @@ const setBackgroundColor = (variant: Props['variant']): string => {
 const setFontColor = (variant: Props['variant']): string => {
   switch (variant) {
     case 'error':
-      return '#fff';
+      return colors.error.text;
     case 'info':
       return '#fff';
     case 'success':
-      return '#fff';
+      return colors.success.text;
     case 'warning':
       return '#000';
     default:

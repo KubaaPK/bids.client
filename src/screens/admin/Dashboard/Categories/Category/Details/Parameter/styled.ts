@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../../../shared/styles/vars';
+import {
+  screenSize,
+  fontSize,
+  colors,
+  spacing
+} from '../../../../../../../shared/styles/vars';
 
 const Parameter = styled.li`
   @media ${screenSize.MOBILE} {
@@ -9,7 +14,8 @@ const Parameter = styled.li`
 
 const Name = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.2rem;
+    font-size: ${fontSize.s};
+    color: ${colors.font.normal};
   }
 `;
 

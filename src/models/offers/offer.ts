@@ -55,6 +55,7 @@ type Offer = {
     id: string;
   };
   parameters: ParameterValue[];
+  ean: string;
 };
 
 export type Offers = {

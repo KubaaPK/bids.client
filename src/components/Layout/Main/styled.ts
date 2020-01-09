@@ -21,7 +21,7 @@ const Main = styled.main<Props>`
   }
 
   @media ${screenSize.TABLET} {
-    flex-direction: ${props => props.tabletDirection || 'column'};
+    flex-direction: ${props => props.tabletDirection || 'row'};
     padding-top: 8rem;
   }
 

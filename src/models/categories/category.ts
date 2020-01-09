@@ -1,6 +1,15 @@
 export type Category = {
-  id?: string;
-  leaf?: boolean;
+  id: string;
+  leaf: boolean;
   name: string;
-  parent?: string;
+  children: {
+    id: string;
+    leaf: boolean;
+    name: string;
+    children: {
+      id: string;
+      leaf: boolean;
+      name: string;
+    }[];
+  }[];
 };

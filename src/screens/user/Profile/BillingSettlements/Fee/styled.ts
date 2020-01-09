@@ -24,7 +24,7 @@ const Fee = styled.p<FeeProps>`
   @media ${screenSize.MOBILE} {
     font-size: 2.2rem;
     font-weight: 700;
-    color: ${props => (props.debt ? colors.ERROR : '#000000')};
+    color: ${props => (props.debt ? colors.error.text : '#000000')};
   }
 `;
 

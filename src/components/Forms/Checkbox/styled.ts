@@ -34,7 +34,7 @@ const Checkbox = styled.input`
         -ms-transform: rotate(0deg) scale(1);
         transform: rotate(0deg) scale(1);
         opacity: 1;
-        border: 2px solid ${colors.SUCCESS};
+        border: 2px solid ${colors.success.border};
 
         &:after {
           left: 7px;
@@ -42,7 +42,7 @@ const Checkbox = styled.input`
 
           width: 6px;
           height: 12px;
-          border: solid ${colors.SUCCESS};
+          border: solid ${colors.success.border};
           border-width: 0 2px 2px 0;
           border-radius: 0;
           background-color: transparent;

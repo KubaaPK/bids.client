@@ -1,40 +1,29 @@
 import styled from 'styled-components';
 import { screenSize } from '../../../../../../../shared/styles/vars';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+
+const Form = styled.form`
   @media ${screenSize.MOBILE} {
-    form {
-      padding: 0;
-      margin-bottom: 3rem;
+    padding: 0;
+    margin-bottom: 3rem;
 
-      select {
-        margin-top: 2rem;
-      }
-
-      button {
-        margin-top: 1rem;
-      }
+    button {
+      margin-top: 1rem;
     }
   }
 
-  @media ${screenSize.DESKTOP} {
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
+  @media ${screenSize.TABLET} {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
 
-      input {
-        width: 100%;
-      }
+    button {
+      align-self: flex-end;
 
-      button {
-        align-self: flex-end;
-
-        width: 15rem;
-      }
+      width: 20rem;
     }
   }
 `;
-
-export { Wrapper };
+export { Wrapper, Form };

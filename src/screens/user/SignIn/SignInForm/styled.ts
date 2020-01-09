@@ -1,37 +1,39 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../shared/styles/vars';
+import { screenSize, boxShadows, colors } from '../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
-  @media ${screenSize.MOBILE} {
-    h2 {
-      margin-top: 0;
-    }
-
-    form {
-      padding: 3rem 2rem;
-    }
-  }
-
   @media ${screenSize.TABLET} {
-    width: 70%;
+    width: 50%;
 
     margin: 0 auto;
-
-    form {
-      border-radius: 5px;
-      box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
-    }
   }
 
   @media ${screenSize.DESKTOP} {
     width: 30%;
   }
-
-  form {
-    margin-top: 2rem;
-    background-color: #fff;
-  }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { Wrapper };
+const Form = styled.form`
+  @media ${screenSize.MOBILE} {
+    padding: 3rem 2rem;
+
+    box-shadow: ${boxShadows.level0};
+
+    background-color: hsl(0, 0%, 100%);
+
+    button {
+      margin-top: 2rem;
+    }
+  }
+
+  @media ${screenSize.TABLET} {
+    margin-top: 2rem;
+    border-radius: 5px;
+    border: 1px solid ${colors.border.grey};
+  }
+
+  @media ${screenSize.DESKTOP} {
+    background-color: hsl(0, 0%, 100%);
+  }
+`;
+export { Wrapper, Form };

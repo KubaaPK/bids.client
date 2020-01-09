@@ -1,16 +1,14 @@
 import React from 'react';
 import * as S from './styled';
-import Navigation from '../../../components/Navigation';
 import SignUpForm from './SignUpForm';
-import Main from '../../../components/Layout/Main';
+import { Main } from '../../../components/templates';
 
-const SignUp: React.FunctionComponent<{}> = () => {
+export default function SignUp() {
   return (
     <>
-      <Navigation />
       <Main
         props={{
-          desktopDirection: 'column'
+          desktopFlexDirection: 'column'
         }}
       >
         <SignUpForm />
@@ -21,6 +19,4 @@ const SignUp: React.FunctionComponent<{}> = () => {
       </Main>
     </>
   );
-};
-
-export default SignUp;
+}

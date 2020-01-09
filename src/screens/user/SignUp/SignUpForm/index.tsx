@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AjaxError } from 'rxjs/ajax';
-import * as Form from '../../../../components/Forms';
-import Button from '../../../../components/Button';
 import * as S from './styled';
-import * as Typography from '../../../../components/Typography';
 import * as Models from '../../../../models';
 import { State } from '../../../../redux/reducers';
 import { signUp } from '../../../../redux/actions/accounts/sign-up.action';
-import Notification from '../../../../components/Notification';
+import { Title } from '../../../../components/atoms';
+import { InputGroup, Notification } from '../../../../components/molecules';
+import { Button } from '../../../../ui/atoms';
+import { Field } from '../../../../ui/molecules';
 
 type ReduxState = {
   signingUp: boolean;
@@ -44,6 +44,14 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
   });
 
   useEffect(() => {
+    setNotification({
+      message: '',
+      show: false,
+      variant: 'error'
+    });
+  }, []);
+
+  useEffect(() => {
     if (signedUp) {
       push('/zaloguj-sie');
     }
@@ -65,9 +73,7 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
     }
   }, [signingUp, signedUp, signingUpFailed, push]);
 
-  const handleFormInputChange = (
-    ev: React.FormEvent<HTMLInputElement>
-  ): void => {
+  const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
     setSignUpCredentials({
       ...signUpCredentials,
       [ev.currentTarget.id]: ev.currentTarget.value
@@ -83,7 +89,7 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
     });
   };
 
-  const handleSignUp = (ev: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
     performSignUp(signUpCredentials);
     clearInputs();
@@ -93,38 +99,64 @@ const SignUpForm: React.FunctionComponent<Props> = (props: Props) => {
     <S.Wrapper>
       {notification.show && (
         <Notification
-          message={notification.message}
+          text={notification.message}
           variant={notification.variant}
         />
       )}
-      <Form.Form handleSubmit={handleSignUp}>
-        <Typography.SectionTitle text="Załóż konto" bold={false} size="large" />
-        <Form.Input
-          id="email"
+      <S.Form onSubmit={handleSubmit}>
+        <Title
+          text="Załóż konto"
+          font={{
+            size: 'l',
+            weight: 500
+          }}
+        />
+        <Field
           label="Adres email"
-          type="email"
-          placeholder="np. jan.kowalski22@wp.pl"
-          restrictions={{ required: true }}
-          handleChange={handleFormInputChange}
+          input={{
+            id: 'email',
+            placeholder: 'np. jan.kowalski22@wp.pl',
+            type: 'email'
+          }}
         />
-        <Form.Input
-          id="username"
-          label="Nazwa użytkownika"
-          type="text"
-          placeholder="np. jankowalski22"
-          restrictions={{ required: true, minLength: 6 }}
-          handleChange={handleFormInputChange}
+        {/* <InputGroup
+          spacing="1.5rem"
+          label={{ text: 'Adres email', font: { size: 's' }, htmlFor: 'email' }}
+          input={{
+            id: 'email',
+            placeholder: 'np. jan.kowalski22@wp.pl',
+            restrictions: { required: true, minLength: 6 },
+            type: 'text',
+            handleChange: handleInputChange
+          }}
+        /> */}
+        <InputGroup
+          spacing="1.5rem"
+          label={{
+            text: 'Nazwa użytkownika',
+            font: { size: 's' },
+            htmlFor: 'username'
+          }}
+          input={{
+            id: 'username',
+            placeholder: 'np. jankowalski22',
+            restrictions: { required: true, minLength: 6 },
+            type: 'text',
+            handleChange: handleInputChange
+          }}
         />
-        <Form.Input
-          id="password"
-          label="Hasło"
-          type="password"
-          placeholder=""
-          restrictions={{ required: true, minLength: 6 }}
-          handleChange={handleFormInputChange}
+        <InputGroup
+          spacing="1.5rem"
+          label={{ text: 'Hasło', font: { size: 's' }, htmlFor: 'password' }}
+          input={{
+            id: 'password',
+            restrictions: { required: true, minLength: 6 },
+            type: 'password',
+            handleChange: handleInputChange
+          }}
         />
-        <Button type="submit" text="Załóż konto" variant="full" />
-      </Form.Form>
+        <Button type="submit" kind="full" variant="default" />
+      </S.Form>
     </S.Wrapper>
   );
 };

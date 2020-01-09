@@ -27,7 +27,8 @@ const Input = styled.input<InputProps>`
     width: 100%;
     height: 40px;
     padding-left: 1rem;
-    border: 1px solid ${props => (props.hasError ? colors.ERROR : '#ccc')};
+    border: 1px solid
+      ${props => (props.hasError ? colors.error.border : '#ccc')};
     border-radius: 2px;
 
     font-size: 1.4rem;
@@ -35,7 +36,8 @@ const Input = styled.input<InputProps>`
     transition: 200ms;
     &:focus {
       outline: none;
-      border-color: ${props => (props.hasError ? colors.ERROR : colors.ACCENT)};
+      border-color: ${props =>
+        props.hasError ? colors.error.border : colors.ACCENT};
     }
   }
 `;
@@ -43,7 +45,7 @@ const Input = styled.input<InputProps>`
 const ErrorMessage = styled.p`
   @media ${screenSize.MOBILE} {
     font-size: 1.2rem;
-    color: ${colors.ERROR};
+    color: ${colors.error.text};
   }
 `;
 

@@ -89,7 +89,7 @@ const ErrorMessage = styled.p`
     maring: 0;
 
     font-size: 1.4rem;
-    color: ${colors.ERROR};
+    color: ${colors.error.text};
   }
 `;
 

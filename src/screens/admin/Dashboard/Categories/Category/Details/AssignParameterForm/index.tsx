@@ -5,6 +5,8 @@ import * as S from './styled';
 import * as Models from '../../../../../../../models';
 import { State } from '../../../../../../../redux/reducers';
 import { assignParameter } from '../../../../../../../redux/actions/categories/assign-parameter.action';
+import { Select } from '../../../../../../../components/molecules';
+import { Button } from '../../../../../../../components/atoms';
 
 type OwnProps = {
   existingParameters: Models.Categories.Parameter[];
@@ -35,7 +37,7 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
     parameterId: string;
   }>();
 
-  const createSelectOptions = (): { value: any; text: any }[] => {
+  const createSelectOptions = (): { value: any; label: any }[] => {
     return parameters
       .filter(
         parameter => !existingParameters.map(el => el.id).includes(parameter.id)
@@ -43,7 +45,7 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
       .map(el => {
         return {
           value: el.id,
-          text: el.name
+          label: el.name
         };
       });
   };
@@ -62,14 +64,16 @@ const AssignParameterForm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      {/* <F.Form onSubmit={handleSubmit}>
-        <F.Select
+      <S.Form onSubmit={handleSubmit}>
+        <Select
+          id="parameter"
+          label="Parametr"
+          handleChange={handleSelectChange}
           options={createSelectOptions()}
-          onChange={handleSelectChange}
-          defaultMessage="Wybierz parametr..."
+          restrictions={{ required: true }}
         />
-        <F.Button variant="full" type="submit" text="Dodaj parametr" />
-      </F.Form> */}
+        <Button variant="full" type="submit" text="Dodaj parametr" />
+      </S.Form>
     </S.Wrapper>
   );
 };

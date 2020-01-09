@@ -9,7 +9,7 @@ import * as Models from '../../../models';
 import Button from '../../../components/Button';
 import Main from '../../../components/Layout/Main';
 import { State } from '../../../redux/reducers';
-import Navigation from '../../../components/Navigation';
+import { Navigation } from '../../../components/organisms';
 import Categories from './Form/Categories';
 import Parameters from './Form/Parameters';
 import Description from './Form/Description';

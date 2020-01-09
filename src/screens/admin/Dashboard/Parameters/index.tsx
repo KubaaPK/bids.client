@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Plus } from 'react-feather';
 import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import * as Models from '../../../../models';
-import * as Typo from '../../../../components/Typography';
 import * as S from './styled';
 import { State } from '../../../../redux/reducers';
 import { fetchParameters } from '../../../../redux/actions/parameters/fetch-parameters.action';
 import Parameter from './Parameter';
 import AddParameterForm from './AddParameterForm';
 import useOutsideClick from '../../../../shared/hooks/use-outside-click';
+import { SectionTitle } from '../../../../components/atoms';
+import { AdminDashboardParameter } from '../../../../components/molecules';
 
 type ReduxState = {
   fetchingParameters: boolean;
@@ -52,11 +53,18 @@ const Parameters: React.FunctionComponent<Props> = (props: Props) => {
           </span>
         </S.Outline>
       )}
-
-      <Typo.Title text="Zarządzanie parametrami" />
+      <SectionTitle
+        text="Parametry"
+        font={{
+          size: 's',
+          weight: 500,
+          uppercase: true,
+          variant: 'lighten'
+        }}
+      />
       <S.List>
         {parameters.map(parameter => (
-          <Parameter parameter={parameter} key={parameter.id} />
+          <AdminDashboardParameter parameter={parameter} key={parameter.id} />
         ))}
       </S.List>
       <S.ShowAddParameterFormButton

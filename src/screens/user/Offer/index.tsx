@@ -5,7 +5,7 @@ import * as Models from '../../../models';
 import * as S from './styled';
 import { State } from '../../../redux/reducers';
 import { fetchOffer } from '../../../redux/actions/offers/fetch-offer.action';
-import Navigation from '../../../components/Navigation';
+import { Navigation } from '../../../components/organisms';
 import Images from './Images';
 import Info from './Info';
 import SellerReviews from './SellerReviews';

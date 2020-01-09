@@ -4,12 +4,13 @@ import { Plus } from 'react-feather';
 import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import * as Models from '../../../../models';
 import * as S from './styled';
-import * as Typo from '../../../../components/Typography';
+import { SectionTitle } from '../../../../components/atoms';
 import { State } from '../../../../redux/reducers';
 import { fetchDeliveryMethods } from '../../../../redux/actions/deliery-methods/fetch-delivery-methods.action';
 import DeliveryMethod from './DeliveryMethod';
 import AddDeliveryMethodForm from './AddDeliveryMethodForm';
 import useOutsideClick from '../../../../shared/hooks/use-outside-click';
+import { AdminDashboardDelivery } from '../../../../components/molecules';
 
 type ReduxState = {
   fetchingDeliveryMethods: boolean;
@@ -58,10 +59,18 @@ const DeliveryMethods: React.FunctionComponent<Props> = (props: Props) => {
           </span>
         </S.Outline>
       )}
-      <Typo.Title text="Zarządzanie metodami dostaw" />
+      <SectionTitle
+        text="Metody dostaw"
+        font={{
+          size: 's',
+          weight: 500,
+          uppercase: true,
+          variant: 'lighten'
+        }}
+      />
       <S.List>
         {deliveryMethods.map(deliveryMethod => (
-          <DeliveryMethod
+          <AdminDashboardDelivery
             deliveryMethod={deliveryMethod}
             key={deliveryMethod.id}
           />

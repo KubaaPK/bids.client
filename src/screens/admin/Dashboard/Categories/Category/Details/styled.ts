@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { colors, screenSize } from '../../../../../../shared/styles/vars';
+import {
+  colors,
+  screenSize,
+  fontSize
+} from '../../../../../../shared/styles/vars';
 
 const Details = styled.div``;
 
@@ -8,9 +12,8 @@ const Leaf = styled.p`
     margin-top: 0;
     margin-bottom: 3rem;
 
-    font-size: 1.2rem;
-
-    opacity: 0.5;
+    font-size: ${fontSize.s};
+    color: ${colors.font.lighten};
   }
 `;
 
@@ -32,7 +35,7 @@ const DeleteButton = styled.button`
       height: 2rem;
       width: 2rem;
 
-      color: ${colors.ERROR};
+      color: ${colors.error.text};
     }
   }
 
@@ -45,7 +48,8 @@ const DeleteButton = styled.button`
 
 const ParametersTitle = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.2rem;
+    color: ${colors.font.normal};
+    font-size: ${fontSize.m};
     font-weight: 500;
   }
 `;

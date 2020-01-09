@@ -1,11 +1,16 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../../shared/styles/vars';
+import {
+  screenSize,
+  spacing,
+  fontSize,
+  colors
+} from '../../../../../../shared/styles/vars';
 
 const Wrapper = styled.div``;
 
 const List = styled.ul`
   @media ${screenSize.MOBILE} {
-    margin-top: 2rem;
+    margin-top: ${spacing.s};
     padding-left: 0;
 
     list-style-type: none;
@@ -23,7 +28,8 @@ const ParameterInfo = styled.li`
 
 const InfoType = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.1rem;
+    color: ${colors.font.normal};
+    font-size: ${fontSize.s};
     font-weight: 500;
   }
 `;
@@ -32,14 +38,15 @@ const InfoValue = styled.p`
   @media ${screenSize.MOBILE} {
     justify-self: flex-end;
 
-    font-size: 1.1rem;
+    color: ${colors.font.normal};
+    font-size: ${fontSize.s};
     font-weight: 400;
   }
 `;
 
 const Restrictions = styled.div`
   @media ${screenSize.MOBILE} {
-    margin-top: 4rem;
+    margin-top: ${spacing.xl};
   }
 `;
 

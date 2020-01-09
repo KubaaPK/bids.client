@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Trash } from 'react-feather';
 import * as Models from '../../../../../models';
 import * as S from './styled';
-import { Confirm } from '../../../../../components/Modal';
+import { Confirm } from '../../../../../components/molecules';
 import { deleteDeliveryMethod } from '../../../../../redux/actions/deliery-methods/delete-delivery-method.action';
+import useOutsideClick from '../../../../../shared/hooks/use-outside-click';
 
 type ReduxDispatch = {
   performDeleteDeliveryMethod: (id: string) => void;
@@ -23,6 +24,12 @@ const DeliveryMethod: React.FunctionComponent<Props> = (props: Props) => {
     setShowDeliveryMethodDeleteConfirmModal
   ] = useState<boolean>(false);
 
+  const deleteDeliveryMethodRef = useRef<HTMLSpanElement>(null);
+  useOutsideClick(deleteDeliveryMethodRef, () => {
+    if (showDeliveryMethodDeleteConfirmModal)
+      setShowDeliveryMethodDeleteConfirmModal(false);
+  });
+
   const handleConfirmReject = (): void => {
     setShowDeliveryMethodDeleteConfirmModal(false);
   };
@@ -39,13 +46,17 @@ const DeliveryMethod: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.DeliveryMethod>
       {showDeliveryMethodDeleteConfirmModal && (
-        <Confirm
-          handleConfirm={handleConfirmAccept}
-          handleReject={handleConfirmReject}
-          modalTitle={`Czy na pewno chcesz usunąć metodę dostawy ${deliveryMethod.name}?`}
-          variant="warning"
-          confirmText="Usuń metodę"
-        />
+        <S.Outline>
+          <span ref={deleteDeliveryMethodRef}>
+            <Confirm
+              handleConfirm={handleConfirmAccept}
+              handleReject={handleConfirmReject}
+              modalTitle={`Czy na pewno chcesz usunąć metodę dostawy ${deliveryMethod.name}?`}
+              variant="warning"
+              confirmText="Usuń metodę"
+            />
+          </span>
+        </S.Outline>
       )}
       <S.NameAndDeleteWrapper>
         <S.Name>{deliveryMethod.name}</S.Name>

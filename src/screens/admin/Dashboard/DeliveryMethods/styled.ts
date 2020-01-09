@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
-import { screenSize, paddings, colors } from '../../../../shared/styles/vars';
+import {
+  screenSize,
+  paddings,
+  colors,
+  spacing,
+  boxShadows
+} from '../../../../shared/styles/vars';
 
 const Outline = styled.div`
-  @media ${screenSize.DESKTOP} {
+  @media ${screenSize.MOBILE} {
     position: fixed;
     left: 0;
     top: 0;
@@ -12,7 +18,7 @@ const Outline = styled.div`
     height: 100vh;
     width: 100vw;
 
-    background-color: hsla(0, 0%, 0%, 0.5);
+    background-color: hsla(0, 0%, 0%, 0.8);
   }
 `;
 
@@ -25,6 +31,14 @@ const Wrapper = styled.div`
 const List = styled.ul`
   @media ${screenSize.MOBILE} {
     padding-left: 0;
+
+    li:first-of-type {
+      border-top: 1px solid ${colors.border.grey};
+
+      &:first-of-type {
+        border-top: 0;
+      }
+    }
   }
 `;
 
@@ -37,6 +51,7 @@ const ShowAddDeliveryMethodFormButton = styled.button`
     padding: 0.5rem 1rem;
     border: 0;
     border-radius: 5px;
+    box-shadow: ${boxShadows.level1};
 
     background-color: ${colors.ACCENT};
 

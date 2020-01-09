@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
-import * as Form from '../../../../../components/Forms';
-import * as Typography from '../../../../../components/Typography';
 import * as S from './styled';
 import * as Models from '../../../../../models';
-import Button from '../../../../../components/Button';
 import { addCategory } from '../../../../../redux/actions/categories/add-category.actions';
 import { State } from '../../../../../redux/reducers';
+import { SectionTitle, Button } from '../../../../../components/atoms';
+import { InputGroup } from '../../../../../components/molecules';
 
 type ReduxState = {
   addingCategory: boolean;
@@ -16,7 +15,7 @@ type ReduxState = {
 };
 
 type ReduxDispatch = {
-  performAddCategory: (category: Models.Categories.Category) => void;
+  performAddCategory: (category: Models.Categories.NewCategory) => void;
 };
 
 type OwnProps = {
@@ -27,7 +26,7 @@ type Props = OwnProps & ReduxState & ReduxDispatch;
 
 const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
   const { performAddCategory, closeForm } = props;
-  const [category, setCategory] = useState<Models.Categories.Category>({
+  const [category, setCategory] = useState<Models.Categories.NewCategory>({
     name: ''
   });
 
@@ -47,23 +46,37 @@ const AddCategoryForm: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <S.Wrapper>
-      <Form.Form handleSubmit={handleSubmit}>
-        <Typography.Title text="Dodaj nową kategorię" font={{ size: '2rem' }} />
-        <Form.Input
-          id="name"
-          label="Nazwa kategorii"
-          type="text"
-          placeholder="np. Moda"
-          restrictions={{
-            required: true
+      <S.Form onSubmit={handleSubmit}>
+        <SectionTitle
+          text="Dodaj kategorię"
+          font={{
+            size: 'm',
+            uppercase: true,
+            variant: 'lighten',
+            weight: 500
           }}
-          handleChange={handleInputChange}
+        />
+        <InputGroup
+          label={{
+            htmlFor: 'name',
+            text: 'Nazwa kategorii',
+            font: {
+              size: 's'
+            }
+          }}
+          input={{
+            id: 'name',
+            restrictions: { required: true },
+            type: 'text',
+            handleChange: handleInputChange,
+            defaultValue: category.name
+          }}
         />
         <Button text="Dodaj kategorię" variant="full" type="submit" />
         <S.CloseBottom type="button" onClick={closeForm}>
           Zamknij
         </S.CloseBottom>
-      </Form.Form>
+      </S.Form>
     </S.Wrapper>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Models from '../../../../models';
 import * as S from './styled';
-import Navigation from '../../../../components/Navigation';
+import { Navigation } from '../../../../components/organisms';
 import Main from '../../../../components/Layout/Main';
 import Options from '../Options';
 import Review from './Review';

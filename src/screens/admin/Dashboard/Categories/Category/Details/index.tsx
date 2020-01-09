@@ -10,6 +10,7 @@ import Parameter from './Parameter';
 import AssignParameterForm from './AssignParameterForm';
 import { deleteCategory } from '../../../../../../redux/actions/categories/delete-category.actions';
 import { State } from '../../../../../../redux/reducers';
+import { SectionTitle } from '../../../../../../components/atoms';
 
 type OwnProps = {
   category: Models.Categories.Category;
@@ -75,7 +76,13 @@ const Details: React.FunctionComponent<Props> = (props: Props) => {
       )}
       <S.Leaf>{category.leaf ? 'Kategoria nadrzędna' : null}</S.Leaf>
       <S.Parameters>
-        <S.ParametersTitle>Powiązane parametry</S.ParametersTitle>
+        <SectionTitle
+          text="Powiązane parametry"
+          font={{
+            size: 'm',
+            variant: 'lighten'
+          }}
+        />
         {isFetchingParameters
           ? null
           : parameters!.map(parameter => (

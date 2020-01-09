@@ -10,7 +10,7 @@ export enum AddCategoryActionTypes {
 
 type AddCategoryAction = {
   type: AddCategoryActionTypes.ADD_CATEGORY;
-  payload: Models.Categories.Category;
+  payload: Models.Categories.NewCategory;
 };
 
 type AddingCategory = {
@@ -28,7 +28,7 @@ type AddingCategoryFailedAction = {
 };
 
 export function addCategory(
-  category: Models.Categories.Category
+  category: Models.Categories.NewCategory
 ): AddCategoryAction {
   return {
     type: AddCategoryActionTypes.ADD_CATEGORY,

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Models from '../../../../../../models';
 import * as S from './styled';
+import { SectionTitle } from '../../../../../../components/atoms';
 
 type Props = {
   parameter: Models.Categories.NewParameter;
@@ -31,7 +32,14 @@ const Details: React.FunctionComponent<Props> = (props: Props) => {
       </S.List>
       <S.List>
         <S.Restrictions>
-          <S.RestrictionsTitle>Restrykcje</S.RestrictionsTitle>
+          <SectionTitle
+            text="Restrykcje"
+            font={{
+              size: 's',
+              variant: 'lighten',
+              weight: 500
+            }}
+          />
           {parameter.restrictions.min && (
             <S.ParameterInfo>
               <S.InfoType>Wartość minimalna: </S.InfoType>

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
 import * as Form from '../../../../../components/Forms';
 import * as S from './styled';
-import * as Typography from '../../../../../components/Typography';
 import * as Models from '../../../../../models';
-import Button from '../../../../../components/Button';
 import { State } from '../../../../../redux/reducers';
 import { addParameter } from '../../../../../redux/actions/parameters/add-parameter.action';
+import { Radio, InputGroup, Select } from '../../../../../components/molecules';
+import { Button, SectionTitle } from '../../../../../components/atoms';
 
 type OwnProps = {
   closeForm: () => void;
@@ -107,27 +107,51 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <S.Wrapper>
       <Form.Form handleSubmit={handleSubmit}>
-        <Typography.Title text="Dodaj parametr" font={{ size: '2rem' }} />
-        <Form.Input
-          id="name"
-          label="Nazwa"
-          type="text"
-          restrictions={{ required: true }}
-          handleChange={handleInputChange}
+        <SectionTitle
+          text="Dodaj parametr"
+          font={{
+            size: 'm',
+            uppercase: true,
+            variant: 'lighten',
+            weight: 500
+          }}
         />
-        <Form.Input
-          id="unit"
-          label="Jednostka"
-          type="text"
-          restrictions={{ required: true }}
-          handleChange={handleInputChange}
+        <InputGroup
+          label={{
+            font: {
+              size: 's'
+            },
+            htmlFor: 'name',
+            text: 'Nazwa'
+          }}
+          input={{
+            handleChange: handleInputChange,
+            id: 'name',
+            restrictions: { required: true },
+            type: 'text'
+          }}
         />
-        <Form.Radio
+        <InputGroup
+          label={{
+            font: {
+              size: 's'
+            },
+            htmlFor: 'unit',
+            text: 'Jednostka'
+          }}
+          input={{
+            handleChange: handleInputChange,
+            id: 'unit',
+            restrictions: { required: true },
+            type: 'text'
+          }}
+        />
+        <Radio
           options={parameterRequirednessOptions()}
           defaultCheckedLabel="Niewymagany"
           handleChange={handleRadioRequiredChange}
         />
-        <Form.Select
+        <Select
           id="type"
           defaultSelectValue="single-string"
           label="Typ parametru"
@@ -135,78 +159,128 @@ const AddParameterForm: React.FunctionComponent<Props> = (props: Props) => {
           options={parameterTypeSelectOptions()}
           restrictions={{ required: true }}
         />
-        <Form.Typography.TextSeparator text="Ograniczenia" />
+        <SectionTitle
+          font={{
+            size: 's',
+            uppercase: true,
+            variant: 'lighten',
+            weight: 500
+          }}
+          text="Ograniczenia"
+        />
         {newParameter.type === 'single-string' && (
           <>
-            <Form.Input
-              type="text"
-              id="minLength"
-              label="Minimalna długość tekstu"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'minLength',
+                text: 'Minimalna długość tekstu'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'minLength',
+                restrictions: { required: true },
+                type: 'text'
               }}
             />
-            <Form.Input
-              type="text"
-              id="maxLength"
-              label="Maksymalna długość tekstu"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'maxLength',
+                text: 'Maksymalna długość tekstu'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'maxLength',
+                restrictions: { required: true },
+                type: 'text'
               }}
             />
           </>
         )}
         {newParameter.type === 'integer' && (
           <>
-            <Form.Input
-              type="number"
-              id="min"
-              label="Minimalna wartość"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'min',
+                text: 'Minimalna wartość'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'min',
+                restrictions: { required: true },
+                type: 'number'
               }}
             />
-            <Form.Input
-              type="number"
-              id="max"
-              label="Maksymalna wartość"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'max',
+                text: 'Maksymalna wartość'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'max',
+                restrictions: { required: true },
+                type: 'number'
               }}
             />
           </>
         )}
         {newParameter.type === 'float' && (
           <>
-            <Form.Input
-              type="number"
-              id="min"
-              label="Minimalna wartość"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'min',
+                text: 'Minimalna wartość'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'min',
+                restrictions: { required: true },
+                type: 'number'
               }}
             />
-            <Form.Input
-              type="number"
-              id="max"
-              label="Maksymalna wartość"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'max',
+                text: 'Maksymalna wartość'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'max',
+                restrictions: { required: true },
+                type: 'number'
               }}
             />
-            <Form.Input
-              type="number"
-              id="precision"
-              label="Precyzja (miejsca po przecinku)"
-              handleChange={handleRestricionChange}
-              restrictions={{
-                required: true
+            <InputGroup
+              label={{
+                font: {
+                  size: 's'
+                },
+                htmlFor: 'precision',
+                text: 'Precyzja'
+              }}
+              input={{
+                handleChange: handleRestricionChange,
+                id: 'precision',
+                restrictions: { required: true },
+                type: 'number'
               }}
             />
           </>

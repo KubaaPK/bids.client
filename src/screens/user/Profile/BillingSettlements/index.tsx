@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styled';
 import * as Typography from '../../../../components/Typography';
 import Options from '../Options';
-import Navigation from '../../../../components/Navigation';
+import { Navigation } from '../../../../components/organisms';
 import Main from '../../../../components/Layout/Main';
 import Fee from './Fee';
 

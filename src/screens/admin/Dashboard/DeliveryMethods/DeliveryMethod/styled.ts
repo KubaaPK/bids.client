@@ -1,14 +1,32 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
-import { screenSize, colors } from '../../../../../shared/styles/vars';
+import {
+  screenSize,
+  colors,
+  spacing,
+  fontSize
+} from '../../../../../shared/styles/vars';
+
+const Outline = styled.div`
+  @media ${screenSize.MOBILE} {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: hsla(0, 0%, 0%, 0.8);
+  }
+`;
 
 const DeliveryMethod = styled.li`
   @media ${screenSize.MOBILE} {
     list-style-type: none;
 
-    padding: 1rem 0;
+    padding: ${spacing.s} 0;
 
-    border-bottom: 2px solid hsl(210, 25%, 90%);
+    border-bottom: 1px solid ${colors.border.grey};
 
     &:last-of-type {
       border-bottom: 0;
@@ -27,7 +45,14 @@ const NameAndDeleteWrapper = styled.div`
 
 const Name = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1.2rem;
+    margin-bottom: 0;
+
+    font-size: ${fontSize.s};
+    color: ${colors.font.normal};
+  }
+
+  @media ${screenSize.DESKTOP} {
+    font-size: ${fontSize.m};
   }
 `;
 
@@ -38,19 +63,27 @@ const DeleteButton = styled.button`
 
     border: none;
     background-color: transparent;
-    color: ${colors.ERROR};
+    color: ${colors.error.text};
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
 const PaymentPolicy = styled.p`
   @media ${screenSize.MOBILE} {
-    font-size: 1rem;
+    font-size: ${fontSize.xs};
+    color: ${colors.font.lighten};
+  }
 
-    color: ${lighten(0.25, colors.FONT)};
+  @media ${screenSize.DESKTOP} {
+    font-size: ${fontSize.m};
   }
 `;
 
 export {
+  Outline,
   DeliveryMethod,
   NameAndDeleteWrapper,
   Name,

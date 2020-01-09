@@ -1,4 +1,5 @@
 export type NewOffer = {
+  id?: string;
   name: string;
   ean: string;
   category: {

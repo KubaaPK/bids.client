@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { screenSize, paddings } from '../../../../../shared/styles/vars';
+import {
+  screenSize,
+  paddings,
+  boxShadows,
+  spacing
+} from '../../../../../shared/styles/vars';
 
 const Wrapper = styled.div`
   @media ${screenSize.MOBILE} {
@@ -8,12 +13,14 @@ const Wrapper = styled.div`
     left: 0;
 
     width: 100%;
+    padding-top: ${spacing.m};
+  }
 
-    form {
-      padding: 1rem ${paddings.MOBILE};
+  @media ${screenSize.TABLET} {
+    right: 0;
 
-      background-color: #fff;
-    }
+    width: 50%;
+    margin: 0 auto;
   }
 
   @media ${screenSize.DESKTOP} {
@@ -24,8 +31,39 @@ const Wrapper = styled.div`
     display: block;
     width: 30vw;
     margin: 0 auto;
+  }
+`;
 
-    border: 0;
+const Form = styled.form`
+  @media ${screenSize.MOBILE} {
+    padding: ${spacing.l} ${paddings.MOBILE};
+
+    background-color: hsl(0, 0%, 100%);
+
+    > p {
+      margin-bottom: ${spacing.l};
+    }
+
+    button:last-of-type {
+      margin-top: ${spacing.m};
+    }
+
+    div {
+      :nth-of-type(2) {
+        margin-bottom: ${spacing.xl};
+      }
+    }
+  }
+
+  @media ${screenSize.TABLET} {
+    border-radius: 5px;
+    box-shadow: ${boxShadows.level2};
+
+    div:nth-of-type(2) {
+      &:nth-of-type(2) {
+        margin-bottom: 0;
+      }
+    }
   }
 `;
 
@@ -42,4 +80,4 @@ const CloseBottom = styled.button`
   }
 `;
 
-export { Wrapper, CloseBottom };
+export { Wrapper, Form, CloseBottom };

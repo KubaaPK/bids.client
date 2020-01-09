@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { ChevronUp, ChevronDown } from 'react-feather';
 import * as Models from '../../../../../models';
 import * as S from './styled';
@@ -8,13 +8,13 @@ type Props = {
   category: Models.Categories.Category;
 };
 
-const Category: React.FunctionComponent<Props> = (props: Props) => {
+export default function Category(props: Props): ReactElement {
   const { category } = props;
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <S.Category onClick={() => setShowDetails(!showDetails)}>
-      <S.Name>
+    <S.Category>
+      <S.Name onClick={() => setShowDetails(!showDetails)}>
         <S.NameText>{category.name}</S.NameText>
         <S.ExpandIcon>
           {showDetails ? <ChevronUp /> : <ChevronDown />}
@@ -23,6 +23,4 @@ const Category: React.FunctionComponent<Props> = (props: Props) => {
       {showDetails && <Details category={category} />}
     </S.Category>
   );
-};
-
-export default Category;
+}

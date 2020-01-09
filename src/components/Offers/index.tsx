@@ -82,13 +82,15 @@ const Offers: React.FunctionComponent<{}> = () => {
         handlePageChange={handlePageChange}
         currentPageNumber={pageNumber}
       />
-      {offers.offers.map(offer => (
-        <Offer
-          offer={offer}
-          key={offer.id}
-          displayType={offerListDisplayType}
-        />
-      ))}
+      {offers.offers &&
+        offers.offers.length > 0 &&
+        offers.offers.map(offer => (
+          <Offer
+            offer={offer}
+            key={offer.id}
+            displayType={offerListDisplayType}
+          />
+        ))}
     </S.Wrapper>
   );
 };

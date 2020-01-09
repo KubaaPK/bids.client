@@ -1,16 +1,13 @@
 import React from 'react';
-import Navigation from '../../../components/Navigation';
-import Categories from './Categories';
-import Offers from '../../../components/Offers';
-import MainWrapper from '../../../components/Layout/Main';
+import { Categories, Offers } from '../../../components/organisms';
+import { Main as MainWrapper } from '../../../components/templates';
 
-const Main: React.FunctionComponent<{}> = () => {
+export default function Main() {
   return (
     <>
-      <Navigation />
       <MainWrapper
         props={{
-          desktopDirection: 'row'
+          desktopFlexDirection: 'row'
         }}
       >
         <Categories />
@@ -18,6 +15,4 @@ const Main: React.FunctionComponent<{}> = () => {
       </MainWrapper>
     </>
   );
-};
-
-export default Main;
+}

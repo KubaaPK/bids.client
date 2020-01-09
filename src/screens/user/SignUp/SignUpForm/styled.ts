@@ -1,37 +1,37 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../shared/styles/vars';
+import { screenSize, colors } from '../../../../shared/styles/vars';
+import shadows from '../../../../shared/styles/vars/shadows';
 
 const Wrapper = styled.div`
-  @media ${screenSize.MOBILE} {
-    h2 {
-      margin-top: 0;
-    }
-
-    form {
-      padding: 3rem 2rem;
-    }
-  }
-
   @media ${screenSize.TABLET} {
-    width: 70%;
+    width: 50%;
 
     margin: 0 auto;
-
-    form {
-      border-radius: 5px;
-      box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
-    }
   }
 
   @media ${screenSize.DESKTOP} {
     width: 30%;
   }
+`;
 
-  form {
+const Form = styled.form`
+  @media ${screenSize.MOBILE} {
+    padding: 3rem 2rem;
+
+    box-shadow: ${shadows.level0};
+
+    background-color: hsl(0, 0%, 100%);
+  }
+
+  @media ${screenSize.TABLET} {
     margin-top: 2rem;
-    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid ${colors.border.grey};
+  }
+
+  @media ${screenSize.DESKTOP} {
+    background-color: hsl(0, 0%, 100%);
   }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { Wrapper };
+export { Wrapper, Form };

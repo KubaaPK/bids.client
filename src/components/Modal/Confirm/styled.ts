@@ -115,7 +115,7 @@ const AcceptButton = styled.button`
   @media ${screenSize.MOBILE} {
     border-radius: 5px;
 
-    background-color: ${colors.ERROR};
+    background-color: ${colors.error.background};
 
     color: #fff;
 
@@ -123,7 +123,7 @@ const AcceptButton = styled.button`
     &:hover {
       cursor: pointer;
 
-      background-color: ${lighten(0.1, colors.ERROR)};
+      background-color: ${lighten(0.1, colors.error.background)};
     }
   }
 `;

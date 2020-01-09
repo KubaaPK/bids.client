@@ -6,7 +6,7 @@ import { AjaxResponse } from 'rxjs/ajax';
 import * as Models from '../../../models';
 import * as S from './styled';
 import * as Typography from '../../../components/Typography';
-import Navigation from '../../../components/Navigation';
+import { Navigation } from '../../../components/organisms';
 import Select from '../../../components/Forms/Select';
 import Button from '../../../components/Button';
 import { State } from '../../../redux/reducers';

@@ -3,35 +3,29 @@ import { connect } from 'react-redux';
 import { Plus } from 'react-feather';
 import { AjaxResponse } from 'rxjs/ajax';
 import * as Models from '../../../../models';
-import * as Typo from '../../../../components/Typography';
 import * as S from './styled';
 import { State } from '../../../../redux/reducers';
-import { fetchCategories } from '../../../../redux/actions/categories/fetch-categories.actions';
 import Category from './Category';
 import AddCategoryForm from './AddCategoryForm';
 import useOutsideClick from '../../../../shared/hooks/use-outside-click';
+import { SectionTitle } from '../../../../components/atoms';
+import { AdminDashboardCategory } from '../../../../components/molecules';
+import { API_URL } from '../../../../consts';
 
 type ReduxState = {
-  categories: Models.Categories.Category[];
   categoryAdded: undefined | AjaxResponse;
   categoryDeleted: undefined | AjaxResponse;
 };
 
-type ReduxDispatch = {
-  peformFetchCategories: () => void;
-};
-
-type Props = ReduxState & ReduxDispatch;
+type Props = ReduxState;
 
 const Categories: React.FunctionComponent<Props> = (props: Props) => {
-  const {
-    categories,
-    peformFetchCategories,
-    categoryAdded,
-    categoryDeleted
-  } = props;
+  const { categoryAdded, categoryDeleted } = props;
   const [showAddCategoryForm, setShowAddCategoryForm] = useState<boolean>(
     false
+  );
+  const [categories, setCategories] = useState<Models.Categories.Category[]>(
+    []
   );
 
   const addCategoryFormRef = useRef<HTMLSpanElement>(null);
@@ -41,18 +35,20 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    if (categories.length === 0) {
-      peformFetchCategories();
-    }
+    fetch(`${API_URL}/sale/categories?flat=true`, {
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then(res => setCategories(res));
+
     if (categoryAdded || categoryDeleted) {
-      peformFetchCategories();
+      fetch(`${API_URL}/sale/categories?flat=true`, {
+        method: 'GET'
+      })
+        .then(res => res.json())
+        .then(res => setCategories(res));
     }
-  }, [
-    peformFetchCategories,
-    categoryAdded,
-    categories.length,
-    categoryDeleted
-  ]);
+  }, [categoryAdded, categoryDeleted]);
 
   return (
     <S.Wrapper>
@@ -63,11 +59,19 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
           </span>
         </S.Outline>
       )}
-
-      <Typo.Title text="Zarządzanie kategoriami" />
+      <SectionTitle
+        text="Kategorie"
+        font={{
+          size: 's',
+          weight: 500,
+          uppercase: true,
+          variant: 'lighten'
+        }}
+      />
       <S.List>
         {categories.map(category => (
-          <Category category={category} key={category.id} />
+          <AdminDashboardCategory category={category} key={category.id} />
+          // <Category category={category} key={category.id} />
         ))}
       </S.List>
       <S.ShowAddCategoryFormButton
@@ -81,17 +85,12 @@ const Categories: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: State): ReduxState => {
   return {
-    categories: state.categories.fetchCategories.categories,
     categoryAdded: state.categories.addCategory.categoryAdded,
     categoryDeleted: state.categories.deleteCategory.categoryDeleted
   };
 };
 
-const mapDispatchToProps: ReduxDispatch = {
-  peformFetchCategories: fetchCategories
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {}
 )(Categories);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './styled';
 import * as Typography from '../../../../components/Typography';
-import Navigation from '../../../../components/Navigation';
+import { Navigation } from '../../../../components/organisms';
 import Button from '../../../../components/Button';
 import AddShippingRateForm from './AddShippingRateForm';
 import Options from '../Options';

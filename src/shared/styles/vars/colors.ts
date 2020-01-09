@@ -5,12 +5,32 @@ export default {
   SECONDARY_ACCENT: '#009688',
   GREYISH: '#aaaaaa',
 
-  FONT: '#222222',
+  FONT: 'hsl(220, 26%, 14%)',
+  accent: 'hsl(224, 73%, 59%)',
+  secondaryAccent: 'hsl(174, 100%, 29%)',
+  font: {
+    normal: 'hsl(220, 26%, 14%)',
+    lighten: 'hsl(216, 15%, 52%)'
+  },
 
-  BACKGROUND: '#f5f5f5',
+  BORDER_GREY: 'hsl(214, 32%, 91%)',
+  border: {
+    grey: 'hsl(208, 21%, 87%)',
+    darkerGrey: 'hsl(214, 32%, 80%)'
+  },
+  BACKGROUND: 'hsl(210, 38%, 95%)',
 
-  SUCCESS: '#4CAF50',
-  INFO: '#03A9F4',
-  WARNING: '#FFEB3B',
-  ERROR: '#F44336'
+  INFO: 'hsl(199, 98%, 48%)',
+  WARNING: 'hsl(54, 100%, 62%)',
+  // SUCCESS: 'hsl(122, 39%, 49%)',
+  success: {
+    border: 'hsl(122, 39%, 49%)',
+    background: 'hsl(150, 88%, 90%)',
+    text: 'hsl(122, 39%, 49%)'
+  },
+  error: {
+    border: 'hsl(0, 65%, 51%)',
+    background: 'hsl(4, 90%, 90%)',
+    text: 'hsl(0, 65%, 51%)'
+  }
 };

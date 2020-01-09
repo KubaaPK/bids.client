@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
-import { screenSize, colors, paddings } from '../../../../shared/styles/vars';
+import {
+  screenSize,
+  colors,
+  paddings,
+  boxShadows
+} from '../../../../shared/styles/vars';
 
 const Outline = styled.div`
   @media ${screenSize.DESKTOP} {
@@ -25,6 +30,14 @@ const Wrapper = styled.div`
 const List = styled.ul`
   @media ${screenSize.MOBILE} {
     padding-left: 0;
+
+    li:first-of-type {
+      border-top: 1px solid ${colors.border.grey};
+
+      &:first-of-type {
+        border-top: 0;
+      }
+    }
   }
 `;
 
@@ -38,6 +51,7 @@ const ShowAddParameterFormButton = styled.button`
     padding: 0.5rem 1rem;
     border: 0;
     border-radius: 5px;
+    box-shadow: ${boxShadows.level1};
 
     background-color: ${colors.ACCENT};
 

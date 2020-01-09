@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { AjaxResponse, AjaxError } from 'rxjs/ajax';
 import { connect } from 'react-redux';
 import * as S from './styled';
-import * as Form from '../../../../../components/Forms';
-import * as Typography from '../../../../../components/Typography';
 import * as Models from '../../../../../models';
-import Button from '../../../../../components/Button';
 import { State } from '../../../../../redux/reducers';
 import { addDeliveryMethod } from '../../../../../redux/actions/deliery-methods/add-delivery-method.action';
+import { SectionTitle, Button } from '../../../../../components/atoms';
+import { InputGroup, Radio } from '../../../../../components/molecules';
 
 type ReduxState = {
   addingDeliveryMethod: boolean;
@@ -36,7 +35,7 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
     Models.DeliveryMethods.NewDeliveryMethod
   >({
     name: '',
-    paymentPolicy: '' as any
+    paymentPolicy: 'CASH_ON_DELIVERY' as any
   });
 
   const paymentPoliciesRadioOptions = (): {
@@ -69,6 +68,7 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
 
   const handleInputChange = (ev: React.FormEvent<HTMLInputElement>): void => {
     setNewDeliveryMethod({
+      ...newDeliveryMethod,
       name: ev.currentTarget.value
     } as any);
   };
@@ -84,25 +84,45 @@ const AddDeliveryMethodForm: React.FunctionComponent<Props> = (
 
   return (
     <S.Wrapper>
-      <Form.Form handleSubmit={handleSubmit}>
-        <Typography.Title text="Dodaj metodę dostawy" />
-        <Form.Input
-          id="name"
-          type="text"
-          label="Nazwa"
-          handleChange={handleInputChange}
-          restrictions={{ required: true }}
+      <S.Form onSubmit={handleSubmit}>
+        <SectionTitle
+          text="Dodaj metodę dostawy"
+          font={{
+            size: 'm',
+            uppercase: true,
+            variant: 'lighten',
+            weight: 500
+          }}
         />
-        <Form.Radio
+        <InputGroup
+          label={{
+            htmlFor: 'name',
+            text: 'Nazwa',
+            font: {
+              size: 's'
+            }
+          }}
+          input={{
+            id: 'name',
+            restrictions: { required: true },
+            type: 'text',
+            handleChange: handleInputChange,
+            defaultValue: newDeliveryMethod.name
+          }}
+        />
+        <Radio
           options={paymentPoliciesRadioOptions()}
           defaultCheckedLabel="Płatność przy odbiorze"
           handleChange={handlePaymentPolicyChange}
         />
         <Button type="submit" variant="full" text="Dodaj metodę dostawy" />
-        <S.CloseBottom type="button" onClick={closeForm}>
-          Zamknij
-        </S.CloseBottom>
-      </Form.Form>
+        <Button
+          type="button"
+          variant="blank"
+          handleClick={closeForm}
+          text="Zamknij"
+        />
+      </S.Form>
     </S.Wrapper>
   );
 };

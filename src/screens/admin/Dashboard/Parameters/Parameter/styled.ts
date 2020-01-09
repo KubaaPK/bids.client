@@ -1,12 +1,18 @@
 import styled from 'styled-components';
-import { screenSize } from '../../../../../shared/styles/vars';
+import {
+  screenSize,
+  spacing,
+  colors,
+  boxShadows,
+  fontSize
+} from '../../../../../shared/styles/vars';
 
 const Parameter = styled.li`
   @media ${screenSize.MOBILE} {
     list-style-type: none;
 
-    padding: 2rem 1rem;
-    border-bottom: 2px solid hsl(210, 25%, 90%);
+    padding: ${spacing.l} 0;
+    border-bottom: 1px solid ${colors.border.grey} !important;
 
     &:last-of-type {
       border: 0;
@@ -17,7 +23,7 @@ const Parameter = styled.li`
     transition: 0.2s;
     &:hover {
       cursor: pointer;
-      box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+      box-shadow: ${boxShadows.level0};
     }
   }
 `;
@@ -36,10 +42,13 @@ const Name = styled.p`
 
 const NameText = styled.span`
   @media ${screenSize.MOBILE} {
-    font-size: 1.2rem;
+    color: ${colors.font.normal};
+    font-size: ${fontSize.m};
   }
 `;
 
-const ExpandIcon = styled.span``;
+const ExpandIcon = styled.span`
+  margin-right: ${spacing.s};
+`;
 
 export { Parameter, Name, NameText, ExpandIcon };

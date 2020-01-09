@@ -62,7 +62,7 @@ const ErrorMessage = styled.p`
     margin-top: -1rem;
 
     font-size: 1.4rem;
-    color: ${colors.ERROR};
+    color: ${colors.error.text};
   }
 `;
 
