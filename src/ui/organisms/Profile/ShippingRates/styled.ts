@@ -4,6 +4,9 @@ import theme from '../../../theme';
 const Wrapper = styled.div`
   @media only screen and (min-width: ${theme.screenSizes.mobile}) {
     width: 100%;
+    padding: 0 2rem;
+
+    background-color: #fff;
   }
 `;
 

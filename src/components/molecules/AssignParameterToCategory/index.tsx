@@ -6,9 +6,9 @@ import { Select } from '..';
 import * as S from './styled';
 import { Button } from '../../atoms';
 import { assignParameter } from '../../../redux/actions/categories/assign-parameter.action';
+import { useFetch } from '../../../hooks';
 
 type OwnProps = {
-  alreadyAssignedParameters: Models.Categories.Parameter[];
   categoryId: string;
 };
 
@@ -19,11 +19,11 @@ type ReduxDispatch = {
 type Props = OwnProps & ReduxDispatch;
 
 function AssignParameterToCategory(props: Props): ReactElement {
-  const {
-    alreadyAssignedParameters,
-    categoryId,
-    performParameterAssignment
-  } = props;
+  const { categoryId, performParameterAssignment } = props;
+
+  const { data: alreadyAssignedParameters = [] } = useFetch<
+    Models.Categories.Parameter[]
+  >(`${API_URL}/sale/categories/${categoryId}/parameters`);
 
   const [allParameters, setAllParameters] = useState<
     Models.Categories.Parameter[]
@@ -47,17 +47,20 @@ function AssignParameterToCategory(props: Props): ReactElement {
   }, []);
 
   function createSelectOptions(): { value: any; label: any }[] {
-    return allParameters
-      .filter(
-        parameter =>
-          !alreadyAssignedParameters.map(el => el.id).includes(parameter.id)
-      )
-      .map(el => {
-        return {
-          value: el.id,
-          label: el.name
-        };
-      });
+    if (alreadyAssignedParameters !== null) {
+      return allParameters
+        .filter(
+          parameter =>
+            !alreadyAssignedParameters.map(el => el.id).includes(parameter.id)
+        )
+        .map(el => {
+          return {
+            value: el.id,
+            label: el.name
+          };
+        });
+    }
+    return [];
   }
 
   function handleSelectChange(ev: React.FormEvent<HTMLSelectElement>): void {

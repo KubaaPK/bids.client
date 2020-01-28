@@ -7,14 +7,13 @@ const Main = styled.main`
   }
 
   @media ${screenSize.DESKTOP} {
-    padding: 0 ${paddings.DESKTOP};
+    padding: 0;
   }
 `;
 
 const BasicInfoWrapper = styled.div`
   @media ${screenSize.MOBILE} {
     width: 100%;
-    padding-top: 14rem;
   }
 
   @media ${screenSize.TABLET} {
@@ -23,7 +22,6 @@ const BasicInfoWrapper = styled.div`
     flex-direction: row;
 
     width: 100%;
-    padding-top: 10rem;
   }
 `;
 

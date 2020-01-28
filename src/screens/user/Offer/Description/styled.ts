@@ -8,6 +8,12 @@ const Wrapper = styled.div`
     padding: 1rem ${paddings.MOBILE};
 
     background-color: #fff;
+
+    ul {
+      * {
+        font-size: 1.2rem;
+      }
+    }
   }
 `;
 

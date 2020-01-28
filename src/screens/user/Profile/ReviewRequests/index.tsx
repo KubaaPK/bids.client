@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import * as Models from '../../../../models';
 import * as S from './styled';
 import * as Typography from '../../../../components/Typography';
-import { Navigation } from '../../../../components/organisms';
-import Main from '../../../../components/Layout/Main';
-import Options from '../Options';
 import Purchase from './Purchase';
 import { State } from '../../../../redux/reducers';
+import { WithLeftSidebarTemplate } from '../../../../ui/templates';
+import { ProfileNavigation } from '../../../../ui/organisms';
 
 type ReduxState = {
   reviewRequests: Models.Reviews.ReviewRequest[];
@@ -19,29 +18,21 @@ const ReviewRequest: React.FunctionComponent<Props> = (props: Props) => {
   const { reviewRequests } = props;
 
   return (
-    <>
-      <Navigation />
-      <Main
-        props={{
-          desktopDirection: 'row'
-        }}
-      >
-        <Options />
-        <S.Wrapper>
-          <Typography.Title
-            text="Wystaw ocenę"
-            font={{
-              size: '2rem'
-            }}
-          />
-          <S.ReviewRequests>
-            {reviewRequests.map(reviewRequest => (
-              <Purchase reviewRequest={reviewRequest} key={reviewRequest.id} />
-            ))}
-          </S.ReviewRequests>
-        </S.Wrapper>
-      </Main>
-    </>
+    <WithLeftSidebarTemplate sideBar={<ProfileNavigation />}>
+      <S.Wrapper>
+        <Typography.Title
+          text="Wystaw ocenę"
+          font={{
+            size: '2rem'
+          }}
+        />
+        <S.ReviewRequests>
+          {reviewRequests.map(reviewRequest => (
+            <Purchase reviewRequest={reviewRequest} key={reviewRequest.id} />
+          ))}
+        </S.ReviewRequests>
+      </S.Wrapper>
+    </WithLeftSidebarTemplate>
   );
 };
 

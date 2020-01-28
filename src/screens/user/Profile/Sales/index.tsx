@@ -8,6 +8,8 @@ import * as Typography from '../../../../components/Typography';
 import Sale from './Sale';
 import NoOfferPlaceoholder from '../NoOfferPlaceholder';
 import { API_URL } from '../../../../consts';
+import { WithLeftSidebarTemplate } from '../../../../ui/templates';
+import { ProfileNavigation } from '../../../../ui/organisms';
 
 const Sales: React.FunctionComponent<{}> = () => {
   const [sales, setSales] = useState<Models.Sales.Sale[]>([]);
@@ -26,31 +28,23 @@ const Sales: React.FunctionComponent<{}> = () => {
   }, []);
 
   return (
-    <>
-      <Navigation />
-      <Main
-        props={{
-          desktopDirection: 'row'
-        }}
-      >
-        <Options />
-        <S.Wrapper>
-          <Typography.Title
-            text="Sprzedane"
-            font={{
-              size: '2rem'
-            }}
-          />
-          <S.Sales>
-            {sales.length > 0 ? (
-              sales.map(sale => <Sale sale={sale} key={sale.id} />)
-            ) : (
-              <NoOfferPlaceoholder text="Historia sprzedaży jest pusta. :(" />
-            )}
-          </S.Sales>
-        </S.Wrapper>
-      </Main>
-    </>
+    <WithLeftSidebarTemplate sideBar={<ProfileNavigation />}>
+      <S.Wrapper>
+        <Typography.Title
+          text="Sprzedane"
+          font={{
+            size: '2rem'
+          }}
+        />
+        <S.Sales>
+          {sales.length > 0 ? (
+            sales.map(sale => <Sale sale={sale} key={sale.id} />)
+          ) : (
+            <NoOfferPlaceoholder text="Historia sprzedaży jest pusta. :(" />
+          )}
+        </S.Sales>
+      </S.Wrapper>
+    </WithLeftSidebarTemplate>
   );
 };
 

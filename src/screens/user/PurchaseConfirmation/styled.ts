@@ -5,8 +5,6 @@ import { screenSize, paddings, colors } from '../../../shared/styles/vars';
 const Main = styled.main`
   @media ${screenSize.MOBILE} {
     min-height: 100vh;
-    padding-top: 13rem;
-
     background-color: ${colors.PRIMARY};
 
     h1 {
@@ -15,16 +13,12 @@ const Main = styled.main`
   }
 
   @media ${screenSize.TABLET} {
-    padding-top: 8rem;
-
     h1 {
       margin-left: ${paddings.TABLET};
     }
   }
 
   @media ${screenSize.TABLET} {
-    padding-top: 8rem;
-
     h1 {
       margin-left: ${paddings.DESKTOP};
     }

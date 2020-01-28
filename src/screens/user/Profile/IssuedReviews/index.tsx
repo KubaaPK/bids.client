@@ -7,6 +7,8 @@ import Options from '../Options';
 import Review from './Review';
 import * as Typography from '../../../../components/Typography';
 import { API_URL } from '../../../../consts';
+import { WithLeftSidebarTemplate } from '../../../../ui/templates';
+import { ProfileNavigation } from '../../../../ui/organisms';
 
 const IssuedReview: React.FunctionComponent<{}> = () => {
   const [issuedReviews, setIssuedReviews] = useState<
@@ -25,30 +27,21 @@ const IssuedReview: React.FunctionComponent<{}> = () => {
   }, []);
 
   return (
-    <>
-      <Navigation />
-      <Main
-        props={{
-          desktopDirection: 'row'
-        }}
-      >
-        <Options />
-        <S.Wrapper>
-          <Typography.Title
-            text="Wystawione oceny"
-            font={{
-              size: '2rem'
-            }}
-          />
-
-          <S.Reviews>
-            {issuedReviews.map(review => (
-              <Review review={review} key={review.id} />
-            ))}
-          </S.Reviews>
-        </S.Wrapper>
-      </Main>
-    </>
+    <WithLeftSidebarTemplate sideBar={<ProfileNavigation />}>
+      <S.Wrapper>
+        <Typography.Title
+          text="Wystawione oceny"
+          font={{
+            size: '2rem'
+          }}
+        />
+        <S.Reviews>
+          {issuedReviews.map(review => (
+            <Review review={review} key={review.id} />
+          ))}
+        </S.Reviews>
+      </S.Wrapper>
+    </WithLeftSidebarTemplate>
   );
 };
 

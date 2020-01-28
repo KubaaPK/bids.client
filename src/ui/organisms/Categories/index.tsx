@@ -137,7 +137,7 @@ function SecondLevelCategory(
         <S.ThirdLevelCategories>
           {secondLevelCategory.children.map(thirdLevelCategory => (
             <S.ThirdLevelCategory key={thirdLevelCategory.id}>
-              <Link to="/">{thirdLevelCategory.name}</Link>
+              <Link to={`?category.id=${thirdLevelCategory.id}`}>{thirdLevelCategory.name}</Link>
             </S.ThirdLevelCategory>
           ))}
         </S.ThirdLevelCategories>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as Models from '../../../../models';
 import * as S from './styled';
-import Accordion from '../../../../components/Accordion';
 import { State } from '../../../../redux/reducers';
 
 type ReduxState = {
@@ -69,20 +68,21 @@ const Options: React.FunctionComponent<Props> = (props: Props) => {
   };
 
   return (
-    <S.Options>
-      <Accordion title="Moja sprzedaż" content={salesOptions()} />
-      <Accordion title="Ustawienia sprzedaży" content={sellingOptions()} />
-      <Accordion title="Moje zakupy" content={buyingsOptions()} />
-      <Accordion title="Rachunki" content={pricingOptions()} />
-      <Accordion
-        title={`Ocena sprzedaży ${
-          (reviewRequests as any).length > 0
-            ? `(${(reviewRequests as any).length})`
-            : ''
-        }`}
-        content={reviewsOptions()}
-      />
-    </S.Options>
+    // <S.Options>
+    //   <Accordion title="Moja sprzedaż" content={salesOptions()} />
+    //   <Accordion title="Ustawienia sprzedaży" content={sellingOptions()} />
+    //   <Accordion title="Moje zakupy" content={buyingsOptions()} />
+    //   <Accordion title="Rachunki" content={pricingOptions()} />
+    //   <Accordion
+    //     title={`Ocena sprzedaży ${
+    //       (reviewRequests as any).length > 0
+    //         ? `(${(reviewRequests as any).length})`
+    //         : ''
+    //     }`}
+    //     content={reviewsOptions()}
+    //   />
+    // </S.Options>
+    <></>
   );
 };
 

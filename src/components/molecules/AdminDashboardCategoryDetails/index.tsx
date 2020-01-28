@@ -79,7 +79,6 @@ function AdminDashboardCategoryDetails(props: Props): ReactElement {
       </S.Parameters>
 
       <AssignParameterToCategory
-        alreadyAssignedParameters={assignmententedParameters}
         categoryId={category.id}
       />
     </S.Details>

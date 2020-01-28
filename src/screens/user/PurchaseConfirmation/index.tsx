@@ -11,6 +11,8 @@ import Select from '../../../components/Forms/Select';
 import Button from '../../../components/Button';
 import { State } from '../../../redux/reducers';
 import { newPurchase } from '../../../redux/actions/purchases/new-purchase.action';
+import {GenericTemplate} from "../../../ui/templates";
+import {Heading} from "../../../ui/atoms";
 
 type ReduxState = {
   purchaseProcessed: AjaxResponse | undefined;
@@ -61,13 +63,9 @@ const PurchaseConfirmation: React.FunctionComponent<Props> = (props: Props) => {
   };
 
   return (
-    <>
-      <Navigation />
+    <GenericTemplate>
       <S.Main>
-        <Typography.Title
-          text="Potwierdzenie zakupu"
-          font={{ size: '2.2rem' }}
-        />
+        <Heading text="Potwierdzenie zakupu" level={4} />
         {!loadingOffer && (
           <>
             <S.OfferSummary>
@@ -104,7 +102,7 @@ const PurchaseConfirmation: React.FunctionComponent<Props> = (props: Props) => {
           </>
         )}
       </S.Main>
-    </>
+    </GenericTemplate>
   );
 };
 

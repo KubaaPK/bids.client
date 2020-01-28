@@ -4,6 +4,7 @@ export { default as Checkbox } from './Checkbox';
 export { default as Field } from './Field';
 export { default as IconButton } from './IconButton';
 export { default as IconText } from './IconText';
+export { default as OfferSearch } from './OfferSearch';
 export { default as Menu } from './Menu';
 export { default as Select } from './Select';
 export { default as ShippingRates } from './ShippingRates';

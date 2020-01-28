@@ -44,7 +44,7 @@ function RestoredDraftContainer(props: Props): React.ReactElement {
   React.useEffect(() => {
     const tree: TreeModel = new TreeModel();
     // @ts-ignore
-    const categoryTreed = tree.parse(categories[0]);
+    const categoryTreed = tree.parse(categories[1]);
 
     setBreadcrumb(
       categoryTreed

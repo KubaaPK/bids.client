@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useRef } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import useOnClickOutside from 'use-onclickoutside';
 import * as S from './styled';
@@ -7,10 +7,11 @@ import { IconButton, Menu } from '../../molecules';
 
 type Props = {
   isUserAuthenticated: boolean;
+  isUserAdmin: boolean;
 };
 
 export default function Navigation(props: Props): ReactElement {
-  const { isUserAuthenticated } = props;
+  const { isUserAuthenticated, isUserAdmin } = props;
 
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
@@ -30,7 +31,12 @@ export default function Navigation(props: Props): ReactElement {
         onClick={() => setShowMenu(!showMenu)}
       />
       <S.Menu ref={ref}>
-        {showMenu && <Menu isUserAuthenticated={isUserAuthenticated} />}
+        {showMenu && (
+          <Menu
+            isUserAuthenticated={isUserAuthenticated}
+            isUserAdmin={isUserAdmin}
+          />
+        )}
       </S.Menu>
     </S.Navigation>
   );

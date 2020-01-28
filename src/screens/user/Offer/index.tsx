@@ -13,6 +13,7 @@ import Price from './Price';
 import Buying from './Buying';
 import Parameters from './Parameters';
 import Description from './Description';
+import {GenericTemplate} from "../../../ui/templates";
 
 type OwnProps = {
   match?: any;
@@ -38,8 +39,7 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
   }, [performFetchOffer, match]);
 
   return (
-    <>
-      <Navigation />
+    <GenericTemplate>
       {!fetchingOffer && (
         <S.Main>
           <S.BasicInfoWrapper>
@@ -55,7 +55,7 @@ const Offer: React.FunctionComponent<Props> = (props: Props) => {
           <Description description={offer!.description} />
         </S.Main>
       )}
-    </>
+    </GenericTemplate>
   );
 };
 

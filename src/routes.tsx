@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PrivateRoute from './utils/PrivateRoute';
-import Dashboard from './screens/admin/Dashboard';
 import Offer from './screens/user/Offer';
 import PurchaseConfirmation from './screens/user/PurchaseConfirmation';
 import Sales from './screens/user/Profile/Sales';
@@ -15,7 +14,8 @@ import {
   Index,
   AddOffer,
   Profile,
-  ShippingRates
+  ShippingRates,
+  Dashboard
 } from './ui/pages';
 
 const routes = (

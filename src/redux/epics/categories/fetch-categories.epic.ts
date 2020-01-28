@@ -21,7 +21,7 @@ const fetchCategoriesEpic: Epic<
   action$.pipe(
     filter(isOfType(FetchCategoriesActionsTypes.FETCH_CATEGORIES)),
     mergeMap(() =>
-      from(ajax.get(`${API_URL}/sale/categories`)).pipe(
+      from(ajax.get(`${API_URL}/sale/categories?flat=true`)).pipe(
         map((response: any) =>
           categoriesFetched(response.response as Models.Categories.Category[])
         ),

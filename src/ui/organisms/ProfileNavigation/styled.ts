@@ -6,6 +6,13 @@ const Wrapper = styled.div`
     border-radius: ${theme.borderRadius};
 
     background-color: hsl(0, 0%, 100%);
+
+    ul {
+      li {
+        margin-top: 1.5rem;
+        list-style-type: none;
+      }
+    }
   }
 `;
 
